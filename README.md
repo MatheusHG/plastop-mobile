@@ -29,7 +29,7 @@ npm start
 
 ## TECNOLOGIAS USADAS
 
-### O projeto foi foi desenvolvido com base nas seguintes tecnologias:
+### O projeto foi desenvolvido com base nas seguintes tecnologias:
 
 - [React Native](https://reactnative.dev/)
 - [Expo](https://expo.io/)
