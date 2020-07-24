@@ -22,9 +22,8 @@ export default function Main() {
   return (
     <>
       <StatusBar
-        barStyle="dark-content"
-        backgroundColor="transparent"
-        translucent
+        barStyle="light-content"
+        backgroundColor="#03071E"
       />
       <Routes />
     </>
