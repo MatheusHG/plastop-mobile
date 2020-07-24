@@ -4,9 +4,9 @@ import { NavigationContainer } from '@react-navigation/native';
 
 // App Pages
 
-import Login from './pages/Login/index';
+import Login from './pages/Login';
 
-import Menu from './pages/Menu/index';
+import Menu from './pages/Menu';
 
 import GerenciamentoHome from './pages/Gerenciamentos/Home';
 import GerenciamentoCadastrar from './pages/Gerenciamentos/Cadastrar';
