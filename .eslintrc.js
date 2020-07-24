@@ -23,5 +23,7 @@ module.exports = {
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
     'react/jsx-filename-extension': 'off',
+    'react/style-prop-object': 'off',
+    'no-use-before-define': 'off',
   },
 };
