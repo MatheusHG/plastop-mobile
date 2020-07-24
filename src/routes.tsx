@@ -47,7 +47,7 @@ export default function Navigation() {
         <Stack.Screen name="NewPedidoDadosCliente" component={NewPedidoDadosCliente} options={{ title: 'NewPedidoDadosCliente' }} />
         <Stack.Screen name="AllPedidosHome" component={AllPedidosHome} options={{ title: 'AllPedidosHome' }} />
         <Stack.Screen name="AllPedidosDetalhes" component={AllPedidosDetalhes} options={{ title: 'AllPedidosDetalhes' }} />
-        <Stack.Screen name="ClientesHome" component={ClientesHome} options={{ title: 'ClientesHome' }} />
+        <Stack.Screen name="ClientesHome" component={ClientesHome} options={{ title: 'Clientes' }} />
         <Stack.Screen name="ClientesDados" component={ClientesDados} options={{ title: 'ClientesDados' }} />
       </Stack.Navigator>
     </NavigationContainer>
