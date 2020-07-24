@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Card, IconButton,
+  Card, Paragraph,
 } from 'react-native-paper';
 import styled from 'styled-components/native';
 
@@ -18,7 +18,15 @@ function ClientCard(props: ClientCardProps) {
 
   return (
     <Container onPress={onPress}>
-      <Card.Title title={client.name} subtitle={client.city} left={() => <IconButton size={40} icon="account" />} />
+      <Card.Title
+        title={client.name}
+        subtitle={client.city}
+        right={() => <Paragraph>{client.phone}</Paragraph>}
+        rightStyle={{
+          marginLeft: 10,
+          marginRight: 10,
+        }}
+      />
     </Container>
   );
 }

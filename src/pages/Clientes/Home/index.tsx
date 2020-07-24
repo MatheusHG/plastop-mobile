@@ -8,7 +8,7 @@ import { Client } from '../../../interfaces';
 
 const clients = [
   {
-    name: 'Davi Sousa',
+    name: 'Davi Gomes Passos Sousa',
     city: 'Sumé - PB',
     phone: '(83) 9 9884-1809',
   },
