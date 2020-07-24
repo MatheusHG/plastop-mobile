@@ -25,5 +25,10 @@ module.exports = {
     'react/jsx-filename-extension': 'off',
     'react/style-prop-object': 'off',
     'no-use-before-define': 'off',
+    'react/require-default-props': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'import/prefer-default-export': 'off',
+    'react/no-unused-prop-types': 'off',
+    'no-unused-vars': 'off',
   },
 };
