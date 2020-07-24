@@ -1,13 +1,15 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function Rota() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Template <Text style={styles.name}>Plastop</Text></Text>
+      <Text style={styles.text}>
+        Template
+        {' '}
+        <Text style={styles.name}>Plastop</Text>
+      </Text>
       <Text style={styles.description}>Bem Vindo(a) aos Todos os Pedidos!</Text>
-      <StatusBar style="auto" />
     </View>
   );
 }
@@ -21,17 +23,17 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#fff',
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   name: {
     color: '#f3ca40',
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   description: {
     top: 10,
     color: '#BFBDC1',
     fontWeight: '100',
     width: 300,
-    textAlign: 'center'
+    textAlign: 'center',
   },
 });

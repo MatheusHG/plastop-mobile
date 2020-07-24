@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -11,7 +10,6 @@ export default function Rota() {
         <Text style={styles.name}>Plastop</Text>
       </Text>
       <Text style={styles.description}>Bem Vindo(a) aos Clientes!</Text>
-      <StatusBar style="auto" />
     </View>
   );
 }
