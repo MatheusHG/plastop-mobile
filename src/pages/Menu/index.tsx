@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { View, Image } from 'react-native';
 import { Appbar, List } from 'react-native-paper';
 
@@ -12,6 +13,15 @@ import friends from '../../../assets/friends.png';
 import gerenciar from '../../../assets/gerenciar.png';
 
 export default function Rota() {
+  const navigation = useNavigation();
+
+  navigation.setOptions({
+    headerStyle: {
+      height: 0,
+      elevation: 0,
+    },
+  });
+
   return (
     <View style={styles.containerMenu}>
       <Appbar.Header style={styles.headerMenu}>
