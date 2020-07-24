@@ -30,8 +30,8 @@ export default function Navigation() {
     return (
         <NavigationContainer>
             <Stack.Navigator headerMode="none" >
-                <Stack.Screen name="Login" component={Login} options={{ title: 'Login' }} />
                 <Stack.Screen name="Menu" component={Menu} options={{ title: 'Menu' }} />
+                <Stack.Screen name="Login" component={Login} options={{ title: 'Login' }} />
                 <Stack.Screen name="GerenciamentoHome" component={GerenciamentoHome} options={{ title: 'GerenciamentoHome' }} />
                 <Stack.Screen name="GerenciamentoCadastrar" component={GerenciamentoCadastrar} options={{ title: 'GerenciamentoCadastrar' }} />
                 <Stack.Screen name="NewPedidoHome" component={NewPedidoHome} options={{ title: 'NewPedidoHome' }} />
