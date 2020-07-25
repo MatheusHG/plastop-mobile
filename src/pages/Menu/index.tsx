@@ -20,6 +20,7 @@ export default function Rota() {
       height: 0,
       elevation: 0,
     },
+    title: '',
   });
 
   function handleNavigationNewPedido() {
