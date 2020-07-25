@@ -36,7 +36,7 @@ export default function Navigation() {
           headerTitleAlign: 'center',
           headerShown: true,
         }}
-        initialRouteName="Menu"
+        initialRouteName="Login"
       >
         <Stack.Screen name="Login" component={Login} options={{ title: 'Login' }} />
         <Stack.Screen name="Menu" component={Menu} options={{ title: 'Menu' }} />
