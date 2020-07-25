@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Image } from 'react-native';
+import { View, Image, ScrollView } from 'react-native';
 import { Appbar, List } from 'react-native-paper';
 
 import styles from './styles';
@@ -23,7 +23,7 @@ export default function Rota() {
   });
 
   return (
-    <View style={styles.containerMenu}>
+    <ScrollView style={styles.containerMenu} showsVerticalScrollIndicator={false}>
       <Appbar.Header style={styles.headerMenu}>
         <Image source={splashMin} style={{ width: '45%', marginBottom: 'auto' }} />
       </Appbar.Header>
@@ -68,6 +68,6 @@ export default function Rota() {
           />
         </View>
       </List.Section>
-    </View>
+    </ScrollView>
   );
 }
