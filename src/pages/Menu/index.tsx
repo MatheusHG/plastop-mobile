@@ -22,52 +22,68 @@ export default function Rota() {
     },
   });
 
+  function handleNavigationNewPedido() {
+    navigation.navigate('NewPedidoHome');
+  }
+  function handleNavigationAllPedidosHome() {
+    navigation.navigate('AllPedidosHome');
+  }
+  function handleNavigationClientesHome() {
+    navigation.navigate('ClientesHome');
+  }
+  function handleNavigationGerenciamentoHome() {
+    navigation.navigate('GerenciamentoHome');
+  }
+
   return (
-    <ScrollView style={styles.containerMenu} showsVerticalScrollIndicator={false}>
+    <View style={styles.containerMenu}>
       <Appbar.Header style={styles.headerMenu}>
         <Image source={splashMin} style={{ width: '45%', marginBottom: 'auto' }} />
       </Appbar.Header>
 
-      <List.Section style={styles.sectionMenu}>
-        <View style={styles.itemMenuBottom}>
-          <List.Item
-            onPress={() => {}}
-            title="Novo Pedido"
-            titleStyle={styles.titleMenu}
-            left={() => <Image source={addProduct} style={styles.itemMenu} />}
-            right={() => <Image source={next} style={styles.itemMenuNext} />}
-          />
-        </View>
-        <View style={styles.itemMenuBottom}>
-          <List.Item
-            onPress={() => {}}
-            title="Todos os Pedidos"
-            titleNumberOfLines={2}
-            titleStyle={styles.titleMenu}
-            left={() => <Image source={all} style={styles.itemMenu} />}
-            right={() => <Image source={next} style={styles.itemMenuNext} />}
-          />
-        </View>
-        <View style={styles.itemMenuBottom}>
-          <List.Item
-            onPress={() => {}}
-            title="Clientes"
-            titleStyle={styles.titleMenu}
-            left={() => <Image source={friends} style={styles.itemMenu} />}
-            right={() => <Image source={next} style={styles.itemMenuNext} />}
-          />
-        </View>
-        <View style={styles.itemMenuBottom}>
-          <List.Item
-            onPress={() => {}}
-            title="Gerenciamento dos Produtos"
-            titleNumberOfLines={2}
-            titleStyle={styles.titleMenu}
-            left={() => <Image source={gerenciar} style={styles.itemMenu} />}
-            right={() => <Image source={next} style={styles.itemMenuNext} />}
-          />
-        </View>
-      </List.Section>
-    </ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <List.Section style={styles.sectionMenu}>
+          <View style={styles.itemMenuBottom}>
+            <List.Item
+              onPress={handleNavigationNewPedido}
+              title="Novo Pedido"
+              titleStyle={styles.titleMenu}
+              left={() => <Image source={addProduct} style={styles.itemMenu} />}
+              right={() => <Image source={next} style={styles.itemMenuNext} />}
+            />
+          </View>
+          <View style={styles.itemMenuBottom}>
+            <List.Item
+              onPress={handleNavigationAllPedidosHome}
+              title="Todos os Pedidos"
+              titleNumberOfLines={2}
+              titleStyle={styles.titleMenu}
+              left={() => <Image source={all} style={styles.itemMenu} />}
+              right={() => <Image source={next} style={styles.itemMenuNext} />}
+            />
+          </View>
+          <View style={styles.itemMenuBottom}>
+            <List.Item
+              onPress={handleNavigationClientesHome}
+              title="Clientes"
+              titleStyle={styles.titleMenu}
+              left={() => <Image source={friends} style={styles.itemMenu} />}
+              right={() => <Image source={next} style={styles.itemMenuNext} />}
+            />
+          </View>
+          <View style={styles.itemMenuBottom}>
+            <List.Item
+              onPress={handleNavigationGerenciamentoHome}
+              title="Gerenciamento dos Produtos"
+              titleNumberOfLines={2}
+              titleStyle={styles.titleMenu}
+              left={() => <Image source={gerenciar} style={styles.itemMenu} />}
+              right={() => <Image source={next} style={styles.itemMenuNext} />}
+            />
+          </View>
+        </List.Section>
+      </ScrollView>
+
+    </View>
   );
 }
