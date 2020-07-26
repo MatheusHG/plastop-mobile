@@ -10,6 +10,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#fff211"
     },
+    "androidNavigationBar": {
+      "visible": "immersive"
+    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
