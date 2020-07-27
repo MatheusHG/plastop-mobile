@@ -12,9 +12,9 @@ import styles from './styles';
 export default function Rota() {
   const navigation = useNavigation();
 
-  navigation.setOptions({
-    title: 'Produtos',
-  });
+  function handleNavigationCadastrar() {
+    navigation.navigate('GerenciamentoCadastrar');
+  }
 
   const [searchQuery, setSearchQuery] = React.useState('');
 
@@ -73,7 +73,7 @@ export default function Rota() {
           </View>
         )}
       />
-      <FabButton icon="plus" />
+      <FabButton icon="plus" onPress={handleNavigationCadastrar} />
     </View>
   );
 }

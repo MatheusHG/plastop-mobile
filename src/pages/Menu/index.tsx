@@ -15,14 +15,6 @@ import gerenciar from '../../../assets/gerenciar.png';
 export default function Rota() {
   const navigation = useNavigation();
 
-  navigation.setOptions({
-    headerStyle: {
-      height: 0,
-      elevation: 0,
-    },
-    title: '',
-  });
-
   function handleNavigationNewPedido() {
     navigation.navigate('NewPedidoHome');
   }
