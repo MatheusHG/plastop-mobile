@@ -14,6 +14,8 @@ export const HeaderInfo = styled.View`
   width: 100%;
   align-items: center;
   justify-content: flex-end;
+  flex-direction: row;
+  padding: 0 10px;
 `;
 
 export const SearchBar = styled(Searchbar)`
@@ -21,7 +23,9 @@ export const SearchBar = styled(Searchbar)`
   border-radius: 15px;
 `;
 
-export const Info = styled.Text``;
+export const Info = styled.Text`
+  margin-right: 3px;
+`;
 
 export const TotalOrders = styled.Text`
   font-weight: bold;
