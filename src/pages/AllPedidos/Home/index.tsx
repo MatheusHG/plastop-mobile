@@ -49,7 +49,7 @@ export default function AllOrders() {
 
         <HeaderInfo>
           <Info>Total de </Info>
-          <StrongInfo>2 pedidos</StrongInfo>
+          <StrongInfo>3 pedidos</StrongInfo>
         </HeaderInfo>
       </Header>
 

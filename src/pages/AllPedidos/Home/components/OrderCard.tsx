@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
+import { StrongInfo, Info } from '../styles';
 import { Order } from '../../../../interfaces';
 
 interface OrderCardProps {
@@ -36,16 +37,20 @@ function OrderCard({ order }: OrderCardProps) {
             <Info>{order.paymentForm}</Info>
           </DataWrap>
         </DataContainer>
+        <PriceContainer>
+          <PriceInfo>
+            <Info>Preço do pedido: </Info>
+            <StrongInfo>
+              R$
+              {' '}
+              {order.price}
+            </StrongInfo>
+          </PriceInfo>
+        </PriceContainer>
       </Data>
     </Container>
   );
 }
-
-const Info = styled.Text``;
-
-const StrongInfo = styled.Text`
-  font-weight: bold;
-`;
 
 const Container = styled.View`
   padding: 10px 20px;
@@ -70,6 +75,16 @@ const DataContainer = styled.View`
 const DataWrap = styled.View`
   align-items: center;
   justify-content: flex-start;
+  flex-direction: row;
+`;
+
+const PriceContainer = styled.View`
+  margin-top: 10px;
+  width: 100%;
+  align-items: flex-end;
+`;
+
+const PriceInfo = styled.View`
   flex-direction: row;
 `;
 
