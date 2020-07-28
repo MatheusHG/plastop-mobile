@@ -1,39 +1,27 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import {
+  Container, Header, HeaderInfo, Info, TotalOrders, SearchBar,
+} from './styles';
 
-export default function Rota() {
+export default function AllOrders() {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const onChangeSearch = (query: React.SetStateAction<string>) => setSearchQuery(query);
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>
-        Template
-        {' '}
-        <Text style={styles.name}>Plastop</Text>
-      </Text>
-      <Text style={styles.description}>Bem Vindo(a) aos Todos os Pedidos!</Text>
-    </View>
+    <Container>
+      <Header>
+        <SearchBar
+          placeholder="Cidade/Cliente"
+          onChangeText={onChangeSearch}
+          value={searchQuery}
+        />
+
+        <HeaderInfo>
+          <Info>Total de</Info>
+          <TotalOrders>2 pedidos</TotalOrders>
+        </HeaderInfo>
+      </Header>
+    </Container>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#37323e',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-  name: {
-    color: '#f3ca40',
-    fontWeight: 'bold',
-  },
-  description: {
-    top: 10,
-    color: '#BFBDC1',
-    fontWeight: '100',
-    width: 300,
-    textAlign: 'center',
-  },
-});
