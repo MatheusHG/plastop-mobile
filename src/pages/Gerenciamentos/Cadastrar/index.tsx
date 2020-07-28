@@ -15,6 +15,7 @@ export default function Rota() {
           mode="flat"
           underlineColor="#03071E"
           selectionColor="#03071E"
+          theme={{ colors: { primary: '#45A7F5' } }}
           style={{ width: '90%', marginBottom: 30, backgroundColor: '#fff' }}
           onChangeText={(text) => setText(text)}
         />
@@ -24,6 +25,7 @@ export default function Rota() {
           mode="flat"
           underlineColor="#03071E"
           selectionColor="#03071E"
+          theme={{ colors: { primary: '#45A7F5' } }}
           style={{ width: '90%', marginBottom: 30, backgroundColor: '#fff' }}
           onChangeText={(text) => setText(text)}
         />
@@ -33,6 +35,7 @@ export default function Rota() {
           mode="flat"
           underlineColor="#03071E"
           selectionColor="#03071E"
+          theme={{ colors: { primary: '#45A7F5' } }}
           style={{ width: '90%', marginBottom: 30, backgroundColor: '#fff' }}
           onChangeText={(text) => setText(text)}
         />
