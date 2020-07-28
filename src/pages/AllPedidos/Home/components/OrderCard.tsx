@@ -16,29 +16,39 @@ function OrderCard({ order }: OrderCardProps) {
 
       <Data>
         <DataContainer>
-          <DataInfo>Nome do Cliente: </DataInfo>
-          <Info>{order.name}</Info>
-          <DataInfo>Telefone: </DataInfo>
-          <Info>{order.phone}</Info>
-          <DataInfo>Cidade: </DataInfo>
-          <Info>{order.city}</Info>
-          <DataInfo>Forma de Pagamento: </DataInfo>
-          <Info>{order.paymentForm}</Info>
+          <DataWrap>
+            <StrongInfo>Nome do Cliente: </StrongInfo>
+            <Info>{order.name}</Info>
+          </DataWrap>
+
+          <DataWrap>
+            <StrongInfo>Telefone: </StrongInfo>
+            <Info>{order.phone}</Info>
+          </DataWrap>
+
+          <DataWrap>
+            <StrongInfo>Cidade: </StrongInfo>
+            <Info>{order.city}</Info>
+          </DataWrap>
+
+          <DataWrap>
+            <StrongInfo>Forma de Pagamento: </StrongInfo>
+            <Info>{order.paymentForm}</Info>
+          </DataWrap>
         </DataContainer>
       </Data>
     </Container>
   );
 }
 
-const Info = styled.Text`
-`;
+const Info = styled.Text``;
 
 const StrongInfo = styled.Text`
   font-weight: bold;
 `;
 
 const Container = styled.View`
-
+  padding: 20px;
 `;
 
 const ContainerInfo = styled.View`
@@ -47,15 +57,20 @@ const ContainerInfo = styled.View`
 
 const Data = styled.View`
   width: 100%;
-  background-color: #efefef;
+  background-color: #ddd;
+  padding: 10px;
+  border-radius: 15px;
+  margin-top: 5px;
 `;
 
 const DataContainer = styled.View`
   width: 100%;
-  align-items: center;
-  justify-content: flex-start;
 `;
 
-const DataInfo = styled.Text``;
+const DataWrap = styled.View`
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+`;
 
 export default OrderCard;
