@@ -1,7 +1,32 @@
 import React, { useState } from 'react';
+import { FlatList } from 'react-native';
 import {
-  Container, Header, HeaderInfo, Info, TotalOrders, SearchBar,
+  Container, Header, HeaderInfo, Info, StrongInfo, SearchBar, OrderContainer, ContainerInfo,
 } from './styles';
+
+const orders = [
+  {
+    name: 'Davi Sousa',
+    phone: '(83) 9 998841809',
+    city: 'Campina Grande - PB',
+    paymentForm: 'Dinheiro',
+    price: '52,92',
+  },
+  {
+    name: 'Davi Sousa',
+    phone: '(83) 9 998841809',
+    city: 'Campina Grande - PB',
+    paymentForm: 'Dinheiro',
+    price: '52,92',
+  },
+  {
+    name: 'Davi Sousa',
+    phone: '(83) 9 998841809',
+    city: 'Campina Grande - PB',
+    paymentForm: 'Dinheiro',
+    price: '52,92',
+  },
+];
 
 export default function AllOrders() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -18,10 +43,15 @@ export default function AllOrders() {
         />
 
         <HeaderInfo>
-          <Info>Total de</Info>
-          <TotalOrders>2 pedidos</TotalOrders>
+          <Info>Total de </Info>
+          <StrongInfo>2 pedidos</StrongInfo>
         </HeaderInfo>
       </Header>
+
+      <FlatList
+        keyExtractor={() => String(Math.random())}
+        data={}
+      />
     </Container>
   );
 }

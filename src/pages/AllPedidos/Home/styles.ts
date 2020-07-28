@@ -24,9 +24,8 @@ export const SearchBar = styled(Searchbar)`
 `;
 
 export const Info = styled.Text`
-  margin-right: 3px;
 `;
 
-export const TotalOrders = styled.Text`
+export const StrongInfo = styled.Text`
   font-weight: bold;
 `;

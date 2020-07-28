@@ -3,3 +3,11 @@ export interface Client {
   city: string;
   phone: string;
 }
+
+export interface Order {
+  name: string;
+  phone: string;
+  city: string;
+  paymentForm: string;
+  price: number;
+}
