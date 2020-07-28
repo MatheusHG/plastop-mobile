@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { FlatList } from 'react-native';
 import {
-  Container, Header, HeaderInfo, Info, StrongInfo, SearchBar, OrderContainer, ContainerInfo,
+  Container, Header, HeaderInfo, Info, StrongInfo, SearchBar,
 } from './styles';
 import OrderCard from './components/OrderCard';
 import { Order } from '../../../interfaces';
 
-const orders = [
+const orders: Order[] = [
   {
     name: 'Davi Sousa',
     phone: '(83) 99884-1809',
@@ -56,7 +56,7 @@ export default function AllOrders() {
       <FlatList
         keyExtractor={() => String(Math.random())}
         data={orders}
-        renderItem={(item: Order) => (
+        renderItem={({ item }: { item: Order }) => (
           <OrderCard order={item} />
         )}
       />

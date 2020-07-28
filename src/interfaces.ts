@@ -9,6 +9,6 @@ export interface Order {
   phone: string;
   city: string;
   paymentForm: string;
-  price: number;
+  price: string;
   date: string;
 }
