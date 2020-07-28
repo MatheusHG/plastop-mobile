@@ -1,4 +1,5 @@
 import React from 'react';
+import { RectButton } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 import { StrongInfo, Info } from '../styles';
 import { Order } from '../../../../interfaces';
@@ -46,6 +47,9 @@ function OrderCard({ order }: OrderCardProps) {
               {order.price}
             </StrongInfo>
           </PriceInfo>
+          <Details>
+            <StrongInfo>Ver mais detalhes</StrongInfo>
+          </Details>
         </PriceContainer>
       </Data>
     </Container>
@@ -86,6 +90,13 @@ const PriceContainer = styled.View`
 
 const PriceInfo = styled.View`
   flex-direction: row;
+`;
+
+const Details = styled(RectButton)`
+  margin-top: 6px;
+  background-color: #FFF211;
+  padding: 5px 10px;
+  border-radius: 15px;
 `;
 
 export default OrderCard;
