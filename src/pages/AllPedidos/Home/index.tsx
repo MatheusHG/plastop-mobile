@@ -56,7 +56,7 @@ export default function AllOrders() {
       <FlatList
         keyExtractor={() => String(Math.random())}
         data={orders}
-        renderItem={({ item }: { item: Order }) => (
+        renderItem={({ item }) => (
           <OrderCard order={item} />
         )}
       />
