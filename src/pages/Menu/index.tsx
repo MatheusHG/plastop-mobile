@@ -39,6 +39,7 @@ export default function Rota() {
           <View style={styles.itemMenuBottom}>
             <List.Item
               onPress={handleNavigationNewPedido}
+              key="01"
               title="Novo Pedido"
               titleStyle={styles.titleMenu}
               left={() => <Image source={addProduct} style={styles.itemMenu} />}
@@ -48,6 +49,7 @@ export default function Rota() {
           <View style={styles.itemMenuBottom}>
             <List.Item
               onPress={handleNavigationAllPedidosHome}
+              key="02"
               title="Todos os Pedidos"
               titleNumberOfLines={2}
               titleStyle={styles.titleMenu}
@@ -58,6 +60,7 @@ export default function Rota() {
           <View style={styles.itemMenuBottom}>
             <List.Item
               onPress={handleNavigationClientesHome}
+              key="03"
               title="Clientes"
               titleStyle={styles.titleMenu}
               left={() => <Image source={friends} style={styles.itemMenu} />}
@@ -67,6 +70,7 @@ export default function Rota() {
           <View style={styles.itemMenuBottom}>
             <List.Item
               onPress={handleNavigationGerenciamentoHome}
+              key="04"
               title="Gerenciamento dos Produtos"
               titleNumberOfLines={2}
               titleStyle={styles.titleMenu}

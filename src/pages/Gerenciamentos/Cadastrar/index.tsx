@@ -8,6 +8,7 @@ export default function Rota() {
   const [text, setText] = React.useState('');
   return (
     <View style={styles.container}>
+<<<<<<< HEAD
       <View style={{ marginTop: 30, width: '100%', alignItems: 'center' }}>
         <TextInput
           label="Código do Produto"
@@ -42,6 +43,16 @@ export default function Rota() {
           <Title style={{ color: '#03071E' }}>Finalizar</Title>
         </TouchableOpacity>
       </View>
+=======
+      <Text style={styles.text}>
+        Template
+        {' '}
+        <Text style={styles.name}>Plastop</Text>
+      </Text>
+      <Text style={styles.description}>
+        Bem Vindo(a) ao Gerenciamento de Produtos (Cadastrar Novo)!
+      </Text>
+>>>>>>> cliente
     </View>
   );
 }

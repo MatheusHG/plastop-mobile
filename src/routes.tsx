@@ -22,6 +22,8 @@ import AllPedidosDetalhes from './pages/AllPedidos/Detalhes';
 import ClientesHome from './pages/Clientes/Home';
 import ClientesDados from './pages/Clientes/DadosCliente';
 
+import Confirmacao from './pages/Confirmacao';
+
 const Stack = createStackNavigator();
 
 export default function Navigation() {
@@ -38,10 +40,17 @@ export default function Navigation() {
         }}
         initialRouteName="Login"
       >
+<<<<<<< HEAD
         <Stack.Screen name="Login" component={Login} options={{ title: 'Login' }} />
         <Stack.Screen name="Menu" component={Menu} options={{ headerShown: false }} />
         <Stack.Screen name="GerenciamentoHome" component={GerenciamentoHome} options={{ title: 'Produtos' }} />
         <Stack.Screen name="GerenciamentoCadastrar" component={GerenciamentoCadastrar} options={{ title: 'Produto' }} />
+=======
+        <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+        <Stack.Screen name="Menu" component={Menu} options={{ headerShown: false }} />
+        <Stack.Screen name="GerenciamentoHome" component={GerenciamentoHome} options={{ title: 'GerenciamentoHome' }} />
+        <Stack.Screen name="GerenciamentoCadastrar" component={GerenciamentoCadastrar} options={{ title: 'GerenciamentoCadastrar' }} />
+>>>>>>> cliente
         <Stack.Screen name="NewPedidoHome" component={NewPedidoHome} options={{ title: 'NewPedidoHome' }} />
         <Stack.Screen name="NewPedidoConfirmacao" component={NewPedidoConfirmacao} options={{ title: 'NewPedidoConfirmacao' }} />
         <Stack.Screen name="NewPedidoDadosEntrega" component={NewPedidoDadosEntrega} options={{ title: 'NewPedidoDadosEntrega' }} />
@@ -49,7 +58,8 @@ export default function Navigation() {
         <Stack.Screen name="AllPedidosHome" component={AllPedidosHome} options={{ title: 'AllPedidosHome' }} />
         <Stack.Screen name="AllPedidosDetalhes" component={AllPedidosDetalhes} options={{ title: 'AllPedidosDetalhes' }} />
         <Stack.Screen name="ClientesHome" component={ClientesHome} options={{ title: 'Clientes' }} />
-        <Stack.Screen name="ClientesDados" component={ClientesDados} options={{ title: 'ClientesDados' }} />
+        <Stack.Screen name="ClientesDados" component={ClientesDados} options={{ title: 'Dados do Cliente' }} />
+        <Stack.Screen name="Confirmacao" component={Confirmacao} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
