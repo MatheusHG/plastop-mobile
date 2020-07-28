@@ -1,7 +1,12 @@
 import React from 'react';
 import styled from 'styled-components/native';
+import { Order } from '../../../../interfaces';
 
-function OrderCard() {
+interface OrderCardProps {
+  order: Order;
+}
+
+function OrderCard({ order }: OrderCardProps) {
   return (
     <Container>
       <ContainerInfo>

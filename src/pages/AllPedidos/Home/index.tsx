@@ -3,6 +3,8 @@ import { FlatList } from 'react-native';
 import {
   Container, Header, HeaderInfo, Info, StrongInfo, SearchBar, OrderContainer, ContainerInfo,
 } from './styles';
+import OrderCard from './components/OrderCard';
+import { Order } from '../../../interfaces';
 
 const orders = [
   {
@@ -11,6 +13,7 @@ const orders = [
     city: 'Campina Grande - PB',
     paymentForm: 'Dinheiro',
     price: '52,92',
+    date: '05/05/2020',
   },
   {
     name: 'Davi Sousa',
@@ -18,6 +21,7 @@ const orders = [
     city: 'Campina Grande - PB',
     paymentForm: 'Dinheiro',
     price: '52,92',
+    date: '05/05/2020',
   },
   {
     name: 'Davi Sousa',
@@ -25,6 +29,7 @@ const orders = [
     city: 'Campina Grande - PB',
     paymentForm: 'Dinheiro',
     price: '52,92',
+    date: '05/05/2020',
   },
 ];
 
@@ -50,7 +55,10 @@ export default function AllOrders() {
 
       <FlatList
         keyExtractor={() => String(Math.random())}
-        data={}
+        data={orders}
+        renderItem={(item: Order) => (
+          <OrderCard order={item} />
+        )}
       />
     </Container>
   );
