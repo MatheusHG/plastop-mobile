@@ -14,7 +14,7 @@ export const HeaderInfo = styled.View`
   align-items: center;
   justify-content: flex-end;
   flex-direction: row;
-  padding: 0 10px;
+  padding: 0 20px;
 `;
 
 export const SearchBar = styled(Searchbar)`

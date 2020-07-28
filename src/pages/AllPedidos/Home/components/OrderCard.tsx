@@ -48,7 +48,7 @@ const StrongInfo = styled.Text`
 `;
 
 const Container = styled.View`
-  padding: 20px;
+  padding: 10px 20px;
 `;
 
 const ContainerInfo = styled.View`
