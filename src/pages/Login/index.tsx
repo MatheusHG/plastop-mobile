@@ -11,14 +11,6 @@ import styles from './styles';
 export default function Rota() {
   const navigation = useNavigation();
 
-  navigation.setOptions({
-    headerStyle: {
-      height: 0,
-      elevation: 0,
-    },
-    title: '',
-  });
-
   function handleNavigationMenu() {
     navigation.navigate('Menu');
   }
