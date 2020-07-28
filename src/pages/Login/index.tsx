@@ -47,7 +47,7 @@ export default function Rota() {
             />
             <TextInput
               placeholder="E-mail"
-              placeholderTextColor="#000"
+              placeholderTextColor="#c1c1c1"
               style={styles.textInput}
               autoCapitalize="none"
               autoCorrect={false}
@@ -65,7 +65,7 @@ export default function Rota() {
             <TextInput
               secureTextEntry
               placeholder="Senha"
-              placeholderTextColor="#000"
+              placeholderTextColor="#c1c1c1"
               style={styles.textInput}
               autoCapitalize="none"
               autoCorrect={false}

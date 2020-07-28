@@ -46,7 +46,7 @@ export default StyleSheet.create({
   },
   textInput: {
     width: '80%',
-    color: '#fff',
+    color: '#03071E',
     padding: 10,
   },
   button: {
