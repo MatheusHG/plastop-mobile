@@ -42,7 +42,7 @@ export default function Navigation() {
         <Stack.Screen name="Menu" component={Menu} options={{ headerShown: false }} />
         <Stack.Screen name="GerenciamentoHome" component={GerenciamentoHome} options={{ title: 'Produtos' }} />
         <Stack.Screen name="GerenciamentoCadastrar" component={GerenciamentoCadastrar} options={{ title: 'Produto' }} />
-        <Stack.Screen name="NewPedidoHome" component={NewPedidoHome} options={{ title: 'NewPedidoHome' }} />
+        <Stack.Screen name="NewPedidoHome" component={NewPedidoHome} options={{ title: 'Realizar Pedido' }} />
         <Stack.Screen name="NewPedidoConfirmacao" component={NewPedidoConfirmacao} options={{ title: 'NewPedidoConfirmacao' }} />
         <Stack.Screen name="NewPedidoDadosEntrega" component={NewPedidoDadosEntrega} options={{ title: 'NewPedidoDadosEntrega' }} />
         <Stack.Screen name="NewPedidoDadosCliente" component={NewPedidoDadosCliente} options={{ title: 'NewPedidoDadosCliente' }} />
