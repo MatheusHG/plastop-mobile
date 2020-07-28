@@ -1,5 +1,4 @@
 import React from 'react';
-// import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import { AppLoading } from 'expo';
 
