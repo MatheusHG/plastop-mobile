@@ -30,5 +30,6 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'react/no-unused-prop-types': 'off',
     'no-unused-vars': 'off',
+    'linebreak-style': ['error', 'windows'],
   },
 };

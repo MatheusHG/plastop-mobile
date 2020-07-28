@@ -1,5 +1,6 @@
 import React from 'react';
 import { FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Container } from './styles';
 
 import ClientCard from './components/ClientCard';
@@ -25,15 +26,29 @@ const clients = [
 ];
 
 export default function ClientesHome() {
+  const navigation = useNavigation();
+  const handleClick = () => {
+    navigation.navigate('ClientesDados');
+  };
+  const handleClickCard = () => {
+    navigation.navigate('NewPedidoDadosCliente');
+  };
+
   return (
     <Container>
       <FlatList
         data={clients}
         renderItem={
-        ({ item }: { item: Client }) => <ClientCard key={Math.random()} client={item} />
+        ({ item }: { item: Client }) => (
+          <ClientCard
+            key={Math.random()}
+            client={item}
+            onPress={() => handleClickCard()}
+          />
+        )
       }
       />
-      <FabButton icon="plus" />
+      <FabButton icon="plus" onPress={handleClick} />
     </Container>
   );
 }

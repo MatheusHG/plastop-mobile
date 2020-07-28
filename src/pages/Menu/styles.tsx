@@ -35,9 +35,9 @@ export default StyleSheet.create({
     marginLeft: '6%',
   },
   itemMenuNext: {
-    width: 17,
-    height: 34,
-    marginRight: 10,
+    width: '6%',
+    height: '20%',
+    marginRight: '2%',
     marginTop: 'auto',
     marginBottom: 'auto',
   },

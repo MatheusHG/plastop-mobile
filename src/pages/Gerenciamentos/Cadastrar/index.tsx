@@ -1,15 +1,53 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  StyleSheet, View, Button, TouchableOpacity,
+} from 'react-native';
+import { TextInput, Title } from 'react-native-paper';
 
 export default function Rota() {
+  const [codigo, setCodigo] = React.useState('');
+  const [nomeProduto, setNomeProduto] = React.useState('');
+  const [preco, setPreco] = React.useState('');
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>
-        Template
-        {' '}
-        <Text style={styles.name}>Plastop</Text>
-      </Text>
-      <Text style={styles.description}>Bem Vindo(a) ao Gerenciamento de Produtos (Cadastrar Novo)!</Text>
+      <View style={{ marginTop: 30, width: '100%', alignItems: 'center' }}>
+        <TextInput
+          label="Código do Produto"
+          value={codigo}
+          mode="flat"
+          underlineColor="#03071E"
+          selectionColor="#03071E"
+          theme={{ colors: { primary: '#03071E' } }}
+          style={{ width: '90%', marginBottom: 30, backgroundColor: '#fff' }}
+          onChangeText={(text) => setCodigo(text)}
+        />
+        <TextInput
+          label="Nome do Produto"
+          value={nomeProduto}
+          mode="flat"
+          underlineColor="#03071E"
+          selectionColor="#03071E"
+          theme={{ colors: { primary: '#03071E' } }}
+          style={{ width: '90%', marginBottom: 30, backgroundColor: '#fff' }}
+          onChangeText={(text) => setNomeProduto(text)}
+        />
+        <TextInput
+          label="Preço (R$)"
+          value={preco}
+          mode="flat"
+          underlineColor="#03071E"
+          selectionColor="#03071E"
+          theme={{ colors: { primary: '#03071E' } }}
+          style={{ width: '90%', marginBottom: 30, backgroundColor: '#fff' }}
+          onChangeText={(text) => setPreco(text)}
+        />
+      </View>
+      <View style={{ width: '100%', position: 'absolute', bottom: 0 }}>
+        <TouchableOpacity style={{ backgroundColor: '#FFBE0B', alignItems: 'center', padding: 10 }} onPress={() => {}}>
+          <Title style={{ color: '#03071E' }}>Finalizar</Title>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -17,23 +55,7 @@ export default function Rota() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#37323e',
+    backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-  name: {
-    color: '#f3ca40',
-    fontWeight: 'bold',
-  },
-  description: {
-    top: 10,
-    color: '#BFBDC1',
-    fontWeight: '100',
-    width: 300,
-    textAlign: 'center',
   },
 });
