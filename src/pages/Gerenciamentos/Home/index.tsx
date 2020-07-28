@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View } from 'react-native';
 import {
-  Searchbar, Card, Title, Paragraph, IconButton, Colors,
+  Searchbar, Card, Title, Paragraph, IconButton, Colors, Button, Dialog, Portal,
 } from 'react-native-paper';
 import { FlatGrid } from 'react-native-super-grid';
 import FabButton from '../../../components/FabButton';
@@ -41,6 +41,10 @@ export default function Rota() {
     },
   ]);
 
+  const [visible, setVisible] = React.useState(false);
+
+  const hideDialog = () => setVisible(false);
+
   return (
     <View style={styles.container}>
       <Searchbar
@@ -61,18 +65,30 @@ export default function Rota() {
               <Card.Cover style={styles.cardPhoto} source={{ uri: item.photo }} />
               <Title>{item.nameRef}</Title>
               <Paragraph>{item.cod}</Paragraph>
-              <IconButton
-                icon="delete"
-                color={Colors.red500}
-                size={20}
-                onPress={() => {}}
-                style={styles.delete}
-              />
-              <Title style={styles.cardPrice}>{item.price}</Title>
+              <View style={{
+                flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
+              }}
+              >
+                <Title style={styles.cardPrice}>{item.price}</Title>
+                <IconButton
+                  icon="delete"
+                  color={Colors.red500}
+                  size={24}
+                  onPress={() => setVisible(true)}
+                  style={styles.delete}
+                />
+              </View>
             </Card>
           </View>
         )}
       />
+      <Dialog visible={visible} onDismiss={hideDialog}>
+        <Paragraph style={styles.modalTitle}>Deseja realmente Deletar o produto?</Paragraph>
+        <Dialog.Actions>
+          <Button onPress={() => setVisible(false)} theme={{ colors: { primary: 'red' } }}>Cancelar</Button>
+          <Button onPress={() => {}} theme={{ colors: { primary: '#4CAF50' } }}>Confirmar</Button>
+        </Dialog.Actions>
+      </Dialog>
       <FabButton icon="plus" onPress={handleNavigationCadastrar} />
     </View>
   );

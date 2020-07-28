@@ -20,11 +20,17 @@ export default StyleSheet.create({
     height: 100,
   },
   delete: {
-    position: 'absolute',
-    right: 0,
-    bottom: -3,
+    right: -15,
+    bottom: -15,
+    width: 60,
+    height: 60,
   },
   cardPrice: {
-    marginTop: 20,
+    marginTop: 32,
+    marginRight: 20,
+  },
+  modalTitle: {
+    fontSize: 18,
+    padding: 15,
   },
 });
