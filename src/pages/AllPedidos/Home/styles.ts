@@ -3,6 +3,7 @@ import { Searchbar } from 'react-native-paper';
 
 export const Container = styled.View`
   flex: 1;
+  background-color: white;
 `;
 
 export const Header = styled.View`
@@ -20,6 +21,7 @@ export const HeaderInfo = styled.View`
 export const SearchBar = styled(Searchbar)`
   margin: 10px;
   border-radius: 15px;
+  background-color: #eee;
 `;
 
 export const Info = styled.Text`

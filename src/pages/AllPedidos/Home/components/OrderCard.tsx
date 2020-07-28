@@ -1,6 +1,7 @@
 import React from 'react';
 import { RectButton } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
+import { Card } from 'react-native-paper';
 import { StrongInfo, Info } from '../styles';
 import { Order } from '../../../../interfaces';
 
@@ -64,9 +65,9 @@ const ContainerInfo = styled.View`
   flex-direction: row;
 `;
 
-const Data = styled.View`
+const Data = styled(Card)`
   width: 100%;
-  background-color: #ddd;
+  background-color: #eee;
   padding: 10px;
   border-radius: 15px;
   margin-top: 5px;
@@ -94,7 +95,7 @@ const PriceInfo = styled.View`
 
 const Details = styled(RectButton)`
   margin-top: 6px;
-  background-color: #FFF211;
+  background-color: #eff211;
   padding: 5px 10px;
   border-radius: 15px;
 `;
