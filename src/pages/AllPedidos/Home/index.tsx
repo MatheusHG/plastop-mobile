@@ -9,7 +9,7 @@ import { Order } from '../../../interfaces';
 const orders = [
   {
     name: 'Davi Sousa',
-    phone: '(83) 9 998841809',
+    phone: '(83) 99884-1809',
     city: 'Campina Grande - PB',
     paymentForm: 'Dinheiro',
     price: '52,92',
@@ -17,7 +17,7 @@ const orders = [
   },
   {
     name: 'Davi Sousa',
-    phone: '(83) 9 998841809',
+    phone: '(83) 99884-1809',
     city: 'Campina Grande - PB',
     paymentForm: 'Dinheiro',
     price: '52,92',
@@ -25,7 +25,7 @@ const orders = [
   },
   {
     name: 'Davi Sousa',
-    phone: '(83) 9 998841809',
+    phone: '(83) 99884-1809',
     city: 'Campina Grande - PB',
     paymentForm: 'Dinheiro',
     price: '52,92',
