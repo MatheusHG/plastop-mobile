@@ -9,7 +9,9 @@ export default function Rota() {
         {' '}
         <Text style={styles.name}>Plastop</Text>
       </Text>
-      <Text style={styles.description}>Bem Vindo(a) ao Gerenciamento de Produtos (Cadastrar Novo)!</Text>
+      <Text style={styles.description}>
+        Bem Vindo(a) ao Gerenciamento de Produtos (Cadastrar Novo)!
+      </Text>
     </View>
   );
 }

@@ -1,16 +1,16 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  StyleSheet, Text, View,
+} from 'react-native';
+import { Button } from 'react-native-paper';
+import FormCLiente from '../../../components/FormCliente';
 
 export default function Rota() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>
-        Template
-        {' '}
-        <Text style={styles.name}>Plastop</Text>
-      </Text>
-      <Text style={styles.description}>Bem Vindo(a) aos Dados dos Clientes!</Text>
-    </View>
+    <>
+      <FormCLiente />
+      <Button color="#FFF" style={styles.buttonSave}> Salvar Cliente </Button>
+    </>
   );
 }
 
@@ -35,5 +35,10 @@ const styles = StyleSheet.create({
     fontWeight: '100',
     width: 300,
     textAlign: 'center',
+  },
+  buttonSave: {
+    width: '100%',
+    height: 45,
+    backgroundColor: '#4CAF50',
   },
 });
