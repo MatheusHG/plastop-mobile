@@ -5,17 +5,20 @@ import { Card } from 'react-native-paper';
 
 const { width } = Dimensions.get('window');
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   flex: 1;
 `;
 
 export const DetailsContainer = styled.View`
-  flex: 1;
+  width: 100%;
+  align-items: center;
+  padding: 20px;
 `;
 
 export const Title = styled.Text`
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
+  margin-bottom: 20px;
 `;
 
 export const Data = styled(Card)`
