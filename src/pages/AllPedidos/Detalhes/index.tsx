@@ -86,6 +86,9 @@ export default function OrderDetails() {
           </DataContainer>
         </Data>
       </DetailsContainer>
+      <DetailsContainer>
+        <Title>Produtos</Title>
+      </DetailsContainer>
     </Container>
   );
 }

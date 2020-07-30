@@ -8,6 +8,7 @@ export interface Product {
   name: string;
   code: string;
   quantity: number;
+  photo: string;
 }
 
 export interface Order {
