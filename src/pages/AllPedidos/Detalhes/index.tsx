@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRoute } from '@react-navigation/native';
 import {
   StrongInfo, Info,
 } from '../Home/styles';
@@ -8,10 +9,13 @@ import {
 import { Order } from '../../../interfaces';
 
 interface OrderDetails {
-  order: Order;
+  order?: Order;
 }
 
-export default function OrderDetails({ order }: OrderDetails) {
+export default function OrderDetails() {
+  const route = useRoute();
+  const { order }: OrderDetails = route.params ? route.params : { order: null };
+
   return (
     <Container>
       <DetailsContainer>
@@ -20,22 +24,22 @@ export default function OrderDetails({ order }: OrderDetails) {
           <DataContainer>
             <DataWrap>
               <StrongInfo>Nome do Cliente: </StrongInfo>
-              <Info>{order.name}</Info>
+              <Info>{order?.name}</Info>
             </DataWrap>
 
             <DataWrap>
               <StrongInfo>Telefone: </StrongInfo>
-              <Info>{order.phone}</Info>
+              <Info>{order?.phone}</Info>
             </DataWrap>
 
             <DataWrap>
               <StrongInfo>Cidade: </StrongInfo>
-              <Info>{order.city}</Info>
+              <Info>{order?.city}</Info>
             </DataWrap>
 
             <DataWrap>
               <StrongInfo>Forma de Pagamento: </StrongInfo>
-              <Info>{order.paymentForm}</Info>
+              <Info>{order?.paymentForm}</Info>
             </DataWrap>
           </DataContainer>
         </Data>
