@@ -5,6 +5,11 @@ export const Container = styled.ScrollView`
   flex: 1;
 `;
 
+export const Space = styled.View`
+  width: 100%;
+  height: 70px;
+`;
+
 export const DetailsContainer = styled.View`
   width: 100%;
   align-items: center;

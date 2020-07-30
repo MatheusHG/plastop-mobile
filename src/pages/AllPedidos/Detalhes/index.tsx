@@ -1,13 +1,15 @@
 import React, { useLayoutEffect } from 'react';
+import { FlatList } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import {
   StrongInfo, Info,
 } from '../Home/styles';
 import {
-  Container, DetailsContainer, Title, Data, DataContainer, DataWrap,
+  Container, DetailsContainer, Title, Data, DataContainer, DataWrap, Space,
 } from './styles';
 import FabButton from '../../../components/FabButton';
 import ShareButton from './components/ShareButton';
+import ProductCard from './components/ProductCard';
 import { Order } from '../../../interfaces';
 
 interface OrderDetails {
@@ -81,7 +83,13 @@ export default function OrderDetails() {
         </DetailsContainer>
         <DetailsContainer>
           <Title>Produtos</Title>
+          {
+            order?.products.map((item) => (
+              <ProductCard key={String(Math.random())} product={item} />
+            ))
+          }
         </DetailsContainer>
+        <Space />
       </Container>
       <FabButton icon="delete-forever" backgroundColor="#e50000" />
     </>

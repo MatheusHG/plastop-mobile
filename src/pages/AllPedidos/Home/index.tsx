@@ -43,28 +43,21 @@ const products = [
     name: 'Xuxinhas pac. 10 unidades',
     code: 'Cód.: 0205',
     price: 'R$ 9,99',
-    quantity: 10,
-  },
-  {
-    photo: 'https://lh3.googleusercontent.com/proxy/Vix-I2bVHnAIwPi-wulHOjvy6eAxFsjxd4PxvH3L9qiuuKFOACavsvb4Ig6x2pxczSKTQJmTChr7JNVtzNCws2NCFC2g_PIq1zR1prijzFWLPaJZrSf_eqW2CpjvZ26gTJKPnrTGBA0NqnxkR7wuMdqaNU8tTwSAroXTW4M',
-    name: 'Prendedor de Roupa',
-    code: 'Cód.: 5986',
-    price: 'R$ 2,90',
-    quantity: 10,
+    quantity: 4,
   },
   {
     photo: 'https://www.callfarma.com.br/imagens/produtos/lixa-para-pes-e-v-a-rosa-zalike.png',
     name: 'Lixa de Pé EVA',
     code: 'Cód.: 7845',
     price: 'R$ 6,90',
-    quantity: 10,
+    quantity: 4,
   },
   {
     photo: 'https://blisther.com.br/produtos/produto1250-1.jpg',
     name: 'Varal Nylon',
     code: 'Cód.: 2398',
     price: 'R$ 2,99',
-    quantity: 10,
+    quantity: 4,
   },
   {
     photo: 'https://http2.mlstatic.com/coador-de-cafe-de-pano-industrial-9-unid--D_NQ_NP_925648-MLB31130842396_062019-F.jpg',
@@ -79,6 +72,13 @@ const products = [
     code: 'Cód.: 5642',
     price: 'R$ 7,90',
     quantity: 10,
+  },
+  {
+    photo: 'https://http2.mlstatic.com/prendedor-de-roupa-madeira-pregador-roupa-600-unds-D_NQ_NP_707102-MLB31196664571_062019-F.jpg',
+    name: 'Prendedor de Roupa',
+    code: 'Cód.: 5986',
+    price: 'R$ 2,90',
+    quantity: 4,
   },
 ];
 
