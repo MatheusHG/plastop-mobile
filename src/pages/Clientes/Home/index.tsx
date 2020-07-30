@@ -38,10 +38,10 @@ export default function ClientesHome() {
     <Container>
       <FlatList
         data={clients}
+        keyExtractor={() => String(Math.random())}
         renderItem={
         ({ item }: { item: Client }) => (
           <ClientCard
-            key={Math.random()}
             client={item}
             onPress={() => handleClickCard()}
           />

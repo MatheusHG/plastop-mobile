@@ -67,7 +67,7 @@ export default function Rota() {
               right={() => <Image source={next} style={styles.itemMenuNext} />}
             />
           </View>
-          <View style={styles.itemMenuBottom}>
+          <View>
             <List.Item
               onPress={handleNavigationGerenciamentoHome}
               key="04"

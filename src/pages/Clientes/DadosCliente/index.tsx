@@ -1,15 +1,17 @@
 import React from 'react';
 import {
-  StyleSheet, Text, View,
+  StyleSheet, Text, View, TouchableOpacity,
 } from 'react-native';
-import { Button } from 'react-native-paper';
+import { Title } from 'react-native-paper';
 import FormCLiente from '../../../components/FormCliente';
 
 export default function Rota() {
   return (
     <>
       <FormCLiente />
-      <Button color="#FFF" style={styles.buttonSave}> Salvar Cliente </Button>
+      <TouchableOpacity style={styles.barraSalvar} onPress={() => {}}>
+        <Title style={{ color: '#fff' }}>Salvar Cliente</Title>
+      </TouchableOpacity>
     </>
   );
 }
@@ -40,5 +42,10 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 45,
     backgroundColor: '#4CAF50',
+  },
+  barraSalvar: {
+    backgroundColor: '#4CAF50',
+    alignItems: 'center',
+    padding: 10,
   },
 });

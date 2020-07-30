@@ -5,39 +5,42 @@ import {
 import { TextInput, Title } from 'react-native-paper';
 
 export default function Rota() {
-  const [text, setText] = React.useState('');
+  const [codigo, setCodigo] = React.useState('');
+  const [nomeProduto, setNomeProduto] = React.useState('');
+  const [preco, setPreco] = React.useState('');
+
   return (
     <View style={styles.container}>
       <View style={{ marginTop: 30, width: '100%', alignItems: 'center' }}>
         <TextInput
           label="Código do Produto"
-          value={text}
+          value={codigo}
           mode="flat"
           underlineColor="#03071E"
           selectionColor="#03071E"
-          theme={{ colors: { primary: '#45A7F5' } }}
+          theme={{ colors: { primary: '#03071E' } }}
           style={{ width: '90%', marginBottom: 30, backgroundColor: '#fff' }}
-          onChangeText={(text) => setText(text)}
+          onChangeText={(text) => setCodigo(text)}
         />
         <TextInput
           label="Nome do Produto"
-          value={text}
+          value={nomeProduto}
           mode="flat"
           underlineColor="#03071E"
           selectionColor="#03071E"
-          theme={{ colors: { primary: '#45A7F5' } }}
+          theme={{ colors: { primary: '#03071E' } }}
           style={{ width: '90%', marginBottom: 30, backgroundColor: '#fff' }}
-          onChangeText={(text) => setText(text)}
+          onChangeText={(text) => setNomeProduto(text)}
         />
         <TextInput
           label="Preço (R$)"
-          value={text}
+          value={preco}
           mode="flat"
           underlineColor="#03071E"
           selectionColor="#03071E"
-          theme={{ colors: { primary: '#45A7F5' } }}
+          theme={{ colors: { primary: '#03071E' } }}
           style={{ width: '90%', marginBottom: 30, backgroundColor: '#fff' }}
-          onChangeText={(text) => setText(text)}
+          onChangeText={(text) => setPreco(text)}
         />
       </View>
       <View style={{ width: '100%', position: 'absolute', bottom: 0 }}>
