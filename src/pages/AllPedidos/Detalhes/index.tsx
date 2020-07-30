@@ -45,6 +45,11 @@ export default function OrderDetails() {
             </DataWrap>
 
             <DataWrap width="100%">
+              <StrongInfo>Forma de Pagamento: </StrongInfo>
+              <Info>{order?.paymentForm}</Info>
+            </DataWrap>
+
+            <DataWrap width="100%">
               <StrongInfo>Telefone: </StrongInfo>
               <Info>{order?.phone}</Info>
             </DataWrap>
@@ -70,8 +75,13 @@ export default function OrderDetails() {
             </DataWrap>
 
             <DataWrap width="100%">
-              <StrongInfo>Forma de Pagamento: </StrongInfo>
-              <Info>{order?.paymentForm}</Info>
+              <StrongInfo>Nome da Loja: </StrongInfo>
+              <Info>{order?.storeName}</Info>
+            </DataWrap>
+
+            <DataWrap width="100%" wrap>
+              <StrongInfo>Observação: </StrongInfo>
+              <Info>{order?.note}</Info>
             </DataWrap>
           </DataContainer>
         </Data>

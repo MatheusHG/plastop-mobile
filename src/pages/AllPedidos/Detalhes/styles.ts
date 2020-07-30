@@ -39,8 +39,9 @@ export const DataWrap = styled.View`
   align-items: center;
   justify-content: flex-start;
   flex-direction: row;
-  margin: 0 5px;
+  margin: 2px 5px;
   width: ${(props) => props.width || 'auto'};
+  flex-wrap: ${(props) => (props.wrap ? 'wrap' : 'nowrap')};
 `;
 
 export const Share = styled(RectButton)`
