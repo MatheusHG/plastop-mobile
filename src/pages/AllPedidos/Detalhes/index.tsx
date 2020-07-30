@@ -1,20 +1,37 @@
-import React from 'react';
-import { useRoute } from '@react-navigation/native';
+import React, { useLayoutEffect } from 'react';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import {
   StrongInfo, Info,
 } from '../Home/styles';
 import {
   Container, DetailsContainer, Title, Data, DataContainer, DataWrap,
+  Share, ShareIcon,
 } from './styles';
+import shareIcon from '../../../../assets/shareIcon.png';
 import { Order } from '../../../interfaces';
 
 interface OrderDetails {
   order?: Order;
 }
 
+function ShareButton({ onPress }: { onPress?: () => void }) {
+  return (
+    <Share onPress={onPress}>
+      <ShareIcon source={shareIcon} resizeMode="contain" />
+    </Share>
+  );
+}
+
 export default function OrderDetails() {
   const route = useRoute();
+  const navigation = useNavigation();
   const { order }: OrderDetails = route.params ? route.params : { order: null };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <ShareButton />,
+    });
+  }, [navigation]);
 
   return (
     <Container>
