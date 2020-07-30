@@ -59,7 +59,7 @@ export default function OrderDetails() {
               <Info>{order?.city}</Info>
             </DataWrap>
 
-            <DataWrap width="40%">
+            <DataWrap>
               <StrongInfo>UF: </StrongInfo>
               <Info>{order?.uf}</Info>
             </DataWrap>
