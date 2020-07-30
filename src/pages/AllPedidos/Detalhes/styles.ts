@@ -1,9 +1,5 @@
 import styled from 'styled-components/native';
-import { Dimensions } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
 import { Card } from 'react-native-paper';
-
-const { width } = Dimensions.get('window');
 
 export const Container = styled.ScrollView`
   flex: 1;
@@ -42,15 +38,4 @@ export const DataWrap = styled.View`
   margin: 2px 5px;
   width: ${(props) => props.width || 'auto'};
   flex-wrap: ${(props) => (props.wrap ? 'wrap' : 'nowrap')};
-`;
-
-export const Share = styled(RectButton)`
-  width: ${width * 0.07}px;
-  height: ${width * 0.07}px;
-  margin-right: ${width * 0.05}px;
-`;
-
-export const ShareIcon = styled.Image`
-  width: 100%;
-  height: 100%;
 `;

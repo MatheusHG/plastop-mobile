@@ -5,21 +5,14 @@ import {
 } from '../Home/styles';
 import {
   Container, DetailsContainer, Title, Data, DataContainer, DataWrap,
-  Share, ShareIcon,
 } from './styles';
 import FabButton from '../../../components/FabButton';
-import shareIcon from '../../../../assets/shareIcon.png';
+import ShareButton from './components/ShareButton';
 import { Order } from '../../../interfaces';
 
 interface OrderDetails {
   order?: Order;
 }
-
-const ShareButton = ({ onPress }: { onPress?: () => void }) => (
-  <Share onPress={onPress}>
-    <ShareIcon source={shareIcon} resizeMode="contain" />
-  </Share>
-);
 
 export default function OrderDetails() {
   const route = useRoute();
