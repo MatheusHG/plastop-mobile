@@ -1,39 +1,45 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  StrongInfo, Info,
+} from '../Home/styles';
+import {
+  Container, DetailsContainer, Title, Data, DataContainer, DataWrap,
+} from './styles';
+import { Order } from '../../../interfaces';
 
-export default function Rota() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>
-        Template
-        {' '}
-        <Text style={styles.name}>Plastop</Text>
-      </Text>
-      <Text style={styles.description}>Bem Vindo(a) aos Detalhes de cada os pedido!</Text>
-    </View>
-  );
+interface OrderDetails {
+  order: Order;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#37323e',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-  name: {
-    color: '#f3ca40',
-    fontWeight: 'bold',
-  },
-  description: {
-    top: 10,
-    color: '#BFBDC1',
-    fontWeight: '100',
-    width: 300,
-    textAlign: 'center',
-  },
-});
+export default function OrderDetails({ order }: OrderDetails) {
+  return (
+    <Container>
+      <DetailsContainer>
+        <Title>Endereço da Entrega</Title>
+        <Data>
+          <DataContainer>
+            <DataWrap>
+              <StrongInfo>Nome do Cliente: </StrongInfo>
+              <Info>{order.name}</Info>
+            </DataWrap>
+
+            <DataWrap>
+              <StrongInfo>Telefone: </StrongInfo>
+              <Info>{order.phone}</Info>
+            </DataWrap>
+
+            <DataWrap>
+              <StrongInfo>Cidade: </StrongInfo>
+              <Info>{order.city}</Info>
+            </DataWrap>
+
+            <DataWrap>
+              <StrongInfo>Forma de Pagamento: </StrongInfo>
+              <Info>{order.paymentForm}</Info>
+            </DataWrap>
+          </DataContainer>
+        </Data>
+      </DetailsContainer>
+    </Container>
+  );
+}
