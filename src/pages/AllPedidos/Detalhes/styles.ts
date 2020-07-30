@@ -31,12 +31,16 @@ export const Data = styled(Card)`
 
 export const DataContainer = styled.View`
   width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
 `;
 
 export const DataWrap = styled.View`
   align-items: center;
   justify-content: flex-start;
   flex-direction: row;
+  margin: 0 5px;
+  width: ${(props) => props.width || 'auto'};
 `;
 
 export const Share = styled(RectButton)`

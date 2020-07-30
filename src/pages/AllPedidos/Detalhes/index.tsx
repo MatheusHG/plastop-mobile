@@ -39,12 +39,12 @@ export default function OrderDetails() {
         <Title>Endereço da Entrega</Title>
         <Data>
           <DataContainer>
-            <DataWrap>
+            <DataWrap width="100%">
               <StrongInfo>Nome do Cliente: </StrongInfo>
               <Info>{order?.name}</Info>
             </DataWrap>
 
-            <DataWrap>
+            <DataWrap width="100%">
               <StrongInfo>Telefone: </StrongInfo>
               <Info>{order?.phone}</Info>
             </DataWrap>
@@ -54,7 +54,22 @@ export default function OrderDetails() {
               <Info>{order?.city}</Info>
             </DataWrap>
 
+            <DataWrap width="40%">
+              <StrongInfo>UF: </StrongInfo>
+              <Info>{order?.uf}</Info>
+            </DataWrap>
+
             <DataWrap>
+              <StrongInfo>Endereço: </StrongInfo>
+              <Info>{order?.address}</Info>
+            </DataWrap>
+
+            <DataWrap>
+              <StrongInfo>Número: </StrongInfo>
+              <Info>{order?.number}</Info>
+            </DataWrap>
+
+            <DataWrap width="100%">
               <StrongInfo>Forma de Pagamento: </StrongInfo>
               <Info>{order?.paymentForm}</Info>
             </DataWrap>
