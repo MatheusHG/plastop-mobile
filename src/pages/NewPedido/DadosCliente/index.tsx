@@ -1,41 +1,55 @@
 import React from 'react';
 import {
-  StyleSheet, Text, View, Dimensions, Image, TouchableOpacity,
+  StyleSheet, Text, View, Dimensions,
+  TouchableOpacity, KeyboardAvoidingView,
+  TouchableWithoutFeedback, Keyboard, Platform,
 } from 'react-native';
 import { Title } from 'react-native-paper';
-// import styles from '../../Login/styles';
+
+import {
+  Imagem, ContainerAmarelo, CardInfo, ContainerImagem,
+  Titulo,
+} from './styles';
+
 import Calendario from '../../../../assets/calendario.png';
 import Dinheiro from '../../../../assets/dinheiro.png';
 import FormCLiente from '../../../components/FormCliente';
 
 export default function Rota() {
   return (
-    <View style={styles.container}>
-      <View style={styles.cardInfo}>
-        <Text style={styles.titulo}>Última Compra</Text>
-        <View style={styles.containerAmarelo}>
-          <View style={styles.containerAmarelo}>
-            <Image style={styles.imagem} source={Calendario} />
-            <Text style={styles.text}>02/04/1990</Text>
+    <KeyboardAvoidingView
+      behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+      style={styles.containerMain}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.container}>
+          <CardInfo>
+            <Titulo>Última Compra</Titulo>
+            <ContainerAmarelo>
+              <ContainerImagem>
+                <Imagem source={Calendario} />
+              </ContainerImagem>
+              <Text style={styles.text}>02/04/1990</Text>
+              <ContainerImagem>
+                <Imagem source={Dinheiro} />
+              </ContainerImagem>
+              <Text style={styles.text}>02/04/1990</Text>
+            </ContainerAmarelo>
+          </CardInfo>
+          <View style={styles.containerList}>
+            <FormCLiente />
           </View>
-          <View style={styles.containerAmarelo}>
-            <Image style={styles.imagem} source={Dinheiro} />
-            <Text style={styles.text}>02/04/1990</Text>
+          <View style={styles.button}>
+            <TouchableOpacity style={styles.deletar} onPress={() => {}}>
+              <Title style={{ color: '#FFF' }}>Deletar</Title>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.salvar} onPress={() => {}}>
+              <Title style={{ color: '#FFF' }}>Salvar</Title>
+            </TouchableOpacity>
           </View>
         </View>
-      </View>
-      <View style={styles.containerList}>
-        <FormCLiente />
-      </View>
-      <View style={styles.button}>
-        <TouchableOpacity style={styles.deletar} onPress={() => {}}>
-          <Title style={{ color: '#FFF' }}>Deletar</Title>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.salvar} onPress={() => {}}>
-          <Title style={{ color: '#FFF' }}>Salvar</Title>
-        </TouchableOpacity>
-      </View>
-    </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -43,22 +57,8 @@ const { width } = Dimensions.get('window');
 const { height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
-  cardInfo: {
-    backgroundColor: '#f3ca40',
-    width,
+  containerMain: {
     flex: 1,
-  },
-  containerAmarelo: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 10,
-
-  },
-  imagem: {
-    width: 45,
-    height: 45,
-    marginRight: 10,
   },
   containerList: {
     flex: 5,
@@ -66,18 +66,11 @@ const styles = StyleSheet.create({
     marginBottom: 100,
   },
   container: {
-    width,
-    height,
+    flex: 1,
     flexDirection: 'column',
   },
   text: {
     fontSize: 18,
-  },
-  titulo: {
-    alignSelf: 'center',
-    fontWeight: 'bold',
-    fontSize: 24,
-    marginTop: 5,
   },
   button: {
     width,

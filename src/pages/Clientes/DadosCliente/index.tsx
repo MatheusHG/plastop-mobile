@@ -1,22 +1,34 @@
 import React from 'react';
 import {
-  StyleSheet, Text, View, TouchableOpacity,
+  StyleSheet, KeyboardAvoidingView, View,
+  TouchableOpacity, TouchableWithoutFeedback, Keyboard,
+  Platform,
 } from 'react-native';
 import { Title } from 'react-native-paper';
 import FormCLiente from '../../../components/FormCliente';
 
 export default function Rota() {
   return (
-    <>
-      <FormCLiente />
-      <TouchableOpacity style={styles.barraSalvar} onPress={() => {}}>
-        <Title style={{ color: '#fff' }}>Salvar Cliente</Title>
-      </TouchableOpacity>
-    </>
+    <KeyboardAvoidingView
+      behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+      style={styles.containerMain}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.containerMain}>
+          <FormCLiente />
+          <TouchableOpacity style={styles.barraSalvar} onPress={() => {}}>
+            <Title style={{ color: '#fff' }}>Salvar Cliente</Title>
+          </TouchableOpacity>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
+  containerMain: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: '#37323e',
