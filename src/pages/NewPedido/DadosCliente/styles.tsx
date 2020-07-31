@@ -5,26 +5,26 @@ const { width } = Dimensions.get('window');
 const { height } = Dimensions.get('window');
 
 export const Imagem = styled.Image`
-    width: 100%;
-    height: 100%;
-    flex: 1;
+    width: 35px;
+    height: 35px;
 `;
 
 export const ContainerImagem = styled.View`
-    width: 8%;
-    margin-right: 1%;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
 `;
 
 export const ContainerAmarelo = styled.View`
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
-    padding: 3%;
+    margin-top: 5px;
+    padding: 15px;
 `;
 
 export const CardInfo = styled.View`
     background-color: #f3ca40;
-    flex: 1;
+    position: relative;
 `;
 
 export const Titulo = styled.Text`

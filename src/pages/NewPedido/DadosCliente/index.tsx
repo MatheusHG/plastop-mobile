@@ -2,7 +2,7 @@ import React from 'react';
 import {
   StyleSheet, Text, View, Dimensions,
   TouchableOpacity, KeyboardAvoidingView,
-  TouchableWithoutFeedback, Keyboard, Platform,
+  TouchableWithoutFeedback, Keyboard, Platform, Image,
 } from 'react-native';
 import { Title } from 'react-native-paper';
 
@@ -13,12 +13,14 @@ import {
 
 import Calendario from '../../../../assets/calendario.png';
 import Dinheiro from '../../../../assets/dinheiro.png';
+import Line from '../../../../assets/line.png';
+
 import FormCLiente from '../../../components/FormCliente';
 
 export default function NewPedidoDadosCliente() {
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.containerMain}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -28,12 +30,13 @@ export default function NewPedidoDadosCliente() {
             <ContainerAmarelo>
               <ContainerImagem>
                 <Imagem source={Calendario} />
+                <Text style={styles.text}>02/04/1990</Text>
               </ContainerImagem>
-              <Text style={styles.text}>02/04/1990</Text>
+              <Image source={Line} />
               <ContainerImagem>
                 <Imagem source={Dinheiro} />
+                <Text style={styles.text}>02/04/1990</Text>
               </ContainerImagem>
-              <Text style={styles.text}>02/04/1990</Text>
             </ContainerAmarelo>
           </CardInfo>
           <View style={styles.containerList}>
@@ -59,23 +62,28 @@ const { height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   containerMain: {
     flex: 1,
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+  },
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    width: '100%',
   },
   containerList: {
     flex: 5,
     padding: 10,
     marginBottom: 100,
   },
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-  },
   text: {
     fontSize: 18,
+    marginLeft: 10,
   },
   button: {
-    width,
+    width: '100%',
     position: 'absolute',
-    bottom: 10,
+    bottom: 0,
   },
   salvar: {
     alignItems: 'center',

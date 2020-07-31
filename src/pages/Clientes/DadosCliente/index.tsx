@@ -10,7 +10,7 @@ import FormCLiente from '../../../components/FormCliente';
 export default function Rota() {
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.containerMain}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
