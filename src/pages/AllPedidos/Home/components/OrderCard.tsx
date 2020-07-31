@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 import { Card } from 'react-native-paper';
@@ -10,6 +11,8 @@ interface OrderCardProps {
 }
 
 function OrderCard({ order }: OrderCardProps) {
+  const navigation = useNavigation();
+
   return (
     <Container>
       <ContainerInfo>
@@ -48,7 +51,7 @@ function OrderCard({ order }: OrderCardProps) {
               {order.price}
             </StrongInfo>
           </PriceInfo>
-          <Details>
+          <Details onPress={() => navigation.navigate('AllPedidosDetalhes', { order })}>
             <StrongInfo>Ver mais detalhes</StrongInfo>
           </Details>
         </PriceContainer>
