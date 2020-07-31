@@ -15,7 +15,7 @@ import Calendario from '../../../../assets/calendario.png';
 import Dinheiro from '../../../../assets/dinheiro.png';
 import FormCLiente from '../../../components/FormCliente';
 
-export default function Rota() {
+export default function NewPedidoDadosCliente() {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS == 'ios' ? 'padding' : 'height'}

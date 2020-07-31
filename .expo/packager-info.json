@@ -6,9 +6,14 @@
   "devToolsPort": 19002,
   "packagerPort": null,
 <<<<<<< HEAD
+<<<<<<< HEAD
   "packagerPid": null
 =======
   "packagerPid": null,
   "webpackServerPort": null
 >>>>>>> 3fcd964610314470b4ee12c6aac0e4b9b49d4713
+=======
+  "packagerPid": null,
+  "webpackServerPort": null
+>>>>>>> confirmVenda
 }
