@@ -65,11 +65,12 @@ export const Row = styled.View`
 `;
 
 export const Discount = styled.TextInput`
-    background-color: #f1f1f1;
     width: 25%;
     padding: 4px;
     font-size: 16px;
     text-align: center;
+    border-bottom-width: 1px;
+    border-bottom-color: #000;
 
 `;
 
