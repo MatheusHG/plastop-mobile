@@ -1,11 +1,12 @@
 import React from 'react';
 import {
-  StyleSheet, Text, View, TouchableOpacity, Image,
+  Text, View, TouchableOpacity, Image,
 } from 'react-native';
 import {
-  Searchbar, Card, Title, Paragraph, IconButton, Colors,
+  Searchbar, Card, Title, Paragraph,
 } from 'react-native-paper';
 import { FlatGrid } from 'react-native-super-grid';
+import { useNavigation } from '@react-navigation/native';
 
 import money from '../../../../assets/moneyPrice.png';
 import mais1 from '../../../../assets/mais1.png';
@@ -13,7 +14,13 @@ import menos from '../../../../assets/menos.png';
 
 import styles from './styles';
 
-export default function Rota() {
+export default function NewPedidosHome() {
+  const navigation = useNavigation();
+
+  const handleClick = () => {
+    navigation.navigate('NewPedidoConfirmacao');
+  };
+
   const [searchQuery, setSearchQuery] = React.useState('');
 
   const onChangeSearch = (query: React.SetStateAction<string>) => setSearchQuery(query);
@@ -84,7 +91,7 @@ export default function Rota() {
             <Title style={styles.price}>R$ 61,87</Title>
           </View>
         </View>
-        <TouchableOpacity style={styles.barraProceed} onPress={() => {}}>
+        <TouchableOpacity style={styles.barraProceed} onPress={() => handleClick()}>
           <Title style={{ color: '#fff' }}>Prosseguir</Title>
         </TouchableOpacity>
       </View>
