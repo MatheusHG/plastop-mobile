@@ -50,6 +50,13 @@ export default function FormCLiente() {
           keyboardType="number-pad"
           theme={theme}
         />
+      </View>
+      <View style={styles.containerRow}>
+        <TextInput
+          label="Cidade"
+          style={styles.large}
+          theme={theme}
+        />
         <TextInput
           label="UF"
           style={styles.medium}
@@ -72,7 +79,7 @@ export default function FormCLiente() {
       </View>
       <View style={styles.containerRow}>
         <TextInput
-          label="Referência"
+          label="Bairro"
           style={styles.large}
           theme={theme}
         />
@@ -87,7 +94,7 @@ export default function FormCLiente() {
         <TextInput
           label="Telefone 2"
           keyboardType="number-pad"
-          style={styles.medium}
+          style={styles.large}
           theme={theme}
         />
       </View>
