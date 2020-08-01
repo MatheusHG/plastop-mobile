@@ -12,7 +12,7 @@ export default function Rota() {
   const navigation = useNavigation();
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.containerMain}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
