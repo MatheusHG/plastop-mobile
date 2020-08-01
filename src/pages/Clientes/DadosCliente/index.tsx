@@ -4,10 +4,12 @@ import {
   TouchableOpacity, TouchableWithoutFeedback, Keyboard,
   Platform,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Title } from 'react-native-paper';
 import FormCLiente from '../../../components/FormCliente';
 
 export default function Rota() {
+  const navigation = useNavigation();
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
@@ -16,7 +18,12 @@ export default function Rota() {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.containerMain}>
           <FormCLiente />
-          <TouchableOpacity style={styles.barraSalvar} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.barraSalvar}
+            onPress={() => {
+              navigation.navigate('DadosEntrega');
+            }}
+          >
             <Title style={{ color: '#fff' }}>Salvar Cliente</Title>
           </TouchableOpacity>
         </View>
