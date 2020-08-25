@@ -31,5 +31,6 @@ module.exports = {
     'react/no-unused-prop-types': 'off',
     'no-unused-vars': 'off',
     'linebreak-style': 'off',
+    'default-case': 'off',
   },
 };

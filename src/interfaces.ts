@@ -27,3 +27,8 @@ export interface Order {
   note: string;
   products: Product[];
 }
+
+export interface Action {
+  type: string;
+  payload: any;
+}
