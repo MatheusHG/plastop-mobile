@@ -16,12 +16,6 @@ function reducer(state = INITIAL_STATE, action: Action) {
         isLoading: false,
         logged: payload.logged,
       };
-    case 'REMOVE_USER_CRED':
-      return {
-        ...state,
-        isLoading: false,
-        logged: false,
-      };
   }
 
   return state;
