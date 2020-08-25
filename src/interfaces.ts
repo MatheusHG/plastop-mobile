@@ -32,3 +32,8 @@ export interface Action {
   type: string;
   payload: any;
 }
+
+export interface State {
+  isLoading: boolean;
+  logged: boolean;
+}

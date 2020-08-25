@@ -3,7 +3,7 @@ import { Action } from '../interfaces';
 
 const INITIAL_STATE = {
   isLoading: true,
-  userCred: null,
+  logged: null,
 };
 
 function reducer(state = INITIAL_STATE, action: Action) {
@@ -14,13 +14,13 @@ function reducer(state = INITIAL_STATE, action: Action) {
       return {
         ...state,
         isLoading: false,
-        userCred: payload.userCred,
+        logged: payload.logged,
       };
     case 'REMOVE_USER_CRED':
       return {
         ...state,
         isLoading: false,
-        userCred: null,
+        logged: null,
       };
   }
 

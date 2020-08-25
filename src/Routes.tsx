@@ -1,32 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 
-// App Pages
-
 import Login from './pages/Login';
-
 import Menu from './pages/Menu';
-
 import GerenciamentoHome from './pages/Gerenciamentos/Home';
 import GerenciamentoCadastrar from './pages/Gerenciamentos/Cadastrar';
-
 import NewPedidoHome from './pages/NewPedido/Home';
 import NewPedidoConfirmacao from './pages/NewPedido/Confirmacao';
 import NewPedidoDadosEntrega from './pages/NewPedido/DadosEntrega';
 import NewPedidoDadosCliente from './pages/NewPedido/DadosCliente';
-
 import AllPedidosHome from './pages/AllPedidos/Home';
 import AllPedidosDetalhes from './pages/AllPedidos/Detalhes';
-
 import ClientesHome from './pages/Clientes/Home';
 import ClientesDados from './pages/Clientes/DadosCliente';
-
 import Confirmacao from './pages/Confirmacao';
 
 const Stack = createStackNavigator();
 
-export default function Navigation() {
+function Routes() {
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -57,3 +49,11 @@ export default function Navigation() {
     </NavigationContainer>
   );
 }
+
+const mapStateToProps = (state) => ({
+
+});
+
+// mapDispatchToProps
+
+export default Routes;
