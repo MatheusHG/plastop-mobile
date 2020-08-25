@@ -23,7 +23,7 @@ import { State } from './interfaces';
 
 const Stack = createStackNavigator();
 
-const LoggedRoutes = () => (
+const loggedRoutes = () => (
   <>
     <Stack.Screen name="Menu" component={Menu} options={{ headerShown: false }} />
     <Stack.Screen name="GerenciamentoHome" component={GerenciamentoHome} options={{ title: 'Produtos' }} />
@@ -70,7 +70,7 @@ function Routes({ isLoading, logged, setLogged }: RoutesProps) {
             ? (
               <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
             ) : (
-              <LoggedRoutes />
+              loggedRoutes()
             )
         }
 
