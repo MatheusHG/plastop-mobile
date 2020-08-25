@@ -3,7 +3,7 @@ import { Action } from '../interfaces';
 
 const INITIAL_STATE = {
   isLoading: true,
-  logged: null,
+  logged: false,
 };
 
 function reducer(state = INITIAL_STATE, action: Action) {
@@ -20,7 +20,7 @@ function reducer(state = INITIAL_STATE, action: Action) {
       return {
         ...state,
         isLoading: false,
-        logged: null,
+        logged: false,
       };
   }
 
