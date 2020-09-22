@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, SetStateAction } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View } from 'react-native';
 import {
@@ -12,15 +12,9 @@ import styles from './styles';
 export default function Rota() {
   const navigation = useNavigation();
 
-  function handleNavigationCadastrar() {
-    navigation.navigate('GerenciamentoCadastrar');
-  }
-
-  const [searchQuery, setSearchQuery] = React.useState('');
-
-  const onChangeSearch = (query: React.SetStateAction<string>) => setSearchQuery(query);
-
-  const [items, setItems] = React.useState([
+  const [searchQuery, setSearchQuery] = useState('');
+  const [visible, setVisible] = useState(false);
+  const [items, setItems] = useState([
     {
       photo: 'https://http2.mlstatic.com/pacoto-rabico-de-cabelo-xuxinhas-com-20-unidades-colorido-D_NQ_NP_997836-MLB27172348581_042018-F.jpg', nameRef: 'Xuxinhas pac. 10 unidades', cod: 'Cód.: 0205', price: 'R$ 9,99',
     },
@@ -41,7 +35,11 @@ export default function Rota() {
     },
   ]);
 
-  const [visible, setVisible] = React.useState(false);
+  function handleNavigationCadastrar() {
+    navigation.navigate('GerenciamentoCadastrar');
+  }
+
+  const onChangeSearch = (query: SetStateAction<string>) => setSearchQuery(query);
 
   const hideDialog = () => setVisible(false);
 
