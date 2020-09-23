@@ -33,5 +33,6 @@ module.exports = {
     'linebreak-style': 'off',
     'default-case': 'off',
     'react/prop-types': 'off',
+    'no-param-reassign': 'off',
   },
 };
