@@ -1,35 +1,34 @@
-import React from 'react';
-import { FlatList } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { FlatList, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Container } from './styles';
 
 import ClientCard from './components/ClientCard';
 import FabButton from '../../../components/FabButton';
+import api from '../../../services/api';
 import { Client } from '../../../interfaces';
-
-const clients = [
-  {
-    name: 'Davi Gomes Passos Sousa',
-    city: 'Sumé - PB',
-    phone: '(83) 9 9884-1809',
-  },
-  {
-    name: 'Arthur Stevo',
-    city: 'Campina Grande - PB',
-    phone: '(83) 9 9999-1111',
-  },
-  {
-    name: 'Matheuszin da Massa',
-    city: 'Campina Grande - PB',
-    phone: '(83) 9 4002-8922',
-  },
-];
 
 export default function ClientesHome() {
   const navigation = useNavigation();
+
+  const [clients, setClients] = useState<Client[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await api.get('/cliente');
+
+        setClients(response.data);
+      } catch (error) {
+        Alert.alert('Ocorreu um erro na comunicação com o servidor.');
+      }
+    })();
+  }, []);
+
   const handleClick = () => {
     navigation.navigate('ClientesDados');
   };
+
   const handleClickCard = () => {
     navigation.navigate('NewPedidoDadosCliente');
   };

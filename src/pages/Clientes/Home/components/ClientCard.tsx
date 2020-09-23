@@ -19,9 +19,9 @@ function ClientCard(props: ClientCardProps) {
   return (
     <Container onPress={onPress}>
       <Card.Title
-        title={client.name}
-        subtitle={client.city}
-        right={() => <Paragraph>{client.phone}</Paragraph>}
+        title={client.nome}
+        subtitle={client.cidade}
+        right={() => <Paragraph>{client.telefone1}</Paragraph>}
         rightStyle={{
           marginLeft: 10,
           marginRight: 10,
