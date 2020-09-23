@@ -38,4 +38,5 @@ export interface Action {
 export interface State {
   isLoading: boolean;
   logged: boolean;
+  client: Client;
 }
