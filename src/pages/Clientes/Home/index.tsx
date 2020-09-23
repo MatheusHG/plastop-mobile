@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, Alert } from 'react-native';
+import { FlatList, Alert, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
@@ -18,14 +18,18 @@ function ClientesHome({ setClientState }: ClientesHomeProps) {
   const navigation = useNavigation();
 
   const [clients, setClients] = useState<Client[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
+      setLoading(true);
       try {
         const response = await api.get('/cliente');
+        setLoading(false);
 
         setClients(response.data);
       } catch (error) {
+        setLoading(false);
         Alert.alert('Ocorreu um erro na comunicação com o servidor.');
       }
     })();
@@ -39,6 +43,8 @@ function ClientesHome({ setClientState }: ClientesHomeProps) {
     setClientState(item);
     navigation.navigate('NewPedidoDadosCliente');
   };
+
+  if (loading) return <ActivityIndicator size="large" />;
 
   return (
     <Container>
