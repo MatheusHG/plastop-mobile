@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Title } from 'react-native-paper';
-import FormCLiente from '../../../components/FormCliente';
 
 export default function Rota() {
   const navigation = useNavigation();
