@@ -1,23 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
-  StyleSheet, Text, View, TextInput, TouchableOpacity,
+  Text, View, TextInput, TouchableOpacity, Alert,
 } from 'react-native';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 import { useNavigation } from '@react-navigation/native';
-
 import { Feather as Icon } from '@expo/vector-icons';
 
+import LoadingModal from '../../components/LoadingModal';
+import { login } from '../../services/auth';
+import api from '../../services/api';
+import { State } from '../../interfaces';
 import styles from './styles';
 
-export default function Rota() {
+interface RotaProps {
+  setLogged: (token: string) => void;
+}
+
+function Rota({ setLogged }: RotaProps) {
   const navigation = useNavigation();
 
-  function handleNavigationMenu() {
-    navigation.navigate('Menu');
-  }
+  const [loading, setLoading] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+    if (!username || !password) {
+      Alert.alert('Preencha todas as informações necessárias!');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await api.post('/login', { user: username, password });
+      const { token } = response.data;
+
+      await login(token);
+      setLoading(false);
+      setLogged(token);
+    } catch (error) {
+      setLoading(false);
+      Alert.alert(JSON.stringify(error.response.data.error));
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <View style={{ marginTop: 10 }}>
+      <View style={{ marginTop: 20 }}>
         <View style={styles.header}>
           <Text style={styles.title}>Bem vindo(a)</Text>
           <Text style={styles.titleSub}>
@@ -38,11 +67,13 @@ export default function Rota() {
               }}
             />
             <TextInput
-              placeholder="E-mail"
+              placeholder="Usuário"
               placeholderTextColor="#c1c1c1"
               style={styles.textInput}
               autoCapitalize="none"
               autoCorrect={false}
+              value={username}
+              onChangeText={setUsername}
             />
           </View>
           <View style={styles.action}>
@@ -61,10 +92,12 @@ export default function Rota() {
               style={styles.textInput}
               autoCapitalize="none"
               autoCorrect={false}
+              value={password}
+              onChangeText={setPassword}
             />
           </View>
 
-          <TouchableOpacity style={styles.button} onPress={handleNavigationMenu}>
+          <TouchableOpacity style={styles.button} onPress={handleLogin}>
             <Text style={styles.buttonText}>
               Entrar
             </Text>
@@ -76,6 +109,23 @@ export default function Rota() {
           </TouchableOpacity>
         </View>
       </View>
+
+      <LoadingModal isVisible={loading} />
     </View>
   );
 }
+
+const mapStateToProps = ({ token }: State) => ({
+  token,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  setLogged: (token: string) => {
+    dispatch({
+      type: 'SET_USER_CRED',
+      payload: { token },
+    });
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Rota);

@@ -20,6 +20,7 @@ import ClientesDados from './pages/Clientes/DadosCliente';
 import Confirmacao from './pages/Confirmacao';
 
 import { State } from './interfaces';
+import { getToken } from './services/auth';
 
 const Stack = createStackNavigator();
 
@@ -42,14 +43,17 @@ const loggedRoutes = () => (
 
 interface RoutesProps {
   isLoading: boolean;
-  logged: boolean;
-  setLogged: (logged: boolean) => void;
+  token: string;
+  setLogged: (token: string) => void;
 }
 
-function Routes({ isLoading, logged, setLogged }: RoutesProps) {
+function Routes({ isLoading, token, setLogged }: RoutesProps) {
   useEffect(() => {
-    setTimeout(() => setLogged(true), 1000);
-  }, [setLogged]);
+    (async () => {
+      const newToken = await getToken();
+      if (newToken) setLogged(newToken);
+    })();
+  }, []);
 
   if (isLoading) return <AppLoading />;
 
@@ -66,7 +70,7 @@ function Routes({ isLoading, logged, setLogged }: RoutesProps) {
         }}
       >
         {
-          !logged
+          !token
             ? (
               <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
             ) : (
@@ -79,15 +83,15 @@ function Routes({ isLoading, logged, setLogged }: RoutesProps) {
   );
 }
 
-const mapStateToProps = ({ isLoading, logged }: State) => ({
-  isLoading, logged,
+const mapStateToProps = ({ isLoading, token }: State) => ({
+  isLoading, token,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  setLogged: (logged: boolean) => {
+  setLogged: (token: string) => {
     dispatch({
       type: 'SET_USER_CRED',
-      payload: { logged },
+      payload: { token },
     });
   },
 });

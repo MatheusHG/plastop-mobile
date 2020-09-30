@@ -3,7 +3,7 @@ import { Action } from '../interfaces';
 
 const INITIAL_STATE = {
   isLoading: true,
-  logged: false,
+  token: '',
   client: null,
 };
 
@@ -15,7 +15,7 @@ function reducer(state = INITIAL_STATE, action: Action) {
       return {
         ...state,
         isLoading: false,
-        logged: payload.logged,
+        token: payload.token,
       };
     case 'SET_CLIENT':
       return {
