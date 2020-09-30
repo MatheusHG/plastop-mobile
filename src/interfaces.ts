@@ -6,6 +6,7 @@ export interface Client {
   cnpj?: string;
   rg?: string;
   endereco?: string;
+  bairro?: string;
   numero?: string;
   cidade?: string;
   uf?: string;
