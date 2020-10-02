@@ -6,8 +6,6 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    flexWrap: 'wrap',
-    flexDirection: 'row',
   },
   search: {
     backgroundColor: '#EEEEEE',

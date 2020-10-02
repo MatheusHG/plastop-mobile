@@ -6,6 +6,7 @@ import {
 } from 'react-native-paper';
 import { FlatGrid } from 'react-native-super-grid';
 
+import { ScrollView } from 'react-native-gesture-handler';
 import api from '../../../services/api';
 import LoadingModal from '../../../components/LoadingModal';
 import FabButton from '../../../components/FabButton';
@@ -59,41 +60,45 @@ export default function Rota() {
         style={styles.search}
       />
 
-      <FlatGrid
-        itemDimension={130}
-        showsVerticalScrollIndicator={false}
-        data={items}
-        spacing={10}
-        renderItem={({ item }) => (
-          <View>
-            <Card style={styles.card}>
-              <Card.Cover style={styles.cardPhoto} source={{ uri: item.url_image }} />
-              <Title>{item.nome}</Title>
-              <Paragraph>
-                Cod.:
-                {` ${item.codigo}`}
-              </Paragraph>
-              <View style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                height: 40,
-                width: '100%',
-              }}
-              >
-                <Title style={styles.cardPrice}>{item.preco}</Title>
-                <IconButton
-                  icon="delete"
-                  color={Colors.red500}
-                  size={24}
-                  onPress={() => setVisible(true)}
-                  style={styles.delete}
-                />
-              </View>
-            </Card>
-          </View>
-        )}
-      />
+      <ScrollView
+        style={{
+          width: '100%',
+        }}
+        contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}
+      >
+        {
+          items.map((item) => (
+            <View key={String(Math.random())} style={{ width: '45%', margin: 5 }}>
+              <Card style={styles.card}>
+                <Card.Cover style={styles.cardPhoto} source={{ uri: item.url_image }} />
+                <Title>{item.nome}</Title>
+                <Paragraph>
+                  Cod.:
+                  {` ${item.codigo}`}
+                </Paragraph>
+                <View style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  height: 40,
+                  width: '100%',
+                }}
+                >
+                  <Title style={styles.cardPrice}>{item.preco}</Title>
+                  <IconButton
+                    icon="delete"
+                    color={Colors.red500}
+                    size={24}
+                    onPress={() => setVisible(true)}
+                    style={styles.delete}
+                  />
+                </View>
+              </Card>
+            </View>
+          ))
+        }
+      </ScrollView>
+
       <Dialog visible={visible} onDismiss={hideDialog}>
         <Paragraph style={styles.modalTitle}>Deseja realmente Deletar o produto?</Paragraph>
         <Dialog.Actions>
