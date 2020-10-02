@@ -28,20 +28,27 @@ export default function Rota() {
   const [visible, setVisible] = useState(false);
   const [items, setItems] = useState<Product[]>([]);
 
-  useEffect(() => {
-    (async () => {
-      setLoading(true);
-      try {
-        const response = await api.get('/produtos');
-        setLoading(false);
+  const getProducts = async () => {
+    setLoading(true);
+    try {
+      const response = await api.get('/produtos');
+      setLoading(false);
 
-        setItems(response.data);
-      } catch (error) {
-        setLoading(false);
-        Alert.alert('Ocorreu um erro na comunicação com o servidor.');
-      }
-    })();
-  }, []);
+      setItems(response.data);
+    } catch (error) {
+      setLoading(false);
+      Alert.alert('Ocorreu um erro na comunicação com o servidor.');
+    }
+  };
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      getProducts();
+    });
+
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [navigation]);
 
   function handleNavigationCadastrar() {
     navigation.navigate('GerenciamentoCadastrar');
@@ -64,11 +71,13 @@ export default function Rota() {
         style={{
           width: '100%',
         }}
-        contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}
+        contentContainerStyle={{
+          flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly', alignItems: 'center',
+        }}
       >
         {
           items.map((item) => (
-            <View key={String(Math.random())} style={{ width: '45%', margin: 5 }}>
+            <View key={String(Math.random())} style={{ width: '45%', marginVertical: 10 }}>
               <Card style={styles.card}>
                 <Card.Cover style={styles.cardPhoto} source={{ uri: item.url_image }} />
                 <Title>{item.nome}</Title>
