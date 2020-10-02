@@ -60,8 +60,8 @@ export default function Rota() {
       setLoading(false);
 
       if (error.response) {
-        if (error.response.data.error) {
-          Alert.alert(error.response.data.error);
+        if (error.response.data.message) {
+          Alert.alert(error.response.data.message);
         } else {
           Alert.alert('Ocorreu um erro inesperado.');
         }

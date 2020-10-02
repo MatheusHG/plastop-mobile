@@ -58,7 +58,7 @@ function NewPedidoDadosCliente({ client }: NewPedidoDadosClienteProps) {
       setLoading(true);
 
       try {
-        const response = await api.get(`/cliente/${client.codigo}`);
+        const response = await api.get(`/clientes/${client.codigo}`);
         const newClient: Client = response.data;
 
         setName(newClient.nome || '');
@@ -73,9 +73,10 @@ function NewPedidoDadosCliente({ client }: NewPedidoDadosClienteProps) {
         setNeighbour(newClient.bairro || '');
         setPhone1(newClient.telefone1 || '');
         setPhone2(newClient.telefone2 || '');
+        setLoading(false);
       } catch (error) {
         setLoading(false);
-        Alert.alert('Ocorreu um erro na comunicação com o servidor, tente novamente.');
+        Alert.alert('Ocorreu um erro na comunicação com o servidor.');
       }
     })();
   }, []);
@@ -85,7 +86,7 @@ function NewPedidoDadosCliente({ client }: NewPedidoDadosClienteProps) {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.containerMain}
     >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <TouchableWithoutFeedback style={styles.container} onPress={Keyboard.dismiss}>
         <View style={styles.container}>
           {
             !isNew && (
@@ -105,127 +106,125 @@ function NewPedidoDadosCliente({ client }: NewPedidoDadosClienteProps) {
               </CardInfo>
             )
           }
-          <View style={styles.containerList}>
-            <ScrollView style={styles.form}>
-              <View style={styles.containerRow}>
-                <TextInput
-                  label="Nome do Cliente"
-                  style={styles.large}
-                  theme={theme}
-                  value={name}
-                  onChangeText={setName}
-                />
-                <TextInput
-                  label="Código"
-                  style={styles.medium}
-                  keyboardType="number-pad"
-                  maxLength={8}
-                  theme={theme}
-                  value={code}
-                  onChangeText={setCode}
-                />
-              </View>
-              <View style={styles.containerRow}>
-                <TextInput
-                  label="Razão Social"
-                  style={styles.large}
-                  theme={theme}
-                  value={social}
-                  onChangeText={setSocial}
-                />
-              </View>
-              <View style={styles.containerRow}>
-                <TextInput
-                  label="Nome Fantasia"
-                  style={styles.large}
-                  theme={theme}
-                  value={fantasyName}
-                  onChangeText={setFantasyName}
-                />
-              </View>
-              <View style={styles.containerRow}>
-                <TextInput
-                  label="CNPJ/CPF"
-                  style={styles.large}
-                  keyboardType="number-pad"
-                  theme={theme}
-                  value={cnpj}
-                  onChangeText={setCnpj}
-                />
-              </View>
-              <View style={styles.containerRow}>
-                <TextInput
-                  label="Incrição Estadual/RG"
-                  style={styles.large}
-                  keyboardType="number-pad"
-                  theme={theme}
-                  value={rg}
-                  onChangeText={setRg}
-                />
-              </View>
-              <View style={styles.containerRow}>
-                <TextInput
-                  label="Cidade"
-                  style={styles.large}
-                  theme={theme}
-                  value={city}
-                  onChangeText={setCity}
-                />
-                <TextInput
-                  label="UF"
-                  style={styles.medium}
-                  maxLength={2}
-                  theme={theme}
-                  value={uf}
-                  onChangeText={setUf}
-                />
-              </View>
-              <View style={styles.containerRow}>
-                <TextInput
-                  label="Endereço"
-                  style={styles.large}
-                  theme={theme}
-                  value={address}
-                  onChangeText={setAddress}
-                />
-                <TextInput
-                  label="Número"
-                  style={styles.medium}
-                  keyboardType="number-pad"
-                  theme={theme}
-                  value={number}
-                  onChangeText={setNumber}
-                />
-              </View>
-              <View style={styles.containerRow}>
-                <TextInput
-                  label="Bairro"
-                  style={styles.large}
-                  theme={theme}
-                  value={neighbour}
-                  onChangeText={setNeighbour}
-                />
-              </View>
-              <View style={styles.containerRow}>
-                <TextInput
-                  label="Telefone 1"
-                  style={styles.large}
-                  keyboardType="number-pad"
-                  theme={theme}
-                  value={phone1}
-                  onChangeText={setPhone1}
-                />
-                <TextInput
-                  label="Telefone 2"
-                  keyboardType="number-pad"
-                  style={styles.large}
-                  theme={theme}
-                  value={phone2}
-                  onChangeText={setPhone2}
-                />
-              </View>
-            </ScrollView>
-          </View>
+          <ScrollView style={styles.form}>
+            <View style={styles.containerRow}>
+              <TextInput
+                label="Nome do Cliente"
+                style={styles.large}
+                theme={theme}
+                value={name}
+                onChangeText={setName}
+              />
+              <TextInput
+                label="Código"
+                style={styles.medium}
+                keyboardType="number-pad"
+                maxLength={8}
+                theme={theme}
+                value={code}
+                onChangeText={setCode}
+              />
+            </View>
+            <View style={styles.containerRow}>
+              <TextInput
+                label="Razão Social"
+                style={styles.large}
+                theme={theme}
+                value={social}
+                onChangeText={setSocial}
+              />
+            </View>
+            <View style={styles.containerRow}>
+              <TextInput
+                label="Nome Fantasia"
+                style={styles.large}
+                theme={theme}
+                value={fantasyName}
+                onChangeText={setFantasyName}
+              />
+            </View>
+            <View style={styles.containerRow}>
+              <TextInput
+                label="CNPJ/CPF"
+                style={styles.large}
+                keyboardType="number-pad"
+                theme={theme}
+                value={cnpj}
+                onChangeText={setCnpj}
+              />
+            </View>
+            <View style={styles.containerRow}>
+              <TextInput
+                label="Incrição Estadual/RG"
+                style={styles.large}
+                keyboardType="number-pad"
+                theme={theme}
+                value={rg}
+                onChangeText={setRg}
+              />
+            </View>
+            <View style={styles.containerRow}>
+              <TextInput
+                label="Cidade"
+                style={styles.large}
+                theme={theme}
+                value={city}
+                onChangeText={setCity}
+              />
+              <TextInput
+                label="UF"
+                style={styles.medium}
+                maxLength={2}
+                theme={theme}
+                value={uf}
+                onChangeText={setUf}
+              />
+            </View>
+            <View style={styles.containerRow}>
+              <TextInput
+                label="Endereço"
+                style={styles.large}
+                theme={theme}
+                value={address}
+                onChangeText={setAddress}
+              />
+              <TextInput
+                label="Número"
+                style={styles.medium}
+                keyboardType="number-pad"
+                theme={theme}
+                value={number}
+                onChangeText={setNumber}
+              />
+            </View>
+            <View style={styles.containerRow}>
+              <TextInput
+                label="Bairro"
+                style={styles.large}
+                theme={theme}
+                value={neighbour}
+                onChangeText={setNeighbour}
+              />
+            </View>
+            <View style={styles.containerRow}>
+              <TextInput
+                label="Telefone 1"
+                style={styles.large}
+                keyboardType="number-pad"
+                theme={theme}
+                value={phone1}
+                onChangeText={setPhone1}
+              />
+              <TextInput
+                label="Telefone 2"
+                keyboardType="number-pad"
+                style={styles.large}
+                theme={theme}
+                value={phone2}
+                onChangeText={setPhone2}
+              />
+            </View>
+          </ScrollView>
           <View style={styles.button}>
             <TouchableOpacity style={styles.deletar} onPress={() => {}}>
               <Title style={{ color: '#FFF' }}>Deletar</Title>
@@ -263,16 +262,14 @@ const styles = StyleSheet.create({
   containerMain: {
     flex: 1,
     alignItems: 'center',
-    width: '100%',
-    height: '100%',
   },
   container: {
-    flex: 1,
-    flexDirection: 'column',
     width: '100%',
+    height: '100%',
+    flexDirection: 'column',
   },
   containerList: {
-    flex: 5,
+    width: '100%',
     padding: 10,
     marginBottom: 100,
   },
