@@ -7,7 +7,6 @@ import {
 import { FlatGrid } from 'react-native-super-grid';
 
 import api from '../../../services/api';
-import { logout } from '../../../services/auth';
 import LoadingModal from '../../../components/LoadingModal';
 import FabButton from '../../../components/FabButton';
 
@@ -95,9 +94,10 @@ export default function Rota() {
           <Button onPress={() => {}} theme={{ colors: { primary: '#4CAF50' } }}>Confirmar</Button>
         </Dialog.Actions>
       </Dialog>
-      <FabButton icon="plus" onPress={handleNavigationCadastrar} />
 
       <LoadingModal isVisible={loading} />
+      <FabButton icon="plus" onPress={handleNavigationCadastrar} />
     </View>
+
   );
 }
