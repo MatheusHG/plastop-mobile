@@ -4,7 +4,6 @@ import { Action } from '../interfaces';
 const INITIAL_STATE = {
   isLoading: true,
   token: '',
-  client: null,
 };
 
 function reducer(state = INITIAL_STATE, action: Action) {
@@ -16,11 +15,6 @@ function reducer(state = INITIAL_STATE, action: Action) {
         ...state,
         isLoading: false,
         token: payload.token,
-      };
-    case 'SET_CLIENT':
-      return {
-        ...state,
-        client: payload.client,
       };
   }
 

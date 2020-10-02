@@ -48,5 +48,4 @@ export interface Action {
 export interface State {
   isLoading: boolean;
   token: string | null;
-  client: Client;
 }

@@ -1,21 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { FlatList, Alert, ActivityIndicator } from 'react-native';
+import React, { useState } from 'react';
+import { FlatList, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
 import { Container } from './styles';
 
 import LoadingModal from '../../../components/LoadingModal';
 import ClientCard from './components/ClientCard';
 import FabButton from '../../../components/FabButton';
 import api from '../../../services/api';
-import { Client, State } from '../../../interfaces';
+import { Client } from '../../../interfaces';
 
-interface ClientesHomeProps {
-  setClientState: (item: Client) => void;
-}
-
-function ClientesHome({ setClientState }: ClientesHomeProps) {
+function ClientesHome() {
   const navigation = useNavigation();
 
   const [clients, setClients] = useState<Client[]>([]);
@@ -47,7 +41,6 @@ function ClientesHome({ setClientState }: ClientesHomeProps) {
   };
 
   const handleClickCard = (item: Client) => {
-    setClientState(item);
     navigation.navigate('ClientesDados', { isNew: false, codigo: item.codigo });
   };
 
@@ -71,17 +64,4 @@ function ClientesHome({ setClientState }: ClientesHomeProps) {
   );
 }
 
-const mapStateToProps = ({ client }: State) => ({
-  client,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  setClientState: (item: Client) => {
-    dispatch({
-      type: 'SET_CLIENT',
-      payload: { client: item },
-    });
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ClientesHome);
+export default ClientesHome;
