@@ -12,7 +12,6 @@ import GerenciamentoCadastrar from './pages/Gerenciamentos/Cadastrar';
 import NewPedidoHome from './pages/NewPedido/Home';
 import NewPedidoConfirmacao from './pages/NewPedido/Confirmacao';
 import NewPedidoDadosEntrega from './pages/NewPedido/DadosEntrega';
-import NewPedidoDadosCliente from './pages/NewPedido/DadosCliente';
 import AllPedidosHome from './pages/AllPedidos/Home';
 import AllPedidosDetalhes from './pages/AllPedidos/Detalhes';
 import ClientesHome from './pages/Clientes/Home';
@@ -32,7 +31,6 @@ const loggedRoutes = () => (
     <Stack.Screen name="NewPedidoHome" component={NewPedidoHome} options={{ title: 'Realizar Pedido' }} />
     <Stack.Screen name="NewPedidoConfirmacao" component={NewPedidoConfirmacao} options={{ title: 'Confirmação' }} />
     <Stack.Screen name="DadosEntrega" component={NewPedidoDadosEntrega} options={{ title: 'Dados da Entrega' }} />
-    <Stack.Screen name="NewPedidoDadosCliente" component={NewPedidoDadosCliente} options={{ title: 'Dados do Cliente' }} />
     <Stack.Screen name="AllPedidosHome" component={AllPedidosHome} options={{ title: 'Vendas' }} />
     <Stack.Screen name="AllPedidosDetalhes" component={AllPedidosDetalhes} options={{ title: 'Detalhes' }} />
     <Stack.Screen name="ClientesHome" component={ClientesHome} options={{ title: 'Clientes' }} />
