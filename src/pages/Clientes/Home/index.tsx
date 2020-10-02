@@ -28,7 +28,6 @@ function ClientesHome({ setClientState }: ClientesHomeProps) {
         setLoading(false);
 
         setClients(response.data);
-        console.log('clients', response.data);
       } catch (error) {
         setLoading(false);
         Alert.alert('Ocorreu um erro na comunicação com o servidor.');
