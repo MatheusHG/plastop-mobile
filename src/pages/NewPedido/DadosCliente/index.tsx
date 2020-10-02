@@ -20,23 +20,19 @@ import api from '../../../services/api';
 import Calendario from '../../../../assets/calendario.png';
 import Dinheiro from '../../../../assets/dinheiro.png';
 import Line from '../../../../assets/line.png';
-import { Client, State } from '../../../interfaces';
-
-interface NewPedidoDadosClienteProps {
-  client: Client;
-  setClientState: (item: Client) => void;
-}
+import { Client } from '../../../interfaces';
 
 type ParamList = {
   NewPedidoDadosCliente: {
     isNew: boolean;
+    codigo?: number;
   };
 };
 
-function NewPedidoDadosCliente({ client }: NewPedidoDadosClienteProps) {
+function NewPedidoDadosCliente() {
   const route = useRoute<RouteProp<ParamList, 'NewPedidoDadosCliente'>>();
   const theme = { colors: { primary: '#03071E' } };
-  const { isNew } = route.params;
+  const { isNew, codigo } = route.params;
 
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState('');
@@ -52,31 +48,38 @@ function NewPedidoDadosCliente({ client }: NewPedidoDadosClienteProps) {
   const [neighbour, setNeighbour] = useState('');
   const [phone1, setPhone1] = useState('');
   const [phone2, setPhone2] = useState('');
+  const [data, setData] = useState<string | null>(null);
+  const [total, setTotal] = useState<string | null>(null);
 
   useEffect(() => {
     (async () => {
       setLoading(true);
 
-      try {
-        const response = await api.get(`/clientes/${client.codigo}`);
-        const newClient: Client = response.data;
+      if (!isNew && codigo) {
+        try {
+          const response = await api.get(`/clientes/${codigo}`);
+          const newClient: Client = response.data[0];
 
-        setName(newClient.nome || '');
-        setSocial(newClient.razao_social || '');
-        setFantasyName(newClient.fantasia || '');
-        setCnpj(newClient.cnpj || '');
-        setRg(newClient.rg || '');
-        setCity(newClient.cidade || '');
-        setUf(newClient.uf || '');
-        setAddress(newClient.cidade || '');
-        setNumber(newClient.numero || '');
-        setNeighbour(newClient.bairro || '');
-        setPhone1(newClient.telefone1 || '');
-        setPhone2(newClient.telefone2 || '');
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-        Alert.alert('Ocorreu um erro na comunicação com o servidor.');
+          setName(newClient.nome as string);
+          setCode(String(newClient.codigo));
+          setSocial(newClient.razao_social as string);
+          setFantasyName(newClient.nome_fantasia as string);
+          setCnpj(newClient.cnpj as string);
+          setRg(newClient.rg as string);
+          setCity(newClient.cidade as string);
+          setUf(newClient.uf as string);
+          setAddress(newClient.rua as string);
+          setNumber(String(newClient.numero));
+          setNeighbour(newClient.bairro as string);
+          setPhone1(newClient.telefone1 as string);
+          setPhone2(newClient.telefone2 as string);
+          setData(newClient.data as string | null);
+          setTotal(newClient.total as string | null);
+          setLoading(false);
+        } catch (error) {
+          setLoading(false);
+          Alert.alert('Ocorreu um erro na comunicação com o servidor.');
+        }
       }
     })();
   }, []);
@@ -89,18 +92,18 @@ function NewPedidoDadosCliente({ client }: NewPedidoDadosClienteProps) {
       <TouchableWithoutFeedback style={styles.container} onPress={Keyboard.dismiss}>
         <View style={styles.container}>
           {
-            !isNew && (
+            (!isNew && data) && (
               <CardInfo>
                 <Titulo>Última Compra</Titulo>
                 <ContainerAmarelo>
                   <ContainerImagem>
                     <Imagem source={Calendario} />
-                    <Text style={styles.text}>02/04/1990</Text>
+                    <Text style={styles.text}>{data}</Text>
                   </ContainerImagem>
                   <Image source={Line} />
                   <ContainerImagem>
                     <Imagem source={Dinheiro} />
-                    <Text style={styles.text}>02/04/1990</Text>
+                    <Text style={styles.text}>{total}</Text>
                   </ContainerImagem>
                 </ContainerAmarelo>
               </CardInfo>
@@ -240,23 +243,7 @@ function NewPedidoDadosCliente({ client }: NewPedidoDadosClienteProps) {
   );
 }
 
-const mapStateToProps = ({ client }: State) => ({
-  client,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  setClientState: (item: Client) => {
-    dispatch({
-      type: 'SET_CLIENT',
-      payload: { client: item },
-    });
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(NewPedidoDadosCliente);
-
-const { width } = Dimensions.get('window');
-const { height } = Dimensions.get('window');
+export default NewPedidoDadosCliente;
 
 const styles = StyleSheet.create({
   containerMain: {

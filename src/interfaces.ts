@@ -2,16 +2,18 @@ export interface Client {
   codigo: number;
   nome?: string;
   razao_social?: string;
-  fantasia?: string;
+  nome_fantasia?: string;
   cnpj?: string;
   rg?: string;
-  endereco?: string;
+  rua?: string;
   bairro?: string;
   numero?: string;
   cidade?: string;
   uf?: string;
   telefone1?: string;
   telefone2?: string;
+  data?: string | null;
+  total?: string | null;
 }
 
 export interface Product {

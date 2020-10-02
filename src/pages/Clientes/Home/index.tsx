@@ -48,7 +48,7 @@ function ClientesHome({ setClientState }: ClientesHomeProps) {
 
   const handleClickCard = (item: Client) => {
     setClientState(item);
-    navigation.navigate('NewPedidoDadosCliente', { isNew: false });
+    navigation.navigate('NewPedidoDadosCliente', { isNew: false, codigo: item.codigo });
   };
 
   return (
