@@ -20,6 +20,10 @@ interface Product {
   url_image: string;
 }
 
+function formatPrice(price: number) {
+  return `R$${price.toFixed(2)}`.replace('.', ',');
+}
+
 export default function Rota() {
   const navigation = useNavigation();
 
@@ -92,7 +96,7 @@ export default function Rota() {
                   width: '100%',
                 }}
                 >
-                  <Title style={styles.cardPrice}>{item.preco}</Title>
+                  <Title style={styles.cardPrice}>{formatPrice(item.preco)}</Title>
                   <IconButton
                     icon="delete"
                     color={Colors.red500}
