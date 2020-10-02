@@ -1,6 +1,6 @@
 import React, { useEffect, useState, SetStateAction } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Alert } from 'react-native';
+import { View, Alert, Text } from 'react-native';
 import {
   Searchbar, Card, Title, Paragraph, IconButton, Colors, Button, Dialog, Portal,
 } from 'react-native-paper';
@@ -69,9 +69,16 @@ export default function Rota() {
             <Card style={styles.card}>
               <Card.Cover style={styles.cardPhoto} source={{ uri: item.url_image }} />
               <Title>{item.nome}</Title>
-              <Paragraph>{item.codigo}</Paragraph>
+              <Paragraph>
+                Cod.:
+                {` ${item.codigo}`}
+              </Paragraph>
               <View style={{
-                flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                height: 40,
+                width: '100%',
               }}
               >
                 <Title style={styles.cardPrice}>{item.preco}</Title>

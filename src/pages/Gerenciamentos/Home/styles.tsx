@@ -5,6 +5,7 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
+    justifyContent: 'center',
     flexWrap: 'wrap',
     flexDirection: 'row',
   },
@@ -22,14 +23,8 @@ export default StyleSheet.create({
     height: 100,
   },
   delete: {
-    right: -15,
-    bottom: -15,
-    width: 60,
-    height: 60,
   },
   cardPrice: {
-    marginTop: 32,
-    marginRight: 20,
   },
   modalTitle: {
     fontSize: 18,

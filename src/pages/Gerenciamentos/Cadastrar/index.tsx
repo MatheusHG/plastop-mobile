@@ -35,6 +35,7 @@ export default function Rota() {
   const onConfirm = async () => {
     if (!codigo || !nomeProduto || !preco || !image) {
       Alert.alert('Preencha todas as informações');
+      return;
     }
 
     setLoading(true);
@@ -65,7 +66,7 @@ export default function Rota() {
           Alert.alert('Ocorreu um erro inesperado.');
         }
       } else {
-        Alert.alert('Ocorreu algum erro na comunicação com o servidor, por favor, tente novamente mais tarde');
+        Alert.alert('Ocorreu algum erro na comunicação com o servidor.');
       }
     }
   };
