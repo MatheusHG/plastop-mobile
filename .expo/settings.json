@@ -3,6 +3,6 @@
   "lanType": "ip",
   "dev": true,
   "minify": false,
-  "urlRandomness": "tj-dew",
+  "urlRandomness": null,
   "https": false
 }
