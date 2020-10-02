@@ -9,6 +9,7 @@ export interface Client {
   bairro?: string;
   numero?: string;
   cidade?: string;
+  referencia?: string;
   uf?: string;
   telefone1?: string;
   telefone2?: string;

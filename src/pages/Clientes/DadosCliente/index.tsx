@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {
-  StyleSheet, Text, View, Dimensions,
-  TouchableOpacity, KeyboardAvoidingView, Alert,
-  TouchableWithoutFeedback, Keyboard, Platform, Image,
+  StyleSheet, Text, View, TouchableOpacity, Keyboard, Platform, Image,
+  KeyboardAvoidingView, Alert, TouchableWithoutFeedback,
 } from 'react-native';
-import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { useNavigation, RouteProp, useRoute } from '@react-navigation/native';
+
 import { Title, TextInput } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -30,6 +28,8 @@ type ParamList = {
 };
 
 function ClientesDados() {
+  const navigation = useNavigation();
+
   const route = useRoute<RouteProp<ParamList, 'ClientesDados'>>();
   const theme = { colors: { primary: '#03071E' } };
   const { isNew, codigo } = route.params;
@@ -44,6 +44,7 @@ function ClientesDados() {
   const [city, setCity] = useState('');
   const [uf, setUf] = useState('');
   const [address, setAddress] = useState('');
+  const [reference, setReference] = useState('');
   const [number, setNumber] = useState('');
   const [neighbour, setNeighbour] = useState('');
   const [phone1, setPhone1] = useState('');
@@ -69,6 +70,7 @@ function ClientesDados() {
           setCity(newClient.cidade as string);
           setUf(newClient.uf as string);
           setAddress(newClient.rua as string);
+          setReference(newClient.referencia as string);
           setNumber(String(newClient.numero));
           setNeighbour(newClient.bairro as string);
           setPhone1(newClient.telefone1 as string);
@@ -83,6 +85,43 @@ function ClientesDados() {
       }
     })();
   }, []);
+
+  const handleCreate = async () => {
+    setLoading(true);
+    try {
+      const response = await api.post('/clientes', {
+        codigo: code,
+        nome: name,
+        razao_social: social,
+        nome_fantasia: fantasyName,
+        cnpj,
+        rg,
+        cidade: city,
+        uf,
+        rua: address,
+        numero: number,
+        bairro: neighbour,
+        referencia: reference,
+        telefone1: phone1,
+        telefone2: phone2,
+      });
+
+      setLoading(false);
+      navigation.navigate('ClientesHome');
+    } catch (error) {
+      setLoading(false);
+
+      if (error.response) {
+        if (error.response.data.error) {
+          Alert.alert(error.response.data.error);
+        } else {
+          Alert.alert('Ocorreu um erro inesperado.');
+        }
+      } else {
+        Alert.alert('Ocorreu algum erro na comunicação com o servidor.');
+      }
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -116,6 +155,7 @@ function ClientesDados() {
                 style={styles.large}
                 theme={theme}
                 value={name}
+                autoCapitalize="words"
                 onChangeText={setName}
               />
               <TextInput
@@ -208,6 +248,13 @@ function ClientesDados() {
                 value={neighbour}
                 onChangeText={setNeighbour}
               />
+              <TextInput
+                label="Referência"
+                style={styles.large}
+                theme={theme}
+                value={reference}
+                onChangeText={setReference}
+              />
             </View>
             <View style={styles.containerRow}>
               <TextInput
@@ -237,7 +284,7 @@ function ClientesDados() {
                 </TouchableOpacity>
               )
             }
-            <TouchableOpacity style={styles.salvar} onPress={() => {}}>
+            <TouchableOpacity style={styles.salvar} onPress={handleCreate}>
               <Title style={{ color: '#FFF' }}>Salvar</Title>
             </TouchableOpacity>
           </View>
