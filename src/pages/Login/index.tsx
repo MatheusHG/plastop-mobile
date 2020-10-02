@@ -40,7 +40,7 @@ function Rota({ setLogged }: RotaProps) {
       setLogged(token);
     } catch (error) {
       setLoading(false);
-      Alert.alert('Ocorreu um erro na comunicação com o servidor, verifique sua internet ou as suas credenciais.');
+      Alert.alert('Verifique sua internet ou suas credenciais.');
     }
   };
 
