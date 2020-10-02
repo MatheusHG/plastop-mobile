@@ -97,6 +97,7 @@ export default function Rota() {
             </View>
           ))
         }
+        <View style={{ width: '100%', height: 70 }} />
       </ScrollView>
 
       <Dialog visible={visible} onDismiss={hideDialog}>
