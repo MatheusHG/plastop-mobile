@@ -1,10 +1,14 @@
 import React, { useEffect, useState, SetStateAction } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import {
   Searchbar, Card, Title, Paragraph, IconButton, Colors, Button, Dialog, Portal,
 } from 'react-native-paper';
 import { FlatGrid } from 'react-native-super-grid';
+
+import api from '../../../services/api';
+import { logout } from '../../../services/auth';
+import LoadingModal from '../../../components/LoadingModal';
 import FabButton from '../../../components/FabButton';
 
 import styles from './styles';
@@ -12,6 +16,7 @@ import styles from './styles';
 export default function Rota() {
   const navigation = useNavigation();
 
+  const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [visible, setVisible] = useState(false);
   const [items, setItems] = useState([
@@ -34,6 +39,23 @@ export default function Rota() {
       photo: 'https://static3.tcdn.com.br/img/img_prod/159791/lixa_para_unhas_preta_reta_com_gramatura_01_unidade_santa_clara_4191_1_20181210111746.jpg', nameRef: 'Lixa de Unhas', cod: 'Cód.: 5642', price: 'R$ 7,90',
     },
   ]);
+
+  useEffect(() => {
+    (async () => {
+      setLoading(true);
+      try {
+        const response = await api.get('/produtos');
+        setLoading(false);
+
+        console.log('PRODUTOS', response.data);
+        // setClients(response.data);
+        logout();
+      } catch (error) {
+        setLoading(false);
+        Alert.alert('Ocorreu um erro na comunicação com o servidor.');
+      }
+    })();
+  }, []);
 
   function handleNavigationCadastrar() {
     navigation.navigate('GerenciamentoCadastrar');
@@ -88,6 +110,8 @@ export default function Rota() {
         </Dialog.Actions>
       </Dialog>
       <FabButton icon="plus" onPress={handleNavigationCadastrar} />
+
+      <LoadingModal isVisible={loading} />
     </View>
   );
 }

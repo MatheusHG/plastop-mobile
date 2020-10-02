@@ -20,7 +20,7 @@ import ClientesDados from './pages/Clientes/DadosCliente';
 import Confirmacao from './pages/Confirmacao';
 
 import { State } from './interfaces';
-import { getToken } from './services/auth';
+import { getToken, logout } from './services/auth';
 
 const Stack = createStackNavigator();
 
@@ -44,7 +44,7 @@ const loggedRoutes = () => (
 interface RoutesProps {
   isLoading: boolean;
   token: string;
-  setLogged: (token: string) => void;
+  setLogged: (token: string | null) => void;
 }
 
 function Routes({ isLoading, token, setLogged }: RoutesProps) {
@@ -52,6 +52,7 @@ function Routes({ isLoading, token, setLogged }: RoutesProps) {
     (async () => {
       const newToken = await getToken();
       if (newToken) setLogged(newToken);
+      else setLogged(null);
     })();
   }, []);
 
