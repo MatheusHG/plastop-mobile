@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Container } from './styles';
 
+import LoadingModal from '../../../components/LoadingModal';
 import ClientCard from './components/ClientCard';
 import FabButton from '../../../components/FabButton';
 import api from '../../../services/api';
@@ -20,20 +21,26 @@ function ClientesHome({ setClientState }: ClientesHomeProps) {
   const [clients, setClients] = useState<Client[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    (async () => {
-      setLoading(true);
-      try {
-        const response = await api.get('/cliente');
-        setLoading(false);
+  const getClients = async () => {
+    setLoading(true);
+    try {
+      const response = await api.get('/clientes');
+      setLoading(false);
 
-        setClients(response.data);
-      } catch (error) {
-        setLoading(false);
-        Alert.alert('Ocorreu um erro na comunicação com o servidor.');
-      }
-    })();
-  }, []);
+      setClients(response.data);
+    } catch (error) {
+      setLoading(false);
+      Alert.alert('Ocorreu um erro na comunicação com o servidor.');
+    }
+  };
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      getClients();
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   const handleClick = () => {
     navigation.navigate('ClientesDados');
@@ -43,8 +50,6 @@ function ClientesHome({ setClientState }: ClientesHomeProps) {
     setClientState(item);
     navigation.navigate('NewPedidoDadosCliente', { isNew: false });
   };
-
-  if (loading) return <ActivityIndicator size="large" />;
 
   return (
     <Container>
@@ -61,6 +66,7 @@ function ClientesHome({ setClientState }: ClientesHomeProps) {
       }
       />
       <FabButton icon="plus" onPress={handleClick} />
+      <LoadingModal isVisible={loading} />
     </Container>
   );
 }

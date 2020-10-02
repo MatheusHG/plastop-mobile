@@ -46,7 +46,6 @@ export default function Rota() {
       getProducts();
     });
 
-    // Return the function to unsubscribe from the event so it gets removed on unmount
     return unsubscribe;
   }, [navigation]);
 
