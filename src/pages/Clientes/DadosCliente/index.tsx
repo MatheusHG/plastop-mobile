@@ -89,7 +89,7 @@ function ClientesDados() {
   const handleCreate = async () => {
     setLoading(true);
     try {
-      const response = await api.post('/clientes', {
+      await api.post('/clientes', {
         codigo: code,
         nome: name,
         razao_social: social,
