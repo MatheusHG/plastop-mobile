@@ -37,7 +37,7 @@ function ClientesHome() {
   }, [navigation]);
 
   const handleClick = () => {
-    navigation.navigate('ClientesDados');
+    navigation.navigate('ClientesDados', { isNew: true });
   };
 
   const handleClickCard = (item: Client) => {

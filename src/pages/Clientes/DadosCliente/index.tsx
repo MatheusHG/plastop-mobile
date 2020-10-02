@@ -53,9 +53,9 @@ function ClientesDados() {
 
   useEffect(() => {
     (async () => {
-      setLoading(true);
-
       if (!isNew && codigo) {
+        setLoading(true);
+
         try {
           const response = await api.get(`/clientes/${codigo}`);
           const newClient: Client = response.data[0];
@@ -230,9 +230,13 @@ function ClientesDados() {
             <View style={{ width: '100%', height: 140 }} />
           </ScrollView>
           <View style={styles.button}>
-            <TouchableOpacity style={styles.deletar} onPress={() => {}}>
-              <Title style={{ color: '#FFF' }}>Deletar</Title>
-            </TouchableOpacity>
+            {
+              !isNew && (
+                <TouchableOpacity style={styles.deletar} onPress={() => {}}>
+                  <Title style={{ color: '#FFF' }}>Deletar</Title>
+                </TouchableOpacity>
+              )
+            }
             <TouchableOpacity style={styles.salvar} onPress={() => {}}>
               <Title style={{ color: '#FFF' }}>Salvar</Title>
             </TouchableOpacity>
