@@ -4,9 +4,8 @@ import { View, Alert, Text } from 'react-native';
 import {
   Searchbar, Card, Title, Paragraph, IconButton, Colors, Button, Dialog, Portal,
 } from 'react-native-paper';
-import { FlatGrid } from 'react-native-super-grid';
 
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity, RectButton } from 'react-native-gesture-handler';
 import api from '../../../services/api';
 import LoadingModal from '../../../components/LoadingModal';
 import FabButton from '../../../components/FabButton';
@@ -53,10 +52,6 @@ export default function Rota() {
     return unsubscribe;
   }, [navigation]);
 
-  function handleNavigationCadastrar() {
-    navigation.navigate('GerenciamentoCadastrar');
-  }
-
   const onChangeSearch = (query: SetStateAction<string>) => setSearchQuery(query);
 
   const hideDialog = () => setVisible(false);
@@ -80,33 +75,47 @@ export default function Rota() {
       >
         {
           items.map((item) => (
-            <View key={String(Math.random())} style={{ width: '45%', marginVertical: 10 }}>
-              <Card style={styles.card}>
-                <Card.Cover style={styles.cardPhoto} source={{ uri: item.url_image }} />
-                <Title>{item.nome}</Title>
-                <Paragraph>
-                  Cod.:
-                  {` ${item.codigo}`}
-                </Paragraph>
-                <View style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  height: 40,
-                  width: '100%',
-                }}
-                >
-                  <Title style={styles.cardPrice}>{formatPrice(item.preco)}</Title>
-                  <IconButton
-                    icon="delete"
-                    color={Colors.red500}
-                    size={24}
-                    onPress={() => setVisible(true)}
-                    style={styles.delete}
-                  />
-                </View>
-              </Card>
-            </View>
+            <RectButton
+              onPress={() => navigation.navigate('GerenciamentoCadastrar', {
+                isNew: false,
+                product: {
+                  codigo: item.codigo,
+                  preco: item.preco,
+                  nome: item.nome,
+                  imageUri: item.url_image,
+                },
+              })}
+              style={{ width: '45%', marginVertical: 10 }}
+            >
+
+              <View key={String(Math.random())} style={{ width: '100%' }}>
+                <Card style={styles.card}>
+                  <Card.Cover style={styles.cardPhoto} source={{ uri: item.url_image }} />
+                  <Title>{item.nome}</Title>
+                  <Paragraph>
+                    Cod.:
+                    {` ${item.codigo}`}
+                  </Paragraph>
+                  <View style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    height: 40,
+                    width: '100%',
+                  }}
+                  >
+                    <Title style={styles.cardPrice}>{formatPrice(item.preco)}</Title>
+                    <IconButton
+                      icon="delete"
+                      color={Colors.red500}
+                      size={24}
+                      onPress={() => setVisible(true)}
+                      style={styles.delete}
+                    />
+                  </View>
+                </Card>
+              </View>
+            </RectButton>
           ))
         }
         <View style={{ width: '100%', height: 70 }} />
@@ -121,7 +130,7 @@ export default function Rota() {
       </Dialog>
 
       <LoadingModal isVisible={loading} />
-      <FabButton icon="plus" onPress={handleNavigationCadastrar} />
+      <FabButton icon="plus" onPress={() => navigation.navigate('GerenciamentoCadastrar', { isNew: true })} />
     </View>
 
   );

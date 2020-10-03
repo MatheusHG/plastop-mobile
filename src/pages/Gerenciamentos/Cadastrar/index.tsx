@@ -4,7 +4,7 @@ import {
   Alert, Image, ScrollView, Platform,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, RouteProp, useRoute } from '@react-navigation/native';
 import {
   TextInput, Title, Button, Dialog, Paragraph,
 } from 'react-native-paper';
@@ -16,6 +16,20 @@ interface ImageProp {
   uri: string;
 }
 
+interface Product {
+  codigo: number;
+  nome: string;
+  preco: number;
+  imageUri: string;
+}
+
+type ParamList = {
+  GerenciamentoCadastrar: {
+    isNew: boolean;
+    product: Product;
+  };
+};
+
 const makePhotoFormData = (image: ImageProp) => ({
   name: image.uri.split('/').pop(),
   type: 'image/jpeg',
@@ -24,13 +38,15 @@ const makePhotoFormData = (image: ImageProp) => ({
 
 export default function Rota() {
   const navigation = useNavigation();
+  const route = useRoute<RouteProp<ParamList, 'GerenciamentoCadastrar'>>();
+  const { isNew, product } = route.params;
 
   const [loading, setLoading] = React.useState(false);
   const [alert, setAlert] = React.useState(false);
-  const [codigo, setCodigo] = React.useState('');
-  const [nomeProduto, setNomeProduto] = React.useState('');
-  const [preco, setPreco] = React.useState('');
-  const [image, setImage] = React.useState<ImageProp | null>(null);
+  const [codigo, setCodigo] = React.useState(product.codigo || 0);
+  const [nomeProduto, setNomeProduto] = React.useState(product.nome || '');
+  const [preco, setPreco] = React.useState(product.preco || 0);
+  const [image, setImage] = React.useState<ImageProp | null>({ uri: product.imageUri } || null);
 
   const onConfirm = async () => {
     if (!codigo || !nomeProduto || !preco || !image) {
@@ -42,20 +58,29 @@ export default function Rota() {
     try {
       // eslint-disable-next-line no-undef
       const form = new FormData();
-      form.append('codigo', codigo);
+      form.append('codigo', String(codigo));
       form.append('nome', nomeProduto);
-      form.append('preco', preco);
+      form.append('preco', String(preco));
       form.append('file', makePhotoFormData(image as ImageProp) as unknown as Blob);
 
-      const response = await api.post('/produtos', form);
+      let response;
+      if (isNew) {
+        response = await api.post('/produtos', form);
+      } else {
+        response = await api.put('/produtos', form);
+      }
 
       Alert.alert(response.data.message);
 
-      setCodigo('');
-      setNomeProduto('');
-      setPreco('');
-      setImage(null);
-      setLoading(false);
+      if (isNew) {
+        setCodigo(0);
+        setNomeProduto('');
+        setPreco(0);
+        setImage(null);
+        setLoading(false);
+      } else {
+        navigation.navigate('GerenciamentoHome');
+      }
     } catch (error) {
       setLoading(false);
 
@@ -106,14 +131,14 @@ export default function Rota() {
         <View style={{ marginTop: 30, width: '100%', alignItems: 'center' }}>
           <TextInput
             label="Código do Produto"
-            value={codigo}
+            value={String(codigo)}
             mode="flat"
             underlineColor="#03071E"
             selectionColor="#03071E"
             keyboardType="decimal-pad"
             theme={{ colors: { primary: '#03071E' } }}
             style={{ width: '90%', marginBottom: 30, backgroundColor: '#fff' }}
-            onChangeText={(text) => setCodigo(text)}
+            onChangeText={(text) => setCodigo(Number(text))}
           />
           <TextInput
             label="Nome do Produto"
@@ -127,14 +152,14 @@ export default function Rota() {
           />
           <TextInput
             label="Preço (R$)"
-            value={preco}
+            value={String(preco)}
             mode="flat"
             underlineColor="#03071E"
             selectionColor="#03071E"
             theme={{ colors: { primary: '#03071E' } }}
             style={{ width: '90%', marginBottom: 30, backgroundColor: '#fff' }}
             keyboardType="decimal-pad"
-            onChangeText={(text) => setPreco(text)}
+            onChangeText={(text) => setPreco(Number(text))}
           />
         </View>
 
