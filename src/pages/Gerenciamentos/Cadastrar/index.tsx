@@ -138,20 +138,19 @@ export default function Rota() {
           />
         </View>
 
+        {
+          image && (
+            <Image
+              source={image}
+              style={{
+                width: 150, height: 150, marginTop: 15, borderWidth: 2, borderColor: '#dcdcdc',
+              }}
+            />
+          )
+        }
         <Button icon="camera" color="blue" style={{ backgroundColor: '#dcdcdc' }} onPress={handleImage}>
           Escolher Foto
         </Button>
-
-        {
-        image && (
-        <Image
-          source={image}
-          style={{
-            width: 100, height: 100, marginTop: 15, borderWidth: 2, borderColor: '#dcdcdc',
-          }}
-        />
-        )
-      }
 
         <View style={{ width: '100%', marginTop: 60 }}>
           <TouchableOpacity
