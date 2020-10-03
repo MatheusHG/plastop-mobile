@@ -1,11 +1,11 @@
-import React, { useEffect, useState, SetStateAction } from 'react';
+import React, { useState, SetStateAction } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Alert, Text } from 'react-native';
 import {
   Searchbar, Card, Title, Paragraph, IconButton, Colors, Button, Dialog, Portal,
 } from 'react-native-paper';
 
-import { ScrollView, TouchableOpacity, RectButton } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import api from '../../../services/api';
 import LoadingModal from '../../../components/LoadingModal';
 import FabButton from '../../../components/FabButton';
@@ -27,6 +27,7 @@ export default function Rota() {
   const navigation = useNavigation();
 
   const [loading, setLoading] = useState(false);
+  const [currentCode, setCurrentCode] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [visible, setVisible] = useState(false);
   const [items, setItems] = useState<Product[]>([]);
@@ -56,6 +57,31 @@ export default function Rota() {
 
   const hideDialog = () => setVisible(false);
 
+  const onDelete = async () => {
+    setVisible(false);
+    setLoading(true);
+    try {
+      const response = await api.delete(`/produtos?codigo=${currentCode}`);
+
+      Alert.alert(response.data.message);
+
+      setLoading(false);
+      await getProducts();
+    } catch (error) {
+      setLoading(false);
+
+      if (error.response) {
+        if (error.response.data.error) {
+          Alert.alert(error.response.data.error);
+        } else {
+          Alert.alert('Ocorreu um erro inesperado.');
+        }
+      } else {
+        Alert.alert('Ocorreu algum erro na comunicação com o servidor.');
+      }
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Searchbar
@@ -75,62 +101,62 @@ export default function Rota() {
       >
         {
           items.map((item) => (
-            <RectButton
-              onPress={() => navigation.navigate('GerenciamentoCadastrar', {
-                isNew: false,
-                product: {
-                  codigo: item.codigo,
-                  preco: item.preco,
-                  nome: item.nome,
-                  imageUri: item.url_image,
-                },
-              })}
-              style={{ width: '45%', marginVertical: 10 }}
-            >
-
-              <View key={String(Math.random())} style={{ width: '100%' }}>
-                <Card style={styles.card}>
-                  <Card.Cover style={styles.cardPhoto} source={{ uri: item.url_image }} />
-                  <Title>{item.nome}</Title>
-                  <Paragraph>
-                    Cod.:
-                    {` ${item.codigo}`}
-                  </Paragraph>
-                  <View style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    height: 40,
-                    width: '100%',
-                  }}
-                  >
-                    <Title style={styles.cardPrice}>{formatPrice(item.preco)}</Title>
-                    <IconButton
-                      icon="delete"
-                      color={Colors.red500}
-                      size={24}
-                      onPress={() => setVisible(true)}
-                      style={styles.delete}
-                    />
-                  </View>
-                </Card>
-              </View>
-            </RectButton>
+            <View key={String(Math.random())} style={{ width: '45%', marginVertical: 10 }}>
+              <Card
+                style={styles.card}
+                onPress={() => navigation.navigate('GerenciamentoCadastrar', {
+                  isNew: false,
+                  product: {
+                    codigo: item.codigo,
+                    preco: item.preco,
+                    nome: item.nome,
+                    imageUri: item.url_image,
+                  },
+                })}
+              >
+                <Card.Cover style={styles.cardPhoto} source={{ uri: item.url_image }} />
+                <Title>{item.nome}</Title>
+                <Paragraph>
+                  Cod.:
+                  {` ${item.codigo}`}
+                </Paragraph>
+                <View style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  height: 40,
+                  width: '100%',
+                }}
+                >
+                  <Title style={styles.cardPrice}>{formatPrice(item.preco)}</Title>
+                  <IconButton
+                    icon="delete"
+                    color={Colors.red500}
+                    size={24}
+                    onPress={() => {
+                      setCurrentCode(item.codigo);
+                      setVisible(true);
+                    }}
+                    style={styles.delete}
+                  />
+                </View>
+              </Card>
+            </View>
           ))
         }
         <View style={{ width: '100%', height: 70 }} />
       </ScrollView>
 
       <Dialog visible={visible} onDismiss={hideDialog}>
-        <Paragraph style={styles.modalTitle}>Deseja realmente Deletar o produto?</Paragraph>
+        <Paragraph style={styles.modalTitle}>Deseja realmente deletar o produto?</Paragraph>
         <Dialog.Actions>
           <Button onPress={() => setVisible(false)} theme={{ colors: { primary: 'red' } }}>Cancelar</Button>
-          <Button onPress={() => {}} theme={{ colors: { primary: '#4CAF50' } }}>Confirmar</Button>
+          <Button onPress={onDelete} theme={{ colors: { primary: '#4CAF50' } }}>Confirmar</Button>
         </Dialog.Actions>
       </Dialog>
 
       <LoadingModal isVisible={loading} />
-      <FabButton icon="plus" onPress={() => navigation.navigate('GerenciamentoCadastrar', { isNew: true })} />
+      <FabButton icon="plus" onPress={() => navigation.navigate('GerenciamentoCadastrar', { isNew: true, product: {} })} />
     </View>
 
   );
