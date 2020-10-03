@@ -27,6 +27,18 @@ type ParamList = {
   };
 };
 
+function getNormalizedDate(date: Date) {
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = String(date.getFullYear());
+
+  return `${day}/${month}/${year}`;
+}
+
+function formatPrice(price: number) {
+  return `R$${price.toFixed(2)}`.replace('.', ',');
+}
+
 function ClientesDados() {
   const navigation = useNavigation();
 
@@ -137,12 +149,12 @@ function ClientesDados() {
                 <ContainerAmarelo>
                   <ContainerImagem>
                     <Imagem source={Calendario} />
-                    <Text style={styles.text}>{data}</Text>
+                    <Text style={styles.text}>{getNormalizedDate(new Date(data))}</Text>
                   </ContainerImagem>
                   <Image source={Line} />
                   <ContainerImagem>
                     <Imagem source={Dinheiro} />
-                    <Text style={styles.text}>{total}</Text>
+                    <Text style={styles.text}>{formatPrice(Number(total))}</Text>
                   </ContainerImagem>
                 </ContainerAmarelo>
               </CardInfo>
