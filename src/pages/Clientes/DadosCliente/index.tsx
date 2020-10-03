@@ -105,7 +105,7 @@ function ClientesDados() {
   const handleCreate = async () => {
     setLoading(true);
     try {
-      await api.post('/clientes', {
+      const body = {
         codigo: code,
         nome: name,
         razao_social: social,
@@ -120,7 +120,13 @@ function ClientesDados() {
         referencia: reference,
         telefone1: phone1,
         telefone2: phone2,
-      });
+      };
+
+      if (isNew) {
+        await api.post('/clientes', body);
+      } else {
+        await api.put('/clientes', body);
+      }
 
       setLoading(false);
       navigation.navigate('ClientesHome');
