@@ -5,7 +5,9 @@ import {
 } from 'react-native';
 import { useNavigation, RouteProp, useRoute } from '@react-navigation/native';
 
-import { Title, TextInput } from 'react-native-paper';
+import {
+  Title, TextInput, Dialog, Paragraph, Button,
+} from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import LoadingModal from '../../../components/LoadingModal';
@@ -47,6 +49,8 @@ function ClientesDados() {
   const { isNew, codigo } = route.params;
 
   const [loading, setLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
+
   const [name, setName] = useState('');
   const [code, setCode] = useState('');
   const [social, setSocial] = useState('');
@@ -117,6 +121,30 @@ function ClientesDados() {
         telefone1: phone1,
         telefone2: phone2,
       });
+
+      setLoading(false);
+      navigation.navigate('ClientesHome');
+    } catch (error) {
+      setLoading(false);
+
+      if (error.response) {
+        if (error.response.data.error) {
+          Alert.alert(error.response.data.error);
+        } else {
+          Alert.alert('Ocorreu um erro inesperado.');
+        }
+      } else {
+        Alert.alert('Ocorreu algum erro na comunicação com o servidor.');
+      }
+    }
+  };
+
+  const onDelete = async () => {
+    setLoading(true);
+    try {
+      const response = await api.delete(`/clientes?codigo=${codigo}`);
+
+      Alert.alert(response.data.message);
 
       setLoading(false);
       navigation.navigate('ClientesHome');
@@ -291,7 +319,7 @@ function ClientesDados() {
           <View style={styles.button}>
             {
               !isNew && (
-                <TouchableOpacity style={styles.deletar} onPress={() => {}}>
+                <TouchableOpacity style={styles.deletar} onPress={() => setVisible(true)}>
                   <Title style={{ color: '#FFF' }}>Deletar</Title>
                 </TouchableOpacity>
               )
@@ -303,6 +331,21 @@ function ClientesDados() {
         </View>
       </TouchableWithoutFeedback>
       <LoadingModal isVisible={loading} />
+
+      <Dialog visible={visible} onDismiss={() => setVisible(false)}>
+        <Paragraph style={{
+          fontSize: 18,
+          padding: 15,
+        }}
+        >
+          Deseja realmente deletar o cliente?
+
+        </Paragraph>
+        <Dialog.Actions>
+          <Button onPress={() => setVisible(false)} theme={{ colors: { primary: 'red' } }}>Cancelar</Button>
+          <Button onPress={onDelete} theme={{ colors: { primary: '#4CAF50' } }}>Confirmar</Button>
+        </Dialog.Actions>
+      </Dialog>
     </KeyboardAvoidingView>
   );
 }
