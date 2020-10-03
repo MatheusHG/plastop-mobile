@@ -43,9 +43,9 @@ export default function Rota() {
 
   const [loading, setLoading] = React.useState(false);
   const [alert, setAlert] = React.useState(false);
-  const [codigo, setCodigo] = React.useState(product.codigo || 0);
+  const [codigo, setCodigo] = React.useState(product.codigo ? String(product.codigo) : '0');
   const [nomeProduto, setNomeProduto] = React.useState(product.nome || '');
-  const [preco, setPreco] = React.useState(product.preco || 0);
+  const [preco, setPreco] = React.useState(product.preco ? String(product.preco) : '0');
   const [image, setImage] = React.useState<ImageProp | null>({ uri: product.imageUri } || null);
 
   const onConfirm = async () => {
@@ -58,9 +58,9 @@ export default function Rota() {
     try {
       // eslint-disable-next-line no-undef
       const form = new FormData();
-      form.append('codigo', String(codigo));
+      form.append('codigo', codigo);
       form.append('nome', nomeProduto);
-      form.append('preco', String(preco));
+      form.append('preco', preco);
       form.append('file', makePhotoFormData(image as ImageProp) as unknown as Blob);
 
       let response;
@@ -73,9 +73,9 @@ export default function Rota() {
       Alert.alert(response.data.message);
 
       if (isNew) {
-        setCodigo(0);
+        setCodigo('0');
         setNomeProduto('');
-        setPreco(0);
+        setPreco('0');
         setImage(null);
         setLoading(false);
       } else {
@@ -138,7 +138,7 @@ export default function Rota() {
             keyboardType="decimal-pad"
             theme={{ colors: { primary: '#03071E' } }}
             style={{ width: '90%', marginBottom: 30, backgroundColor: '#fff' }}
-            onChangeText={(text) => setCodigo(Number(text))}
+            onChangeText={(text) => setCodigo(text)}
           />
           <TextInput
             label="Nome do Produto"
@@ -159,7 +159,7 @@ export default function Rota() {
             theme={{ colors: { primary: '#03071E' } }}
             style={{ width: '90%', marginBottom: 30, backgroundColor: '#fff' }}
             keyboardType="decimal-pad"
-            onChangeText={(text) => setPreco(Number(text))}
+            onChangeText={(text) => setPreco(text)}
           />
         </View>
 
