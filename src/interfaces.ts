@@ -25,6 +25,14 @@ export interface Product {
   url_imagem: string;
 }
 
+interface ProductOrder {
+  codigo: number;
+  nome: string;
+  preco: number;
+  url_image: string;
+  quantidade: number;
+}
+
 export interface Order {
   codigo: number;
   total: string;
