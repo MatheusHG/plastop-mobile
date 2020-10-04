@@ -77,7 +77,10 @@ export default function NewPedidosHome() {
           width: '100%',
         }}
         contentContainerStyle={{
-          flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly', alignItems: 'center',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          justifyContent: 'space-evenly',
+          alignItems: 'center',
         }}
       >
         {
@@ -103,7 +106,6 @@ export default function NewPedidosHome() {
             </View>
           ))
         }
-        <View style={{ width: '100%', height: 70 }} />
       </ScrollView>
       <View style={styles.barras}>
         <View style={styles.barraPrice}>
@@ -119,6 +121,8 @@ export default function NewPedidosHome() {
           <Title style={{ color: '#fff' }}>Prosseguir</Title>
         </TouchableOpacity>
       </View>
+
+      <LoadingModal isVisible={loading} />
     </View>
   );
 }
