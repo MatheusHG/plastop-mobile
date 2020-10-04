@@ -41,7 +41,7 @@ const loggedRoutes = () => (
 
 interface RoutesProps {
   isLoading: boolean;
-  token: string;
+  token: string | null;
   setLogged: (token: string | null) => void;
 }
 
@@ -87,7 +87,7 @@ const mapStateToProps = ({ isLoading, token }: State) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  setLogged: (token: string) => {
+  setLogged: (token: string | null) => {
     dispatch({
       type: 'SET_USER_CRED',
       payload: { token },
