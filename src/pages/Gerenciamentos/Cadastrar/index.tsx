@@ -138,7 +138,7 @@ export default function Rota() {
             keyboardType="decimal-pad"
             theme={{ colors: { primary: '#03071E' } }}
             style={{ width: '90%', marginBottom: 30, backgroundColor: '#fff' }}
-            onChangeText={(text) => setCodigo(text)}
+            onChangeText={(text) => setCodigo(text.replace(',', '').replace('.', ''))}
           />
           <TextInput
             label="Nome do Produto"
@@ -159,7 +159,7 @@ export default function Rota() {
             theme={{ colors: { primary: '#03071E' } }}
             style={{ width: '90%', marginBottom: 30, backgroundColor: '#fff' }}
             keyboardType="decimal-pad"
-            onChangeText={(text) => setPreco(text)}
+            onChangeText={(text) => setPreco(text.replace(',', '.'))}
           />
         </View>
 
