@@ -22,6 +22,7 @@ export interface Product {
   codigo_produto: string;
   quantidade: number;
   preco: string;
+  url_imagem: string;
 }
 
 export interface Order {
