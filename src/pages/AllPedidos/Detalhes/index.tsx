@@ -80,6 +80,30 @@ export default function OrderDetails() {
     })();
   }, []);
 
+  const onDelete = async () => {
+    setLoading(true);
+    try {
+      const response = await api.delete(`/pedidos/${codigo}`);
+
+      Alert.alert(response.data.message);
+
+      setLoading(false);
+      navigation.navigate('AllPedidosHome');
+    } catch (error) {
+      setLoading(false);
+
+      if (error.response) {
+        if (error.response.data.error) {
+          Alert.alert(error.response.data.error);
+        } else {
+          Alert.alert('Ocorreu um erro inesperado.');
+        }
+      } else {
+        Alert.alert('Ocorreu algum erro na comunicação com o servidor.');
+      }
+    }
+  };
+
   return (
     <>
       <Container>
@@ -149,7 +173,7 @@ export default function OrderDetails() {
         </DetailsContainer>
         <Space />
       </Container>
-      <FabButton icon="delete-forever" backgroundColor="#e50000" />
+      <FabButton onPress={onDelete} icon="delete-forever" backgroundColor="#e50000" />
       <LoadingModal isVisible={loading} />
     </>
   );
