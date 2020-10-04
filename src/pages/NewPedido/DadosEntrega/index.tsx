@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { StyleSheet, Alert } from 'react-native';
 import { Title, TextInput } from 'react-native-paper';
 import styled from 'styled-components/native';
-import { useRoute, RouteProp } from '@react-navigation/native';
-import { Client } from '../../../interfaces';
+import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
+import { Client, State, ProductOrder } from '../../../interfaces';
 
 import { ButtonSave } from './styles';
+
+import LoadingModal from '../../../components/LoadingModal';
+import api from '../../../services/api';
 
 type ParamList = {
   ClientesDados: {
@@ -13,11 +18,25 @@ type ParamList = {
   };
 };
 
-function NewPedidoDadosEntrega() {
+interface PageProps {
+  products: ProductOrder[];
+}
+
+function getDateString(date: Date): string {
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = String(date.getFullYear());
+
+  return `${year}-${month}-${day}`;
+}
+
+function NewPedidoDadosEntrega({ products }: PageProps) {
+  const navigation = useNavigation();
   const theme = { colors: { primary: '#03071E' } };
   const route = useRoute<RouteProp<ParamList, 'ClientesDados'>>();
   const { client } = route.params;
 
+  const [loading, setLoading] = useState(false);
   const [nome, setNome] = useState('');
   const [codigo, setCodigo] = useState('');
   const [pagamento, setPagamento] = useState('');
@@ -44,9 +63,41 @@ function NewPedidoDadosEntrega() {
     setTelefone2(client.telefone2 as string);
   }, []);
 
-  // eslint-disable-next-line no-console
-  console.log('client', route.params.client);
+  const handleCreate = async () => {
+    setLoading(true);
+    let total = 0;
+    products.forEach((e) => {
+      total += e.preco * e.quantidade;
+    });
 
+    try {
+      const body = {
+        total,
+        codigo_cliente: codigo,
+        pagamento,
+        observacao,
+        produtos: products,
+        data: getDateString(new Date()),
+      };
+
+      await api.post('/pedidos', body);
+
+      setLoading(false);
+      navigation.navigate('ClientesHome');
+    } catch (error) {
+      setLoading(false);
+
+      if (error.response) {
+        if (error.response.data.error) {
+          Alert.alert(error.response.data.error);
+        } else {
+          Alert.alert('Ocorreu um erro inesperado.');
+        }
+      } else {
+        Alert.alert('Ocorreu algum erro na comunicação com o servidor.');
+      }
+    }
+  };
   return (
     <>
       <Container>
@@ -57,6 +108,13 @@ function NewPedidoDadosEntrega() {
             theme={theme}
             value={nome}
             onChangeText={setNome}
+          />
+          <TextInput
+            style={styles.medium}
+            label="Código"
+            theme={theme}
+            value={codigo}
+            onChangeText={setCodigo}
           />
         </ContainerRow>
         <ContainerRow>
@@ -112,6 +170,16 @@ function NewPedidoDadosEntrega() {
             onChangeText={setBairro}
           />
         </ContainerRow>
+        <ContainerRow>
+          <TextInput
+            label="Referência"
+            style={styles.large}
+            keyboardType="number-pad"
+            theme={theme}
+            value={referencia}
+            onChangeText={setReferencia}
+          />
+        </ContainerRow>
 
         <ContainerRow>
           <TextInput
@@ -148,11 +216,16 @@ function NewPedidoDadosEntrega() {
       >
         <Title style={{ color: '#fff' }}>Finalizar Pedido</Title>
       </ButtonSave>
+      <LoadingModal isVisible={loading} />
     </>
   );
 }
 
-export default NewPedidoDadosEntrega;
+const mapStateToProps = ({ orderProducts }: State) => ({
+  products: orderProducts,
+});
+
+export default connect(mapStateToProps)(NewPedidoDadosEntrega);
 
 const Container = styled.ScrollView`
     flex-direction: column;

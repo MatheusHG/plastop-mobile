@@ -27,9 +27,11 @@ export interface Product {
 
 export interface ProductOrder {
   codigo: number;
+  codigo_produto: number;
   nome: string;
   preco: number;
   url_image: string;
+  url_imagem: string;
   quantidade: number;
 }
 
@@ -58,5 +60,5 @@ export interface Action {
 export interface State {
   isLoading: boolean;
   token: string | null;
-  orderProducts: Order[];
+  orderProducts: ProductOrder[];
 }

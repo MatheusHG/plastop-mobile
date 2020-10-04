@@ -73,7 +73,12 @@ function NewPedidoConfirmacao({ setProducts }: PageProps) {
   };
 
   const handleNext = () => {
-    setProducts(items);
+    setProducts(items.map((e) => {
+      e.codigo_produto = e.codigo;
+      e.url_imagem = e.url_image;
+
+      return e;
+    }));
     navigation.navigate('ClientesHome', { isOrder: true });
   };
 
