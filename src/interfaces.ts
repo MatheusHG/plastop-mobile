@@ -26,19 +26,20 @@ export interface Product {
 }
 
 export interface Order {
-  name: string;
-  phone: string;
-  city: string;
-  paymentForm: string;
-  price: string;
-  date: string;
-  address: string;
+  codigo: number;
+  total: string;
+  codigo_cliente: number;
+  pagamento?: string;
+  observacao?: string;
+  data?: string;
+  nome: string;
+  nome_fantasia: string;
+  cidade: string;
+  rua: string;
   uf: string;
-  number: string;
-  district: string;
-  storeName: string;
-  note: string;
-  products: Product[];
+  numero: number;
+  telefone1: string;
+  telefone2: string;
 }
 
 export interface Action {

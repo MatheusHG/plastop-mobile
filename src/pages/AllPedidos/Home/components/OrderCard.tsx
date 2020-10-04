@@ -17,29 +17,34 @@ function OrderCard({ order }: OrderCardProps) {
     <Container>
       <ContainerInfo>
         <Info>Emissão: </Info>
-        <StrongInfo>05/05/2020</StrongInfo>
+        <StrongInfo>{order.data}</StrongInfo>
       </ContainerInfo>
 
       <Data>
         <DataContainer>
           <DataWrap>
             <StrongInfo>Nome do Cliente: </StrongInfo>
-            <Info>{order.name}</Info>
+            <Info>{order.nome}</Info>
           </DataWrap>
 
           <DataWrap>
-            <StrongInfo>Telefone: </StrongInfo>
-            <Info>{order.phone}</Info>
+            <StrongInfo>Telefone 1: </StrongInfo>
+            <Info>{order.telefone1}</Info>
+          </DataWrap>
+
+          <DataWrap>
+            <StrongInfo>Telefone 2: </StrongInfo>
+            <Info>{order.telefone2}</Info>
           </DataWrap>
 
           <DataWrap>
             <StrongInfo>Cidade: </StrongInfo>
-            <Info>{order.city}</Info>
+            <Info>{order.cidade}</Info>
           </DataWrap>
 
           <DataWrap>
             <StrongInfo>Forma de Pagamento: </StrongInfo>
-            <Info>{order.paymentForm}</Info>
+            <Info>{order.pagamento}</Info>
           </DataWrap>
         </DataContainer>
         <PriceContainer>
@@ -48,7 +53,7 @@ function OrderCard({ order }: OrderCardProps) {
             <StrongInfo>
               R$
               {' '}
-              {order.price}
+              {order.total}
             </StrongInfo>
           </PriceInfo>
           <Details onPress={() => navigation.navigate('AllPedidosDetalhes', { order })}>

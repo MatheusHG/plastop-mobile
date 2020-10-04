@@ -1,15 +1,66 @@
-import React, { useState } from 'react';
-import { FlatList } from 'react-native';
+import React, { useState, SetStateAction } from 'react';
+import { FlatList, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import debounce from 'awesome-debounce-promise';
 import {
   Container, Header, HeaderInfo, Info, StrongInfo, SearchBar,
 } from './styles';
+import api from '../../../services/api';
 import OrderCard from './components/OrderCard';
+import LoadingModal from '../../../components/LoadingModal';
 import { Order } from '../../../interfaces';
 
 export default function AllOrders() {
-  const [searchQuery, setSearchQuery] = useState('');
+  const navigation = useNavigation();
 
-  const onChangeSearch = (query: React.SetStateAction<string>) => setSearchQuery(query);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [originalOrders, setOriginalOrders] = useState<Order[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
+
+  const getOrders = async () => {
+    setLoading(true);
+    try {
+      const response = await api.get('/pedidos');
+      setLoading(false);
+
+      setOriginalOrders(response.data);
+      setOrders(response.data);
+    } catch (error) {
+      setLoading(false);
+      Alert.alert('Ocorreu um erro na comunicação com o servidor.');
+    }
+  };
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      getOrders();
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
+  const searchItem = debounce((search) => {
+    if (search) {
+      const resultName = originalOrders.filter((item) => {
+        const normalizedName = item.nome.toLowerCase();
+        const normalizedSearch = search.toLowerCase();
+
+        return normalizedName.includes(normalizedSearch);
+      });
+
+      return resultName;
+    }
+
+    return originalOrders;
+  }, 300);
+
+  const onChangeSearch = async (query: SetStateAction<string>) => {
+    setSearchQuery(query);
+
+    const newItems = await searchItem(query);
+    setOrders(newItems);
+  };
 
   return (
     <Container>
@@ -22,7 +73,11 @@ export default function AllOrders() {
 
         <HeaderInfo>
           <Info>Total de </Info>
-          <StrongInfo>3 pedidos</StrongInfo>
+          <StrongInfo>
+            {orders.length}
+            {' '}
+            pedidos
+          </StrongInfo>
         </HeaderInfo>
       </Header>
 
@@ -33,99 +88,7 @@ export default function AllOrders() {
           <OrderCard order={item} />
         )}
       />
+      <LoadingModal isVisible={loading} />
     </Container>
   );
 }
-
-const products = [
-  {
-    photo: 'https://http2.mlstatic.com/pacoto-rabico-de-cabelo-xuxinhas-com-20-unidades-colorido-D_NQ_NP_997836-MLB27172348581_042018-F.jpg',
-    name: 'Xuxinhas pac. 10 unidades',
-    code: 'Cód.: 0205',
-    price: 'R$ 9,99',
-    quantity: 4,
-  },
-  {
-    photo: 'https://www.callfarma.com.br/imagens/produtos/lixa-para-pes-e-v-a-rosa-zalike.png',
-    name: 'Lixa de Pé EVA',
-    code: 'Cód.: 7845',
-    price: 'R$ 6,90',
-    quantity: 4,
-  },
-  {
-    photo: 'https://blisther.com.br/produtos/produto1250-1.jpg',
-    name: 'Varal Nylon',
-    code: 'Cód.: 2398',
-    price: 'R$ 2,99',
-    quantity: 4,
-  },
-  {
-    photo: 'https://http2.mlstatic.com/coador-de-cafe-de-pano-industrial-9-unid--D_NQ_NP_925648-MLB31130842396_062019-F.jpg',
-    name: 'Coador de Café',
-    code: 'Cód.: 0125',
-    price: 'R$ 5,99',
-    quantity: 10,
-  },
-  {
-    photo: 'https://static3.tcdn.com.br/img/img_prod/159791/lixa_para_unhas_preta_reta_com_gramatura_01_unidade_santa_clara_4191_1_20181210111746.jpg',
-    name: 'Lixa de Unhas',
-    code: 'Cód.: 5642',
-    price: 'R$ 7,90',
-    quantity: 10,
-  },
-  {
-    photo: 'https://http2.mlstatic.com/prendedor-de-roupa-madeira-pregador-roupa-600-unds-D_NQ_NP_707102-MLB31196664571_062019-F.jpg',
-    name: 'Prendedor de Roupa',
-    code: 'Cód.: 5986',
-    price: 'R$ 2,90',
-    quantity: 4,
-  },
-];
-
-const orders: Order[] = [
-  {
-    name: 'Davi Sousa',
-    phone: '(83) 99884-1809',
-    city: 'Campina Grande',
-    uf: 'PB',
-    address: 'Rua Dos Bobos',
-    number: '0',
-    district: 'Musical',
-    note: '',
-    storeName: 'Apple do Nordeste',
-    paymentForm: 'Dinheiro',
-    price: '52,92',
-    date: '05/05/2020',
-    products,
-  },
-  {
-    name: 'Davi Sousa',
-    phone: '(83) 99884-1809',
-    city: 'Campina Grande',
-    uf: 'PB',
-    address: 'Rua Dos Bobos',
-    number: '0',
-    district: 'Musical',
-    note: '',
-    storeName: 'Apple do Nordeste',
-    paymentForm: 'Dinheiro',
-    price: '52,92',
-    date: '05/05/2020',
-    products,
-  },
-  {
-    name: 'Davi Sousa',
-    phone: '(83) 99884-1809',
-    city: 'Campina Grande',
-    uf: 'PB',
-    address: 'Rua Dos Bobos',
-    number: '0',
-    district: 'Musical',
-    note: '',
-    storeName: 'Apple do Nordeste',
-    paymentForm: 'Dinheiro',
-    price: '52,92',
-    date: '05/05/2020',
-    products,
-  },
-];
