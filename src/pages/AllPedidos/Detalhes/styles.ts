@@ -25,7 +25,7 @@ export const Title = styled.Text`
 
 export const Data = styled(Card)`
   width: 100%;
-  background-color: #eee;
+  background-color: white;
   padding: 10px;
   border-radius: 15px;
   margin-top: 5px;

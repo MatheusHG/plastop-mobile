@@ -10,6 +10,10 @@ interface OrderCardProps {
   order: Order;
 }
 
+function formatPrice(price: number) {
+  return `R$${price.toFixed(2)}`.replace('.', ',');
+}
+
 function OrderCard({ order }: OrderCardProps) {
   const navigation = useNavigation();
 
@@ -51,9 +55,7 @@ function OrderCard({ order }: OrderCardProps) {
           <PriceInfo>
             <Info>Preço do pedido: </Info>
             <StrongInfo>
-              R$
-              {' '}
-              {order.total}
+              {formatPrice(Number(order.total))}
             </StrongInfo>
           </PriceInfo>
           <Details onPress={() => navigation.navigate('AllPedidosDetalhes', { codigoPedido: order.codigo })}>

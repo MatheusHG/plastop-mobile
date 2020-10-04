@@ -25,8 +25,12 @@ export const SearchBar = styled(Searchbar)`
 `;
 
 export const Info = styled.Text`
+  color: ${(props) => (props.color ? props.color : 'black')};
+  ${(props) => (props.greater ? 'font-size: 20px' : '')}
 `;
 
 export const StrongInfo = styled.Text`
   font-weight: bold;
+  color: ${(props) => (props.color ? props.color : 'black')};
+  ${(props) => (props.greater ? 'font-size: 20px' : '')}
 `;

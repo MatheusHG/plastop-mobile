@@ -14,7 +14,11 @@ const ProductCard = ({ product }: ProductCardProps) => (
         <ProductImage source={{ uri: product.url_imagem }} resizeMode="stretch" />
         <Infos>
           <StrongInfo>{product.nome}</StrongInfo>
-          <Info>{product.codigo_produto}</Info>
+          <Info>
+            Cod.:
+            {' '}
+            {product.codigo_produto}
+          </Info>
         </Infos>
       </Details>
       <Quantity>

@@ -49,7 +49,7 @@ function NewPedidoConfirmacao({ setProducts }: PageProps) {
   }, []);
 
   useEffect(() => {
-    const newValue = Math.max(total - discount, 0);
+    const newValue = Math.max(originalTotal - discount, 0);
 
     if (discount) setTotal(newValue);
     else if (originalTotal) setTotal(originalTotal);

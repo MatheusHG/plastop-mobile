@@ -20,6 +20,10 @@ type ParamList = {
   };
 };
 
+function formatPrice(price: number) {
+  return `R$${price.toFixed(2)}`.replace('.', ',');
+}
+
 export default function OrderDetails() {
   const route = useRoute<RouteProp<ParamList, 'AllPedidosDetalhes'>>();
   const navigation = useNavigation();
@@ -159,6 +163,11 @@ export default function OrderDetails() {
               <DataWrap width="100%" wrap>
                 <StrongInfo>Observação: </StrongInfo>
                 <Info>{observacao}</Info>
+              </DataWrap>
+
+              <DataWrap width="100%" wrap>
+                <StrongInfo greater color="#081d56">Preço Total: </StrongInfo>
+                <Info greater color="#081d56">{formatPrice(Number(total))}</Info>
               </DataWrap>
             </DataContainer>
           </Data>
