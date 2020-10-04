@@ -34,6 +34,7 @@ export default StyleSheet.create({
   cardPrice: {
     marginVertical: 15,
     marginRight: 20,
+    fontSize: 17,
   },
   barras: {
     width: '100%',
@@ -63,5 +64,6 @@ export default StyleSheet.create({
   },
   flexRow: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
 });

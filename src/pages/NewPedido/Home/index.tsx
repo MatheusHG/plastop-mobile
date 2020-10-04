@@ -1,11 +1,10 @@
 import React from 'react';
 import {
-  Text, View, TouchableOpacity, Image, Alert,
+  Text, View, TouchableOpacity, Image, Alert, ScrollView,
 } from 'react-native';
 import {
   Searchbar, Card, Title, Paragraph,
 } from 'react-native-paper';
-import { FlatGrid } from 'react-native-super-grid';
 import { useNavigation } from '@react-navigation/native';
 
 import LoadingModal from '../../../components/LoadingModal';
@@ -21,6 +20,10 @@ interface Product {
   nome: string;
   preco: number;
   url_image: string;
+}
+
+function formatPrice(price: number) {
+  return `R$${price.toFixed(2)}`.replace('.', ',');
 }
 
 export default function NewPedidosHome() {
@@ -69,33 +72,39 @@ export default function NewPedidosHome() {
         style={styles.search}
       />
 
-      <FlatGrid
-        itemDimension={100}
-        showsVerticalScrollIndicator={false}
-        data={items}
-        spacing={10}
-        renderItem={({ item }) => (
-          <View>
-            <Card style={styles.card}>
-              <Card.Cover style={styles.cardPhoto} source={{ uri: item.url_image }} />
-              <Title>{item.nome}</Title>
-              <Paragraph>{item.codigo}</Paragraph>
-              <View style={styles.botton}>
-                <Title style={styles.cardPrice}>{item.preco}</Title>
-                <View style={styles.flexRow}>
-                  <TouchableOpacity>
-                    <Image source={menos} />
-                  </TouchableOpacity>
-                  <Text style={{ marginHorizontal: 8 }}>0</Text>
-                  <TouchableOpacity onPress={() => {}}>
-                    <Image source={mais1} />
-                  </TouchableOpacity>
+      <ScrollView
+        style={{
+          width: '100%',
+        }}
+        contentContainerStyle={{
+          flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly', alignItems: 'center',
+        }}
+      >
+        {
+          items.map((item) => (
+            <View key={String(Math.random())} style={{ width: '45%', marginVertical: 10 }}>
+              <Card style={styles.card}>
+                <Card.Cover style={styles.cardPhoto} source={{ uri: item.url_image }} />
+                <Title>{item.nome}</Title>
+                <Paragraph>{item.codigo}</Paragraph>
+                <View style={styles.botton}>
+                  <Title style={styles.cardPrice}>{formatPrice(item.preco)}</Title>
+                  <View style={styles.flexRow}>
+                    <TouchableOpacity>
+                      <Image source={menos} />
+                    </TouchableOpacity>
+                    <Text style={{ marginHorizontal: 8 }}>0</Text>
+                    <TouchableOpacity onPress={() => {}}>
+                      <Image source={mais1} />
+                    </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
-            </Card>
-          </View>
-        )}
-      />
+              </Card>
+            </View>
+          ))
+        }
+        <View style={{ width: '100%', height: 70 }} />
+      </ScrollView>
       <View style={styles.barras}>
         <View style={styles.barraPrice}>
           <View style={styles.flexRow}>
