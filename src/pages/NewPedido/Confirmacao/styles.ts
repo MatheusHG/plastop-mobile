@@ -16,12 +16,10 @@ export const Cards = styled(Card)`
 
 export const CardPrice = styled.View`
     flex-direction: column;
-    bottom: -10px;
 `;
 
 export const Price = styled(Title)`
     font-size: 16px;
-    margin-top: 15px;
     margin-right: 5px;
 `;
 
