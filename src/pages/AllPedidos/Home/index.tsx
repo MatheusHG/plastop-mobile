@@ -50,6 +50,8 @@ export default function AllOrders() {
       });
 
       const resultCities = originalOrders.filter((item) => {
+        if (!item.cidade) return false;
+
         const normalizedName = item.cidade.toLowerCase();
         const normalizedSearch = search.toLowerCase();
 
