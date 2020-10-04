@@ -56,7 +56,7 @@ function OrderCard({ order }: OrderCardProps) {
               {order.total}
             </StrongInfo>
           </PriceInfo>
-          <Details onPress={() => navigation.navigate('AllPedidosDetalhes', { order })}>
+          <Details onPress={() => navigation.navigate('AllPedidosDetalhes', { codigoPedido: order.codigo })}>
             <StrongInfo>Ver mais detalhes</StrongInfo>
           </Details>
         </PriceContainer>

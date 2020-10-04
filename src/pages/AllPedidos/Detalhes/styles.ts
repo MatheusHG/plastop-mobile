@@ -2,7 +2,8 @@ import styled from 'styled-components/native';
 import { Card } from 'react-native-paper';
 
 export const Container = styled.ScrollView`
-  flex: 1;
+  width: 100%;
+  height: 100%;
 `;
 
 export const Space = styled.View`

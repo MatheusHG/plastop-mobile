@@ -18,11 +18,10 @@ export interface Client {
 }
 
 export interface Product {
-  name: string;
-  code: string;
-  quantity: number;
-  price: string;
-  photo: string;
+  nome: string;
+  codigo_produto: string;
+  quantidade: number;
+  preco: string;
 }
 
 export interface Order {
