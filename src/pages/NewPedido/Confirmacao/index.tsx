@@ -4,7 +4,6 @@ import {
 } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { Card, Title, Paragraph } from 'react-native-paper';
-import debounce from 'awesome-debounce-promise';
 
 import {
   Container, Cards, CardPrice, Price, Barras, BarraPrice, Discount, Quantidade,
@@ -34,40 +33,13 @@ export default function NewPedidoConfirmacao() {
   const route = useRoute<RouteProp<ParamList, 'NewPedidoConfirmacao'>>();
   const { totalValor, products } = route.params;
 
-  const [searchQuery, setSearchQuery] = React.useState('');
-  const [originalItems, setOriginalItems] = React.useState<Product[]>([]);
   const [items, setItems] = React.useState<Product[]>([]);
   const [total, setTotal] = React.useState<Number>(0);
 
   useEffect(() => {
     setItems(products);
-    setOriginalItems(products);
     setTotal(totalValor);
   }, []);
-
-  const searchItem = debounce((search) => {
-    if (search) {
-      const resultName = originalItems.filter((item) => {
-        const normalizedName = item.nome.toLowerCase();
-        const normalizedSearch = search.toLowerCase();
-
-        return normalizedName.includes(normalizedSearch);
-      });
-
-      const resultCode = originalItems.filter((item) => String(item.codigo).includes(search));
-
-      return [...resultName, ...resultCode];
-    }
-
-    return originalItems;
-  }, 300);
-
-  const onChangeSearch = async (query: SetStateAction<string>) => {
-    setSearchQuery(query);
-
-    const newItems = await searchItem(query);
-    setItems(newItems);
-  };
 
   return (
     <Container>
