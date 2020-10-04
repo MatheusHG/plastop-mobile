@@ -49,7 +49,14 @@ export default function AllOrders() {
         return normalizedName.includes(normalizedSearch);
       });
 
-      return resultName;
+      const resultCities = originalOrders.filter((item) => {
+        const normalizedName = item.cidade.toLowerCase();
+        const normalizedSearch = search.toLowerCase();
+
+        return normalizedName.includes(normalizedSearch);
+      });
+
+      return [...resultName, ...resultCities];
     }
 
     return originalOrders;
