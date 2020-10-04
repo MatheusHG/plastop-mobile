@@ -26,13 +26,14 @@ type ParamList = {
 
 interface PageProps {
   setProducts: (products: ProductOrder[]) => void;
+  setTotalOrder: (totalOrder: number) => void;
 }
 
 function formatPrice(priceNum: number) {
   return `R$${priceNum.toFixed(2)}`.replace('.', ',');
 }
 
-function NewPedidoConfirmacao({ setProducts }: PageProps) {
+function NewPedidoConfirmacao({ setProducts, setTotalOrder }: PageProps) {
   const navigation = useNavigation();
   const route = useRoute<RouteProp<ParamList, 'NewPedidoConfirmacao'>>();
   const { totalValor, products } = route.params;
@@ -79,6 +80,7 @@ function NewPedidoConfirmacao({ setProducts }: PageProps) {
 
       return e;
     }));
+    setTotalOrder(total);
     navigation.navigate('ClientesHome', { isOrder: true });
   };
 
@@ -164,6 +166,12 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     dispatch({
       type: 'SET_PRODUCTS',
       payload: { products },
+    });
+  },
+  setTotalOrder: (totalOrder: number) => {
+    dispatch({
+      type: 'SET_Total',
+      payload: { totalOrder },
     });
   },
 });

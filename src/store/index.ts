@@ -5,6 +5,7 @@ const INITIAL_STATE: State = {
   isLoading: true,
   token: '',
   orderProducts: [],
+  totalOrder: 0,
 };
 
 function reducer(state = INITIAL_STATE, action: Action) {
@@ -21,6 +22,11 @@ function reducer(state = INITIAL_STATE, action: Action) {
       return {
         ...state,
         orderProducts: payload.products,
+      };
+    case 'SET_TOTAL':
+      return {
+        ...state,
+        orderProducts: payload.totalOrder,
       };
   }
 

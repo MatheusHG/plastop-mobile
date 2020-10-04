@@ -61,4 +61,5 @@ export interface State {
   isLoading: boolean;
   token: string | null;
   orderProducts: ProductOrder[];
+  totalOrder: number;
 }
