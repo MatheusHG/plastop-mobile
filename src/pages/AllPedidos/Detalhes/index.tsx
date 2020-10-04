@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useState, useEffect } from 'react';
 import { Alert } from 'react-native';
 import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
+import { Button, Dialog, Paragraph } from 'react-native-paper';
 import {
   StrongInfo, Info,
 } from '../Home/styles';
@@ -29,6 +30,7 @@ export default function OrderDetails() {
   const navigation = useNavigation();
   const { codigoPedido } = route.params;
 
+  const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [codigo, setCodigo] = useState<string | undefined>('');
   const [total, setTotal] = useState<string | undefined>('');
@@ -182,7 +184,21 @@ export default function OrderDetails() {
         </DetailsContainer>
         <Space />
       </Container>
-      <FabButton onPress={onDelete} icon="delete-forever" backgroundColor="#e50000" />
+      <Dialog visible={visible} onDismiss={() => setVisible(false)}>
+        <Paragraph style={{
+          fontSize: 18,
+          padding: 15,
+        }}
+        >
+          Deseja realmente deletar o produto?
+
+        </Paragraph>
+        <Dialog.Actions>
+          <Button onPress={() => setVisible(false)} theme={{ colors: { primary: 'red' } }}>Cancelar</Button>
+          <Button onPress={onDelete} theme={{ colors: { primary: '#4CAF50' } }}>Confirmar</Button>
+        </Dialog.Actions>
+      </Dialog>
+      <FabButton onPress={() => setVisible(true)} icon="delete-forever" backgroundColor="#e50000" />
       <LoadingModal isVisible={loading} />
     </>
   );
