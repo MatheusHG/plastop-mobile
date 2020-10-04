@@ -1,4 +1,4 @@
-import React, { SetStateAction } from 'react';
+import React, { SetStateAction, useEffect } from 'react';
 import {
   Text, View, TouchableOpacity, Image, Alert, ScrollView,
 } from 'react-native';
@@ -35,6 +35,7 @@ export default function NewPedidosHome() {
   const [loading, setLoading] = React.useState(false);
   const [originalItems, setOriginalItems] = React.useState<Product[]>([]);
   const [items, setItems] = React.useState<Product[]>([]);
+  const [total, setTotal] = React.useState<Number>(0);
 
   const getProducts = async () => {
     setLoading(true);
@@ -115,6 +116,16 @@ export default function NewPedidosHome() {
     setOriginalItems(newItems);
   };
 
+  useEffect(() => {
+    let newTotal = 0;
+
+    originalItems.forEach((item) => {
+      newTotal += item.preco * item.quantidade;
+    });
+
+    setTotal(newTotal);
+  }, [originalItems]);
+
   return (
     <View style={styles.container}>
       <Searchbar
@@ -166,7 +177,11 @@ export default function NewPedidosHome() {
             <Title style={styles.barraPriceTitle}>Preço total da Venda</Title>
           </View>
           <View>
-            <Title style={styles.price}>R$ 61,87</Title>
+            <Title style={styles.price}>
+              R$
+              {' '}
+              {total.toFixed(2)}
+            </Title>
           </View>
         </View>
         <TouchableOpacity style={styles.barraProceed} onPress={() => handleClick()}>
