@@ -20,7 +20,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    bottom: -15,
+    bottom: -5,
   },
   cardPhoto: {
     height: 100,
@@ -32,9 +32,9 @@ export default StyleSheet.create({
     height: 60,
   },
   cardPrice: {
-    marginVertical: 15,
+    marginVertical: 5,
     marginRight: 20,
-    fontSize: 17,
+    fontSize: 14,
   },
   barras: {
     width: '100%',
