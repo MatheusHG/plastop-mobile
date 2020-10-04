@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import {
   View, Image, TouchableOpacity, ScrollView,
 } from 'react-native';
+import { Dispatch } from 'redux';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { Card, Title, Paragraph } from 'react-native-paper';
+import { State, ProductOrder } from '../../../interfaces';
 
 import {
   Container, Cards, CardPrice, Price, Barras, BarraPrice, Discount, Quantidade,
@@ -14,30 +17,26 @@ import money from '../../../../assets/moneyPrice.png';
 import price from '../../../../assets/price.png';
 import delet from '../../../../assets/delete.png';
 
-interface Product {
-  codigo: number;
-  nome: string;
-  preco: number;
-  url_image: string;
-  quantidade: number;
-}
-
 type ParamList = {
   NewPedidoConfirmacao: {
     totalValor: number;
-    products: Product[];
+    products: ProductOrder[];
   };
 };
+
+interface PageProps {
+  setProducts: (products: ProductOrder[]) => void;
+}
 
 function formatPrice(priceNum: number) {
   return `R$${priceNum.toFixed(2)}`.replace('.', ',');
 }
 
-export default function NewPedidoConfirmacao() {
+function NewPedidoConfirmacao({ setProducts }: PageProps) {
   const route = useRoute<RouteProp<ParamList, 'NewPedidoConfirmacao'>>();
   const { totalValor, products } = route.params;
 
-  const [items, setItems] = React.useState<Product[]>([]);
+  const [items, setItems] = React.useState<ProductOrder[]>([]);
   const [originalTotal, setOriginalTotal] = React.useState<number>(0);
   const [total, setTotal] = React.useState<number>(0);
   const [discount, setDiscount] = React.useState<number>(0);
@@ -70,6 +69,10 @@ export default function NewPedidoConfirmacao() {
 
     setItems(newItems);
     setTotal(newValue);
+  };
+
+  const handleNext = () => {
+    setProducts(items);
   };
 
   return (
@@ -144,3 +147,18 @@ export default function NewPedidoConfirmacao() {
     </Container>
   );
 }
+
+const mapStateToProps = ({ isLoading, token }: State) => ({
+  isLoading, token,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  setProducts: (products: ProductOrder[]) => {
+    dispatch({
+      type: 'SET_PRODUCTS',
+      payload: { products },
+    });
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewPedidoConfirmacao);
