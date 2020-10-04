@@ -55,6 +55,23 @@ export default function NewPedidoConfirmacao() {
     else if (originalTotal) setTotal(originalTotal);
   }, [discount]);
 
+  const onDelete = (code: number) => {
+    let newValue = 0;
+
+    const newItems = items.filter((e) => {
+      if (e.codigo !== code) {
+        newValue += e.preco * e.quantidade;
+
+        return true;
+      }
+
+      return false;
+    });
+
+    setItems(newItems);
+    setTotal(newValue);
+  };
+
   return (
     <Container>
 
@@ -88,7 +105,7 @@ export default function NewPedidoConfirmacao() {
                       {' '}
                       {item.quantidade}
                     </Quantidade>
-                    <TouchableOpacity onPress={() => {}}>
+                    <TouchableOpacity onPress={() => onDelete(item.codigo)}>
                       <Image source={delet} />
                     </TouchableOpacity>
                   </ViewBottom>
