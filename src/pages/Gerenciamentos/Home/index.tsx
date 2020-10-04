@@ -1,9 +1,10 @@
 import React, { useState, SetStateAction } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Alert, Text } from 'react-native';
+import { View, Alert } from 'react-native';
 import {
-  Searchbar, Card, Title, Paragraph, IconButton, Colors, Button, Dialog, Portal,
+  Searchbar, Card, Title, Paragraph, IconButton, Colors, Button, Dialog,
 } from 'react-native-paper';
+import debounce from 'awesome-debounce-promise';
 
 import { ScrollView } from 'react-native-gesture-handler';
 import api from '../../../services/api';
@@ -30,6 +31,7 @@ export default function Rota() {
   const [currentCode, setCurrentCode] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [visible, setVisible] = useState(false);
+  const [originalItems, setOriginalItems] = useState<Product[]>([]);
   const [items, setItems] = useState<Product[]>([]);
 
   const getProducts = async () => {
@@ -52,6 +54,20 @@ export default function Rota() {
 
     return unsubscribe;
   }, [navigation]);
+
+  const searchItem = debounce((search) => {
+    if (search) {
+      const result = originalItems.filter((item) => {
+        const normalizedName = item.nome.toLowerCase();
+        const normalizedSearch = search.toLowerCase();
+
+        return normalizedName.includes(normalizedSearch);
+      });
+      return result;
+    }
+
+    return originalItems;
+  }, 300);
 
   const onChangeSearch = (query: SetStateAction<string>) => setSearchQuery(query);
 
