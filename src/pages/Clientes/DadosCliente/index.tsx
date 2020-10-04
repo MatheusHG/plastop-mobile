@@ -3,6 +3,7 @@ import {
   StyleSheet, Text, View, TouchableOpacity, Keyboard, Platform, Image,
   KeyboardAvoidingView, Alert, TouchableWithoutFeedback,
 } from 'react-native';
+import { TextInputMask } from 'react-native-masked-text';
 import { useNavigation, RouteProp, useRoute } from '@react-navigation/native';
 
 import {
@@ -306,18 +307,44 @@ function ClientesDados() {
               <TextInput
                 label="Telefone 1"
                 style={styles.large}
-                keyboardType="number-pad"
                 theme={theme}
                 value={phone1}
                 onChangeText={setPhone1}
+                render={
+                  ({ style, value, onChangeText }) => (
+                    <TextInputMask
+                      style={style}
+                      keyboardType="number-pad"
+                      value={value}
+                      onChangeText={onChangeText}
+                      type="custom"
+                      options={{
+                        mask: '(99) 99999-9999',
+                      }}
+                    />
+                  )
+                }
               />
               <TextInput
                 label="Telefone 2"
-                keyboardType="number-pad"
                 style={styles.large}
                 theme={theme}
                 value={phone2}
                 onChangeText={setPhone2}
+                render={
+                  ({ style, value, onChangeText }) => (
+                    <TextInputMask
+                      style={style}
+                      keyboardType="number-pad"
+                      value={value}
+                      onChangeText={onChangeText}
+                      type="custom"
+                      options={{
+                        mask: '(99) 99999-9999',
+                      }}
+                    />
+                  )
+                }
               />
             </View>
             <View style={{ width: '100%', height: 140 }} />
