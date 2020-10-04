@@ -137,7 +137,7 @@ function NewPedidoConfirmacao({ setProducts, setTotalOrder }: PageProps) {
           <Discount
             placeholderTextColor="#000"
             keyboardType="numeric"
-            onChangeText={(text: string) => setDiscount(Number(text || '0'))}
+            onChangeText={(text: string) => setDiscount(Number(text.replace(',', '.') || '0'))}
           />
         </BarraDiscount>
         <BarraPrice>
