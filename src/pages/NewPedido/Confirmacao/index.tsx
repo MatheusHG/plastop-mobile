@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, SetStateAction } from 'react';
 import {
-  View, Image, TouchableOpacity,
+  View, Image, TouchableOpacity, ScrollView,
 } from 'react-native';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import { Card, Title, Paragraph } from 'react-native-paper';
-import { FlatGrid } from 'react-native-super-grid';
+import debounce from 'awesome-debounce-promise';
 
 import {
   Container, Cards, CardPrice, Price, Barras, BarraPrice, Discount, Quantidade,
@@ -14,52 +15,100 @@ import money from '../../../../assets/moneyPrice.png';
 import price from '../../../../assets/price.png';
 import delet from '../../../../assets/delete.png';
 
+interface Product {
+  codigo: number;
+  nome: string;
+  preco: number;
+  url_image: string;
+  quantidade: number;
+}
+
+type ParamList = {
+  NewPedidoConfirmacao: {
+    totalValor: number;
+    products: Product[];
+  };
+};
+
 export default function NewPedidoConfirmacao() {
+  const route = useRoute<RouteProp<ParamList, 'NewPedidoConfirmacao'>>();
+  const { totalValor, products } = route.params;
+
   const [searchQuery, setSearchQuery] = React.useState('');
+  const [originalItems, setOriginalItems] = React.useState<Product[]>([]);
+  const [items, setItems] = React.useState<Product[]>([]);
+  const [total, setTotal] = React.useState<Number>(0);
 
-  const onChangeSearch = (query: React.SetStateAction<string>) => setSearchQuery(query);
+  useEffect(() => {
+    setItems(products);
+    setOriginalItems(products);
+    setTotal(totalValor);
+  }, []);
 
-  const [items, setItems] = React.useState([
-    {
-      photo: 'https://http2.mlstatic.com/pacoto-rabico-de-cabelo-xuxinhas-com-20-unidades-colorido-D_NQ_NP_997836-MLB27172348581_042018-F.jpg', nameRef: 'Xuxinhas pac. 10 unidades', cod: 'Cód.: 0205', price: 'R$ 9,99', quant: 0,
-    },
-    {
-      photo: 'https://http2.mlstatic.com/D_NQ_NP_765344-MLB28122713989_092018-O.jpg', nameRef: 'Prendedor de Roupa', cod: 'Cód.: 5986', price: 'R$ 2,90', quant: 0,
-    },
-    {
-      photo: 'https://www.callfarma.com.br/imagens/produtos/lixa-para-pes-e-v-a-rosa-zalike.png', nameRef: 'Lixa de Pé EVA', cod: 'Cód.: 7845', price: 'R$ 6,90', quant: 0,
-    },
-  ]);
+  const searchItem = debounce((search) => {
+    if (search) {
+      const resultName = originalItems.filter((item) => {
+        const normalizedName = item.nome.toLowerCase();
+        const normalizedSearch = search.toLowerCase();
+
+        return normalizedName.includes(normalizedSearch);
+      });
+
+      const resultCode = originalItems.filter((item) => String(item.codigo).includes(search));
+
+      return [...resultName, ...resultCode];
+    }
+
+    return originalItems;
+  }, 300);
+
+  const onChangeSearch = async (query: SetStateAction<string>) => {
+    setSearchQuery(query);
+
+    const newItems = await searchItem(query);
+    setItems(newItems);
+  };
+
   return (
     <Container>
-      <FlatGrid
-        itemDimension={130}
-        showsVerticalScrollIndicator={false}
-        data={items}
-        spacing={10}
-        renderItem={({ item }) => (
-          <View>
-            <Cards>
-              <Card.Cover style={{ height: 100 }} source={{ uri: item.photo }} />
-              <Title>{item.nameRef}</Title>
-              <Paragraph>{item.cod}</Paragraph>
-              <CardPrice>
-                <Price>{item.price}</Price>
-                <ViewBottom>
-                  <Quantidade>
-                    Quantidade:
-                    {' '}
-                    {item.quant}
-                  </Quantidade>
-                  <TouchableOpacity onPress={() => {}}>
-                    <Image source={delet} />
-                  </TouchableOpacity>
-                </ViewBottom>
-              </CardPrice>
-            </Cards>
-          </View>
-        )}
-      />
+
+      <ScrollView
+        style={{
+          width: '100%',
+        }}
+        contentContainerStyle={{
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          justifyContent: 'space-evenly',
+          alignItems: 'center',
+        }}
+      >
+        {
+          items.map((item) => (
+            <View key={String(Math.random())} style={{ width: '45%', marginVertical: 10 }}>
+              <Cards>
+                <Card.Cover style={{ height: 100 }} source={{ uri: item.url_image }} />
+                <Title>{item.nome}</Title>
+                <Paragraph>{item.codigo}</Paragraph>
+                <CardPrice>
+                  <Price>{item.preco}</Price>
+                  <ViewBottom>
+                    <Quantidade>
+                      Quantidade:
+                      {' '}
+                      {item.quantidade}
+                    </Quantidade>
+                    <TouchableOpacity onPress={() => {}}>
+                      <Image source={delet} />
+                    </TouchableOpacity>
+                  </ViewBottom>
+                </CardPrice>
+              </Cards>
+            </View>
+          ))
+        }
+      </ScrollView>
+
       <Barras>
         <BarraDiscount>
           <Row>
@@ -79,7 +128,11 @@ export default function NewPedidoConfirmacao() {
             <Image source={money} />
             <TitlePrice>TOTAL</TitlePrice>
           </Row>
-          <TitleValue>R$ 61,87</TitleValue>
+          <TitleValue>
+            R$
+            {' '}
+            {total.toFixed(2)}
+          </TitleValue>
         </BarraPrice>
         <BarraProsseguir onPress={() => {}}>
           <Title style={{ color: '#fff' }}>Prosseguir</Title>

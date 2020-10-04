@@ -60,13 +60,14 @@ export default function NewPedidosHome() {
   React.useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       getProducts();
+      setTotal(0);
     });
 
     return unsubscribe;
   }, [navigation]);
 
   const handleClick = () => {
-    navigation.navigate('NewPedidoConfirmacao');
+    navigation.navigate('NewPedidoConfirmacao', { totalValor: total, products: originalItems.filter((e) => e.quantidade > 0) });
   };
 
   const searchItem = debounce((search) => {
