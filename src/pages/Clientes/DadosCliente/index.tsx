@@ -76,7 +76,7 @@ function ClientesDados() {
 
         try {
           const response = await api.get(`/clientes/${codigo}`);
-          const newClient: Client = response.data[0];
+          const newClient: Client = response.data;
 
           setName(newClient.nome as string);
           setCode(String(newClient.codigo));
