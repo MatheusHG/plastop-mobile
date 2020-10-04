@@ -94,37 +94,37 @@ export default function NewPedidosHome() {
   };
 
   const handlePlus = (code: number) => {
+    let newTotal = 0;
+
     const newItems = originalItems.map((e) => {
       if (e.codigo === code) {
         e.quantidade += 1;
       }
+
+      newTotal += e.preco * e.quantidade;
       return e;
     });
 
     setOriginalItems(newItems);
+    setTotal(newTotal);
   };
 
   const handleMinus = (code: number) => {
+    let newTotal = 0;
+
     const newItems = originalItems.map((e) => {
       if (e.codigo === code) {
         e.quantidade -= 1;
         if (e.quantidade < 0) e.quantidade = 0;
       }
+
+      newTotal += e.preco * e.quantidade;
       return e;
     });
 
     setOriginalItems(newItems);
-  };
-
-  useEffect(() => {
-    let newTotal = 0;
-
-    originalItems.forEach((item) => {
-      newTotal += item.preco * item.quantidade;
-    });
-
     setTotal(newTotal);
-  }, [originalItems]);
+  };
 
   return (
     <View style={styles.container}>
