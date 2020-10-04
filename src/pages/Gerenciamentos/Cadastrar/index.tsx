@@ -49,7 +49,7 @@ export default function Rota() {
   const [image, setImage] = React.useState<ImageProp | null>({ uri: product.imageUri } || null);
 
   const onConfirm = async () => {
-    if (!codigo || !nomeProduto || !preco || !image) {
+    if (!codigo || !nomeProduto || !preco || (image && !image.uri)) {
       Alert.alert('Preencha todas as informações');
       return;
     }
