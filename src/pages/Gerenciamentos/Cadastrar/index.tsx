@@ -43,9 +43,9 @@ export default function Rota() {
 
   const [loading, setLoading] = React.useState(false);
   const [alert, setAlert] = React.useState(false);
-  const [codigo, setCodigo] = React.useState(product.codigo ? String(product.codigo) : '0');
+  const [codigo, setCodigo] = React.useState(product.codigo ? String(product.codigo) : '');
   const [nomeProduto, setNomeProduto] = React.useState(product.nome || '');
-  const [preco, setPreco] = React.useState(product.preco ? String(product.preco) : '0');
+  const [preco, setPreco] = React.useState(product.preco ? String(product.preco) : '');
   const [image, setImage] = React.useState<ImageProp | null>({ uri: product.imageUri } || null);
 
   const onConfirm = async () => {
@@ -58,9 +58,9 @@ export default function Rota() {
     try {
       // eslint-disable-next-line no-undef
       const form = new FormData();
-      form.append('codigo', codigo);
+      form.append('codigo', codigo || '0');
       form.append('nome', nomeProduto);
-      form.append('preco', preco);
+      form.append('preco', preco || '0');
       form.append('file', makePhotoFormData(image as ImageProp) as unknown as Blob);
 
       let response;
@@ -73,9 +73,9 @@ export default function Rota() {
       Alert.alert(response.data.message);
 
       if (isNew) {
-        setCodigo('0');
+        setCodigo('');
         setNomeProduto('');
-        setPreco('0');
+        setPreco('');
         setImage(null);
         setLoading(false);
       } else {
