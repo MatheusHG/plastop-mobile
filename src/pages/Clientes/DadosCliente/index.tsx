@@ -27,6 +27,7 @@ type ParamList = {
   ClientesDados: {
     isNew: boolean;
     codigo?: number;
+    isOrder?: boolean;
   };
 };
 
@@ -47,7 +48,7 @@ function ClientesDados() {
 
   const route = useRoute<RouteProp<ParamList, 'ClientesDados'>>();
   const theme = { colors: { primary: '#03071E' } };
-  const { isNew, codigo } = route.params;
+  const { isNew, codigo, isOrder } = route.params;
 
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -130,7 +131,11 @@ function ClientesDados() {
       }
 
       setLoading(false);
-      navigation.navigate('ClientesHome');
+      if (!isOrder) {
+        navigation.navigate('ClientesHome');
+      } else {
+        navigation.navigate('DadosEntrega', { client: body });
+      }
     } catch (error) {
       setLoading(false);
 
@@ -351,7 +356,7 @@ function ClientesDados() {
           </ScrollView>
           <View style={styles.button}>
             {
-              !isNew && (
+              (!isNew && !isOrder) && (
                 <TouchableOpacity style={styles.deletar} onPress={() => setVisible(true)}>
                   <Title style={{ color: '#FFF' }}>Deletar</Title>
                 </TouchableOpacity>

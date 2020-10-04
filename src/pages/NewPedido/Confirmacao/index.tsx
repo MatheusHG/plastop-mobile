@@ -4,7 +4,7 @@ import {
   View, Image, TouchableOpacity, ScrollView,
 } from 'react-native';
 import { Dispatch } from 'redux';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { RouteProp, useRoute, useNavigation } from '@react-navigation/native';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import { State, ProductOrder } from '../../../interfaces';
 
@@ -33,6 +33,7 @@ function formatPrice(priceNum: number) {
 }
 
 function NewPedidoConfirmacao({ setProducts }: PageProps) {
+  const navigation = useNavigation();
   const route = useRoute<RouteProp<ParamList, 'NewPedidoConfirmacao'>>();
   const { totalValor, products } = route.params;
 
@@ -73,6 +74,7 @@ function NewPedidoConfirmacao({ setProducts }: PageProps) {
 
   const handleNext = () => {
     setProducts(items);
+    navigation.navigate('ClientesHome', { isOrder: true });
   };
 
   return (
@@ -140,7 +142,7 @@ function NewPedidoConfirmacao({ setProducts }: PageProps) {
             {formatPrice(total)}
           </TitleValue>
         </BarraPrice>
-        <BarraProsseguir onPress={() => {}}>
+        <BarraProsseguir onPress={handleNext}>
           <Title style={{ color: '#fff' }}>Prosseguir</Title>
         </BarraProsseguir>
       </Barras>

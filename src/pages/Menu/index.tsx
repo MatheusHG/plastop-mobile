@@ -22,7 +22,7 @@ export default function Rota() {
     navigation.navigate('AllPedidosHome');
   }
   function handleNavigationClientesHome() {
-    navigation.navigate('ClientesHome');
+    navigation.navigate('ClientesHome', { isOrder: false });
   }
   function handleNavigationGerenciamentoHome() {
     navigation.navigate('GerenciamentoHome');
