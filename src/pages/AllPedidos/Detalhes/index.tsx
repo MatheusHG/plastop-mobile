@@ -149,7 +149,7 @@ export default function OrderDetails() {
     try {
       const response = await api.get(`/comprovante?codigo=${codigoPedido}&to=${email}`);
 
-      Alert.alert(response.data.message);
+      Alert.alert('Sucesso!', response.data.message);
 
       setLoading(false);
       setSendEmail(false);
