@@ -72,10 +72,20 @@ function NewPedidoDadosEntrega({ products }: PageProps) {
 
     try {
       const body = {
-        total,
-        codigo_cliente: codigo,
+        total: Number(total),
+        codigo_cliente: Number(codigo),
         pagamento,
         observacao,
+        dados_entrega: {
+          cidade,
+          numero: Number(numero),
+          uf,
+          rua,
+          bairro,
+          referencia,
+          telefone1,
+          telefone2,
+        },
         produtos: products,
         data: getDateString(new Date()),
       };

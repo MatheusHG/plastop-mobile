@@ -29,7 +29,6 @@ export default function Confirmacao() {
     <>
       <StatusBar backgroundColor="#4CFF74" />
       <View style={styles.container}>
-        <AntDesign name="closecircle" size={30} color="#000" style={styles.icon} />
         <Image style={styles.imagem} source={ConfirmationIcon} />
         <Text style={styles.texto}>Pedido Realizado!</Text>
       </View>
