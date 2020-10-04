@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { SetStateAction } from 'react';
 import {
   Text, View, TouchableOpacity, Image, Alert, ScrollView,
 } from 'react-native';
 import {
   Searchbar, Card, Title, Paragraph,
 } from 'react-native-paper';
+import debounce from 'awesome-debounce-promise';
 import { useNavigation } from '@react-navigation/native';
 
 import LoadingModal from '../../../components/LoadingModal';
@@ -29,6 +30,7 @@ function formatPrice(price: number) {
 export default function NewPedidosHome() {
   const navigation = useNavigation();
 
+  const [searchQuery, setSearchQuery] = React.useState('');
   const [loading, setLoading] = React.useState(false);
   const [originalItems, setOriginalItems] = React.useState<Product[]>([]);
   const [items, setItems] = React.useState<Product[]>([]);
@@ -59,9 +61,29 @@ export default function NewPedidosHome() {
     navigation.navigate('NewPedidoConfirmacao');
   };
 
-  const [searchQuery, setSearchQuery] = React.useState('');
+  const searchItem = debounce((search) => {
+    if (search) {
+      const resultName = originalItems.filter((item) => {
+        const normalizedName = item.nome.toLowerCase();
+        const normalizedSearch = search.toLowerCase();
 
-  const onChangeSearch = (query: React.SetStateAction<string>) => setSearchQuery(query);
+        return normalizedName.includes(normalizedSearch);
+      });
+
+      const resultCode = originalItems.filter((item) => String(item.codigo).includes(search));
+
+      return [...resultName, ...resultCode];
+    }
+
+    return originalItems;
+  }, 300);
+
+  const onChangeSearch = async (query: SetStateAction<string>) => {
+    setSearchQuery(query);
+
+    const newItems = await searchItem(query);
+    setItems(newItems);
+  };
 
   return (
     <View style={styles.container}>
