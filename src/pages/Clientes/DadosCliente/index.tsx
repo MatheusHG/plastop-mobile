@@ -119,8 +119,8 @@ function ClientesDados() {
         numero: number,
         bairro: neighbour,
         referencia: reference,
-        telefone1: phone1,
-        telefone2: phone2,
+        telefone1: phone1.replace('(', '').replace(')', '').replace(' ', '').replace('-', ''),
+        telefone2: phone2.replace('(', '').replace(')', '').replace(' ', '').replace('-', ''),
       };
 
       if (isNew) {
