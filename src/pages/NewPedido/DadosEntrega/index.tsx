@@ -80,10 +80,10 @@ function NewPedidoDadosEntrega({ products }: PageProps) {
         data: getDateString(new Date()),
       };
 
-      await api.post('/pedidos', body);
+      const response = await api.post('/pedidos', body);
 
       setLoading(false);
-      navigation.navigate('ClientesHome');
+      navigation.navigate('Confirmacao', { codigoPedido: response.data });
     } catch (error) {
       setLoading(false);
 
@@ -113,6 +113,7 @@ function NewPedidoDadosEntrega({ products }: PageProps) {
             style={styles.medium}
             label="Código"
             theme={theme}
+            keyboardType="number-pad"
             value={codigo}
             onChangeText={setCodigo}
           />
@@ -147,7 +148,6 @@ function NewPedidoDadosEntrega({ products }: PageProps) {
           <TextInput
             label="Endereço"
             style={styles.large}
-            keyboardType="number-pad"
             theme={theme}
             value={rua}
             onChangeText={setRua}
@@ -157,6 +157,7 @@ function NewPedidoDadosEntrega({ products }: PageProps) {
             style={styles.medium}
             theme={theme}
             value={numero}
+            keyboardType="number-pad"
             onChangeText={setNumero}
           />
         </ContainerRow>
@@ -164,7 +165,6 @@ function NewPedidoDadosEntrega({ products }: PageProps) {
           <TextInput
             label="Bairro"
             style={styles.large}
-            keyboardType="number-pad"
             theme={theme}
             value={bairro}
             onChangeText={setBairro}
@@ -174,7 +174,6 @@ function NewPedidoDadosEntrega({ products }: PageProps) {
           <TextInput
             label="Referência"
             style={styles.large}
-            keyboardType="number-pad"
             theme={theme}
             value={referencia}
             onChangeText={setReferencia}
@@ -203,7 +202,6 @@ function NewPedidoDadosEntrega({ products }: PageProps) {
           <TextInput
             label="Observação"
             style={styles.large}
-            keyboardType="number-pad"
             theme={theme}
             value={observacao}
             onChangeText={setObservacao}
@@ -211,8 +209,7 @@ function NewPedidoDadosEntrega({ products }: PageProps) {
         </ContainerRow>
       </Container>
       <ButtonSave
-        onPress={() => {
-        }}
+        onPress={handleCreate}
       >
         <Title style={{ color: '#fff' }}>Finalizar Pedido</Title>
       </ButtonSave>
