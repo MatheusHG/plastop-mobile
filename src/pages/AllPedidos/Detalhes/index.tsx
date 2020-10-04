@@ -44,7 +44,7 @@ export default function OrderDetails() {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => <ShareButton />,
+      headerRight: () => <ShareButton onPress={() => console.log('compartilhou')} />,
     });
   }, [navigation]);
 
