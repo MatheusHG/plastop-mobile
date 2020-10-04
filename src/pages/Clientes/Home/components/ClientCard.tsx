@@ -33,6 +33,7 @@ function ClientCard(props: ClientCardProps) {
 
 const Container = styled(Card)`
   margin: 5px 0;
+  width: 100%;
 `;
 
 export default ClientCard;
