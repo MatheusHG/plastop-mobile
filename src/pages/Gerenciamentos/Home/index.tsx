@@ -40,6 +40,7 @@ export default function Rota() {
       const response = await api.get('/produtos');
       setLoading(false);
 
+      setOriginalItems(response.data);
       setItems(response.data);
     } catch (error) {
       setLoading(false);
@@ -57,19 +58,27 @@ export default function Rota() {
 
   const searchItem = debounce((search) => {
     if (search) {
-      const result = originalItems.filter((item) => {
+      const resultName = originalItems.filter((item) => {
         const normalizedName = item.nome.toLowerCase();
         const normalizedSearch = search.toLowerCase();
 
         return normalizedName.includes(normalizedSearch);
       });
-      return result;
+
+      const resultCode = originalItems.filter((item) => String(item.codigo).includes(search));
+
+      return [...resultName, ...resultCode];
     }
 
     return originalItems;
   }, 300);
 
-  const onChangeSearch = (query: SetStateAction<string>) => setSearchQuery(query);
+  const onChangeSearch = async (query: SetStateAction<string>) => {
+    setSearchQuery(query);
+
+    const newItems = await searchItem(query);
+    setItems(newItems);
+  };
 
   const hideDialog = () => setVisible(false);
 
