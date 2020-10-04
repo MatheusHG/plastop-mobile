@@ -302,6 +302,7 @@ export default function OrderDetails() {
             }}
             theme={theme}
             value={email}
+            autoCapitalize="none"
             onChangeText={setEmail}
           />
           <Dialog.Actions>
