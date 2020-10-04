@@ -170,7 +170,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   },
   setTotalOrder: (totalOrder: number) => {
     dispatch({
-      type: 'SET_Total',
+      type: 'SET_TOTAL',
       payload: { totalOrder },
     });
   },

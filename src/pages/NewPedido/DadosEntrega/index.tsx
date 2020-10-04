@@ -20,6 +20,7 @@ type ParamList = {
 
 interface PageProps {
   products: ProductOrder[];
+  totalOrder: number;
 }
 
 function getDateString(date: Date): string {
@@ -30,7 +31,7 @@ function getDateString(date: Date): string {
   return `${year}-${month}-${day}`;
 }
 
-function NewPedidoDadosEntrega({ products }: PageProps) {
+function NewPedidoDadosEntrega({ products, totalOrder }: PageProps) {
   const navigation = useNavigation();
   const theme = { colors: { primary: '#03071E' } };
   const route = useRoute<RouteProp<ParamList, 'ClientesDados'>>();
@@ -65,14 +66,10 @@ function NewPedidoDadosEntrega({ products }: PageProps) {
 
   const handleCreate = async () => {
     setLoading(true);
-    let total = 0;
-    products.forEach((e) => {
-      total += e.preco * e.quantidade;
-    });
 
     try {
       const body = {
-        total: Number(total),
+        total: totalOrder,
         codigo_cliente: Number(codigo),
         pagamento,
         observacao,
@@ -228,8 +225,9 @@ function NewPedidoDadosEntrega({ products }: PageProps) {
   );
 }
 
-const mapStateToProps = ({ orderProducts }: State) => ({
+const mapStateToProps = ({ orderProducts, totalOrder }: State) => ({
   products: orderProducts,
+  totalOrder,
 });
 
 export default connect(mapStateToProps)(NewPedidoDadosEntrega);

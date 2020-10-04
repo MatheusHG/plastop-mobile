@@ -26,7 +26,7 @@ function reducer(state = INITIAL_STATE, action: Action) {
     case 'SET_TOTAL':
       return {
         ...state,
-        orderProducts: payload.totalOrder,
+        totalOrder: payload.totalOrder,
       };
   }
 
