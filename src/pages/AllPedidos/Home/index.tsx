@@ -13,7 +13,6 @@ import { Order } from '../../../interfaces';
 export default function AllOrders() {
   const navigation = useNavigation();
 
-  const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [originalOrders, setOriginalOrders] = useState<Order[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
@@ -42,31 +41,23 @@ export default function AllOrders() {
 
   const searchItem = debounce((search) => {
     if (search) {
-      const resultName = originalOrders.filter((item) => {
+      const result = originalOrders.filter((item) => {
         const normalizedName = item.nome.toLowerCase();
         const normalizedSearch = search.toLowerCase();
+        if (normalizedName.includes(normalizedSearch)) return true;
 
-        return normalizedName.includes(normalizedSearch);
-      });
-
-      const resultCities = originalOrders.filter((item) => {
         if (!item.cidade) return false;
-
-        const normalizedName = item.cidade.toLowerCase();
-        const normalizedSearch = search.toLowerCase();
-
-        return normalizedName.includes(normalizedSearch);
+        const normalizedCity = item.cidade.toLowerCase();
+        return normalizedCity.includes(normalizedSearch);
       });
 
-      return [...resultName, ...resultCities];
+      return result;
     }
 
     return originalOrders;
   }, 300);
 
   const onChangeSearch = async (query: SetStateAction<string>) => {
-    setSearchQuery(query);
-
     const newItems = await searchItem(query);
     setOrders(newItems);
   };
@@ -77,7 +68,6 @@ export default function AllOrders() {
         <SearchBar
           placeholder="Cidade/Cliente"
           onChangeText={onChangeSearch}
-          value={searchQuery}
         />
 
         <HeaderInfo>
