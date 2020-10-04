@@ -110,7 +110,7 @@ export default function Rota() {
   return (
     <View style={styles.container}>
       <Searchbar
-        placeholder="Search"
+        placeholder="Pesquisar"
         onChangeText={onChangeSearch}
         value={searchQuery}
         style={styles.search}
