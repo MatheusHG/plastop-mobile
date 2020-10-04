@@ -1,9 +1,10 @@
 import { createStore } from 'redux';
-import { Action } from '../interfaces';
+import { Action, State } from '../interfaces';
 
-const INITIAL_STATE = {
+const INITIAL_STATE: State = {
   isLoading: true,
   token: '',
+  orderProducts: [],
 };
 
 function reducer(state = INITIAL_STATE, action: Action) {
@@ -15,6 +16,11 @@ function reducer(state = INITIAL_STATE, action: Action) {
         ...state,
         isLoading: false,
         token: payload.token,
+      };
+    case 'SET_PRODUCTS':
+      return {
+        ...state,
+        orderProducts: payload.products,
       };
   }
 

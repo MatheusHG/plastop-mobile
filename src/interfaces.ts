@@ -25,7 +25,7 @@ export interface Product {
   url_imagem: string;
 }
 
-interface ProductOrder {
+export interface ProductOrder {
   codigo: number;
   nome: string;
   preco: number;
@@ -58,4 +58,5 @@ export interface Action {
 export interface State {
   isLoading: boolean;
   token: string | null;
+  orderProducts: Order[];
 }
