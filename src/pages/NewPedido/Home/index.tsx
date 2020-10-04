@@ -153,7 +153,11 @@ export default function NewPedidosHome() {
               <Card style={styles.card}>
                 <Card.Cover style={styles.cardPhoto} source={{ uri: item.url_image }} />
                 <Title>{item.nome}</Title>
-                <Paragraph>{item.codigo}</Paragraph>
+                <Paragraph>
+                  Cod.:
+                  {' '}
+                  {item.codigo}
+                </Paragraph>
                 <View style={styles.botton}>
                   <Title style={styles.cardPrice}>{formatPrice(item.preco)}</Title>
                   <View style={styles.flexRow}>
