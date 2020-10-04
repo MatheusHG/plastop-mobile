@@ -217,7 +217,7 @@ function ClientesDados() {
                 maxLength={8}
                 theme={theme}
                 value={code}
-                onChangeText={setCode}
+                onChangeText={(text) => setCode(text.replace(',', '').replace('.', ''))}
               />
             </View>
             <View style={styles.containerRow}>
