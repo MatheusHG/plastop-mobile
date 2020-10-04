@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Text, View, TouchableOpacity, Image,
+  Text, View, TouchableOpacity, Image, Alert,
 } from 'react-native';
 import {
   Searchbar, Card, Title, Paragraph,
@@ -8,14 +8,49 @@ import {
 import { FlatGrid } from 'react-native-super-grid';
 import { useNavigation } from '@react-navigation/native';
 
+import LoadingModal from '../../../components/LoadingModal';
+import api from '../../../services/api';
 import money from '../../../../assets/moneyPrice.png';
 import mais1 from '../../../../assets/mais1.png';
 import menos from '../../../../assets/menos.png';
 
 import styles from './styles';
 
+interface Product {
+  codigo: number;
+  nome: string;
+  preco: number;
+  url_image: string;
+}
+
 export default function NewPedidosHome() {
   const navigation = useNavigation();
+
+  const [loading, setLoading] = React.useState(false);
+  const [originalItems, setOriginalItems] = React.useState<Product[]>([]);
+  const [items, setItems] = React.useState<Product[]>([]);
+
+  const getProducts = async () => {
+    setLoading(true);
+    try {
+      const response = await api.get('/produtos');
+      setLoading(false);
+
+      setOriginalItems(response.data);
+      setItems(response.data);
+    } catch (error) {
+      setLoading(false);
+      Alert.alert('Ocorreu um erro na comunicação com o servidor.');
+    }
+  };
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      getProducts();
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   const handleClick = () => {
     navigation.navigate('NewPedidoConfirmacao');
@@ -25,26 +60,6 @@ export default function NewPedidosHome() {
 
   const onChangeSearch = (query: React.SetStateAction<string>) => setSearchQuery(query);
 
-  const [items, setItems] = React.useState([
-    {
-      photo: 'https://http2.mlstatic.com/pacoto-rabico-de-cabelo-xuxinhas-com-20-unidades-colorido-D_NQ_NP_997836-MLB27172348581_042018-F.jpg', nameRef: 'Xuxinhas pac. 10 unidades', cod: 'Cód.: 0205', price: 'R$ 9,99', quant: 0,
-    },
-    {
-      photo: 'https://lh3.googleusercontent.com/proxy/Vix-I2bVHnAIwPi-wulHOjvy6eAxFsjxd4PxvH3L9qiuuKFOACavsvb4Ig6x2pxczSKTQJmTChr7JNVtzNCws2NCFC2g_PIq1zR1prijzFWLPaJZrSf_eqW2CpjvZ26gTJKPnrTGBA0NqnxkR7wuMdqaNU8tTwSAroXTW4M', nameRef: 'Prendedor de Roupa', cod: 'Cód.: 5986', price: 'R$ 2,90', quant: 0,
-    },
-    {
-      photo: 'https://www.callfarma.com.br/imagens/produtos/lixa-para-pes-e-v-a-rosa-zalike.png', nameRef: 'Lixa de Pé EVA', cod: 'Cód.: 7845', price: 'R$ 6,90', quant: 0,
-    },
-    {
-      photo: 'https://blisther.com.br/produtos/produto1250-1.jpg', nameRef: 'Varal Nylon', cod: 'Cód.: 2398', price: 'R$ 2,99', quant: 0,
-    },
-    {
-      photo: 'https://http2.mlstatic.com/coador-de-cafe-de-pano-industrial-9-unid--D_NQ_NP_925648-MLB31130842396_062019-F.jpg', nameRef: 'Coador de Café', cod: 'Cód.: 0125', price: 'R$ 5,99', quant: 0,
-    },
-    {
-      photo: 'https://static3.tcdn.com.br/img/img_prod/159791/lixa_para_unhas_preta_reta_com_gramatura_01_unidade_santa_clara_4191_1_20181210111746.jpg', nameRef: 'Lixa de Unhas', cod: 'Cód.: 5642', price: 'R$ 7,90', quant: 0,
-    },
-  ]);
   return (
     <View style={styles.container}>
       <Searchbar
@@ -55,23 +70,23 @@ export default function NewPedidosHome() {
       />
 
       <FlatGrid
-        itemDimension={130}
+        itemDimension={100}
         showsVerticalScrollIndicator={false}
         data={items}
         spacing={10}
         renderItem={({ item }) => (
           <View>
             <Card style={styles.card}>
-              <Card.Cover style={styles.cardPhoto} source={{ uri: item.photo }} />
-              <Title>{item.nameRef}</Title>
-              <Paragraph>{item.cod}</Paragraph>
+              <Card.Cover style={styles.cardPhoto} source={{ uri: item.url_image }} />
+              <Title>{item.nome}</Title>
+              <Paragraph>{item.codigo}</Paragraph>
               <View style={styles.botton}>
-                <Title style={styles.cardPrice}>{item.price}</Title>
+                <Title style={styles.cardPrice}>{item.preco}</Title>
                 <View style={styles.flexRow}>
                   <TouchableOpacity>
                     <Image source={menos} />
                   </TouchableOpacity>
-                  <Text style={{ marginHorizontal: 8 }}>{item.quant}</Text>
+                  <Text style={{ marginHorizontal: 8 }}>0</Text>
                   <TouchableOpacity onPress={() => {}}>
                     <Image source={mais1} />
                   </TouchableOpacity>
