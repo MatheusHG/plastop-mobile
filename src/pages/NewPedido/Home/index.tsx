@@ -21,6 +21,7 @@ interface Product {
   nome: string;
   preco: number;
   url_image: string;
+  quantidade: number;
 }
 
 function formatPrice(price: number) {
@@ -39,10 +40,16 @@ export default function NewPedidosHome() {
     setLoading(true);
     try {
       const response = await api.get('/produtos');
-      setLoading(false);
 
-      setOriginalItems(response.data);
-      setItems(response.data);
+      const newItems = response.data.map((e: Product) => {
+        e.quantidade = 0;
+        return e;
+      });
+
+      setOriginalItems(newItems);
+      setItems(newItems);
+
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       Alert.alert('Ocorreu um erro na comunicação com o servidor.');
@@ -85,6 +92,29 @@ export default function NewPedidosHome() {
     setItems(newItems);
   };
 
+  const handlePlus = (code: number) => {
+    const newItems = originalItems.map((e) => {
+      if (e.codigo === code) {
+        e.quantidade += 1;
+      }
+      return e;
+    });
+
+    setOriginalItems(newItems);
+  };
+
+  const handleMinus = (code: number) => {
+    const newItems = originalItems.map((e) => {
+      if (e.codigo === code) {
+        e.quantidade -= 1;
+        if (e.quantidade < 0) e.quantidade = 0;
+      }
+      return e;
+    });
+
+    setOriginalItems(newItems);
+  };
+
   return (
     <View style={styles.container}>
       <Searchbar
@@ -115,11 +145,11 @@ export default function NewPedidosHome() {
                 <View style={styles.botton}>
                   <Title style={styles.cardPrice}>{formatPrice(item.preco)}</Title>
                   <View style={styles.flexRow}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => handleMinus(item.codigo)}>
                       <Image source={menos} />
                     </TouchableOpacity>
-                    <Text style={{ marginHorizontal: 8 }}>0</Text>
-                    <TouchableOpacity onPress={() => {}}>
+                    <Text style={{ marginHorizontal: 8 }}>{item.quantidade}</Text>
+                    <TouchableOpacity onPress={() => handlePlus(item.codigo)}>
                       <Image source={mais1} />
                     </TouchableOpacity>
                   </View>
