@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import { createStore } from 'redux';
 import { Action, State } from '../interfaces';
 
@@ -6,9 +7,10 @@ const INITIAL_STATE: State = {
   token: '',
   orderProducts: [],
   totalOrder: 0,
+  newOrderProducts: {},
 };
 
-function reducer(state = INITIAL_STATE, action: Action) {
+function reducer(state = INITIAL_STATE, action: Action): State {
   const { payload } = action;
 
   switch (action.type) {
@@ -27,6 +29,14 @@ function reducer(state = INITIAL_STATE, action: Action) {
       return {
         ...state,
         totalOrder: payload.totalOrder,
+      };
+    case 'SET_ORDER_PRODUCT':
+      const { product } = payload;
+
+      state.newOrderProducts[String(product.codigo)] = product;
+
+      return {
+        ...state,
       };
   }
 

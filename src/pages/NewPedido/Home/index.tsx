@@ -3,19 +3,28 @@ import {
   Text, View, TouchableOpacity, Image, Alert, ScrollView,
 } from 'react-native';
 import {
-  Searchbar, Card, Title, Paragraph,
+  Searchbar, Title,
 } from 'react-native-paper';
 import debounce from 'awesome-debounce-promise';
 import { useNavigation } from '@react-navigation/native';
 
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 import ProductItem from './components/ProductItem';
 import LoadingModal from '../../../components/LoadingModal';
 import api from '../../../services/api';
 import money from '../../../../assets/moneyPrice.png';
-import { NewOrderProduct } from '../../../interfaces';
+import { NewOrderProduct, State } from '../../../interfaces';
 import styles from './styles';
 
-export default function NewPedidosHome() {
+interface NewPedidosHomeProps {
+  setProduct: (product: NewOrderProduct) => void;
+  newOrderProducts: {
+    [code: string]: NewOrderProduct;
+  };
+}
+
+function NewPedidosHome({ setProduct, newOrderProducts }: NewPedidosHomeProps) {
   const navigation = useNavigation();
 
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -29,13 +38,17 @@ export default function NewPedidosHome() {
     try {
       const response = await api.get('/produtos');
 
-      const newItems = response.data.map((e: NewOrderProduct) => {
+      const newItems: NewOrderProduct[] = response.data.map((e: NewOrderProduct) => {
         e.quantidade = 0;
         return e;
       });
 
       setOriginalItems(newItems);
       setItems(newItems);
+
+      newItems.forEach((product) => {
+        setProduct(product);
+      });
 
       setLoading(false);
     } catch (error) {
@@ -54,7 +67,12 @@ export default function NewPedidosHome() {
   }, [navigation]);
 
   const handleClick = () => {
-    navigation.navigate('NewPedidoConfirmacao', { totalValor: total, products: originalItems.filter((e) => e.quantidade > 0) });
+    navigation.navigate('NewPedidoConfirmacao', {
+      totalValor: total,
+      products: Object.keys(newOrderProducts)
+        .filter((e) => newOrderProducts[e].quantidade > 0)
+        .map((e) => newOrderProducts[e]),
+    });
   };
 
   const searchItem = debounce((search) => {
@@ -81,39 +99,6 @@ export default function NewPedidosHome() {
     setItems(newItems);
   };
 
-  const handlePlus = (code: number) => {
-    let newTotal = 0;
-
-    const newItems = originalItems.map((e) => {
-      if (e.codigo === code) {
-        e.quantidade += 1;
-      }
-
-      newTotal += e.preco * e.quantidade;
-      return e;
-    });
-
-    setOriginalItems(newItems);
-    setTotal(newTotal);
-  };
-
-  const handleMinus = (code: number) => {
-    let newTotal = 0;
-
-    const newItems = originalItems.map((e) => {
-      if (e.codigo === code) {
-        e.quantidade -= 1;
-        if (e.quantidade < 0) e.quantidade = 0;
-      }
-
-      newTotal += e.preco * e.quantidade;
-      return e;
-    });
-
-    setOriginalItems(newItems);
-    setTotal(newTotal);
-  };
-
   return (
     <View style={styles.container}>
       <Searchbar
@@ -126,6 +111,7 @@ export default function NewPedidosHome() {
       <ScrollView
         style={{
           width: '100%',
+          height: '100%',
         }}
         contentContainerStyle={{
           flexDirection: 'row',
@@ -166,3 +152,18 @@ export default function NewPedidosHome() {
     </View>
   );
 }
+
+const mapStateToProps = ({ newOrderProducts }: State) => ({
+  newOrderProducts,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  setProduct: (product: NewOrderProduct) => {
+    dispatch({
+      type: 'SET_ORDER_PRODUCT',
+      payload: { product },
+    });
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewPedidosHome);
