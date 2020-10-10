@@ -93,8 +93,8 @@ function ProductItem({ code, newOrderProducts, setProduct }: ProductItemProps) {
             <TextInput
               style={{ marginHorizontal: 8 }}
               keyboardType="number-pad"
-              value={inputQuantity}
-              onChangeText={setInputQuantity}
+              value={quantity}
+              onChangeText={(text: string) => setQuantity(String(Number(text)))}
             />
 
             <TouchableOpacity onPress={handlePlus}>
