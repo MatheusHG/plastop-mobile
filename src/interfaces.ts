@@ -35,6 +35,14 @@ export interface ProductOrder {
   quantidade: number;
 }
 
+export interface NewOrderProduct {
+  codigo: number;
+  nome: string;
+  preco: number;
+  url_image: string;
+  quantidade: number;
+}
+
 export interface Order {
   codigo: number;
   total: string;
@@ -62,4 +70,7 @@ export interface State {
   token: string | null;
   orderProducts: ProductOrder[];
   totalOrder: number;
+  newOrderProducts: {
+    [code: string]: NewOrderProduct;
+  };
 }

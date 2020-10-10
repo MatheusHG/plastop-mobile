@@ -8,33 +8,20 @@ import {
 import debounce from 'awesome-debounce-promise';
 import { useNavigation } from '@react-navigation/native';
 
+import ProductItem from './components/ProductItem';
 import LoadingModal from '../../../components/LoadingModal';
 import api from '../../../services/api';
 import money from '../../../../assets/moneyPrice.png';
-import mais1 from '../../../../assets/mais1.png';
-import menos from '../../../../assets/menos.png';
-
+import { NewOrderProduct } from '../../../interfaces';
 import styles from './styles';
-
-interface Product {
-  codigo: number;
-  nome: string;
-  preco: number;
-  url_image: string;
-  quantidade: number;
-}
-
-function formatPrice(price: number) {
-  return `R$${price.toFixed(2)}`.replace('.', ',');
-}
 
 export default function NewPedidosHome() {
   const navigation = useNavigation();
 
   const [searchQuery, setSearchQuery] = React.useState('');
   const [loading, setLoading] = React.useState(false);
-  const [originalItems, setOriginalItems] = React.useState<Product[]>([]);
-  const [items, setItems] = React.useState<Product[]>([]);
+  const [originalItems, setOriginalItems] = React.useState<NewOrderProduct[]>([]);
+  const [items, setItems] = React.useState<NewOrderProduct[]>([]);
   const [total, setTotal] = React.useState<Number>(0);
 
   const getProducts = async () => {
@@ -42,7 +29,7 @@ export default function NewPedidosHome() {
     try {
       const response = await api.get('/produtos');
 
-      const newItems = response.data.map((e: Product) => {
+      const newItems = response.data.map((e: NewOrderProduct) => {
         e.quantidade = 0;
         return e;
       });
@@ -149,30 +136,11 @@ export default function NewPedidosHome() {
       >
         {
           items.map((item) => (
-            <View key={String(Math.random())} style={{ width: '45%', marginVertical: 10 }}>
-              <Card style={styles.card}>
-                <Card.Cover style={styles.cardPhoto} source={{ uri: item.url_image }} />
-                <Title>{item.nome}</Title>
-                <Paragraph>
-                  Cod.:
-                  {' '}
-                  {item.codigo}
-                </Paragraph>
-                <View style={styles.botton}>
-                  <Title style={styles.cardPrice}>{formatPrice(item.preco)}</Title>
-                  <View style={styles.flexRow}>
-                    <TouchableOpacity onPress={() => handleMinus(item.codigo)}>
-                      <Image source={menos} />
-                    </TouchableOpacity>
-                    <Text style={{ marginHorizontal: 8 }}>{item.quantidade}</Text>
-                    <TouchableOpacity onPress={() => handlePlus(item.codigo)}>
-                      <Image source={mais1} />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </Card>
-            </View>
-          ))
+            <ProductItem
+              key={String(Math.random())}
+              code={item.codigo}
+            />
+          )) || ''
         }
       </ScrollView>
       <View style={styles.barras}>
