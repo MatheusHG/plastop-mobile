@@ -166,6 +166,7 @@ export default function NewPedidosHome() {
       <ScrollView
         style={{
           width: '100%',
+          height: '100%',
         }}
         contentContainerStyle={{
           flexDirection: 'row',
