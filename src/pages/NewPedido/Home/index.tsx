@@ -1,12 +1,12 @@
-import React, { SetStateAction, useEffect } from 'react';
+import React, { SetStateAction } from 'react';
 import {
   Text, View, TouchableOpacity, Image, Alert, ScrollView,
 } from 'react-native';
 import {
-  Searchbar, Card, Title, Paragraph,
+  Searchbar, Card, Title, Paragraph, Dialog, TextInput, Button,
 } from 'react-native-paper';
 import debounce from 'awesome-debounce-promise';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import LoadingModal from '../../../components/LoadingModal';
 import api from '../../../services/api';
@@ -30,6 +30,16 @@ function formatPrice(price: number) {
 
 export default function NewPedidosHome() {
   const navigation = useNavigation();
+
+  const [modal, setModal] = React.useState(false);
+  const [modalItem, setModalItem] = React.useState<Product>({
+    codigo: 0,
+    nome: '',
+    preco: 0,
+    quantidade: 0,
+    url_image: '-',
+  });
+  const [inputQuantity, setInputQuantity] = React.useState('0');
 
   const [searchQuery, setSearchQuery] = React.useState('');
   const [loading, setLoading] = React.useState(false);
@@ -58,7 +68,7 @@ export default function NewPedidosHome() {
   };
 
   React.useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
+    const unsubscribe = navigation.addListener('focus', ({ target }) => {
       getProducts();
       setTotal(0);
     });
@@ -127,6 +137,23 @@ export default function NewPedidosHome() {
     setTotal(newTotal);
   };
 
+  const handleQuantity = () => {
+    let newTotal = 0;
+
+    const newItems = originalItems.map((e) => {
+      if (e.codigo === modalItem.codigo) {
+        e.quantidade = Number(inputQuantity);
+      }
+
+      newTotal += e.preco * e.quantidade;
+      return e;
+    });
+
+    setOriginalItems(newItems);
+    setTotal(newTotal);
+    setModal(false);
+  };
+
   return (
     <View style={styles.container}>
       <Searchbar
@@ -162,11 +189,21 @@ export default function NewPedidosHome() {
                   <Title style={styles.cardPrice}>{formatPrice(item.preco)}</Title>
                   <View style={styles.flexRow}>
                     <TouchableOpacity onPress={() => handleMinus(item.codigo)}>
-                      <Image source={menos} />
+                      <Image style={{ width: 17, height: 17 }} source={menos} />
                     </TouchableOpacity>
-                    <Text style={{ marginHorizontal: 8 }}>{item.quantidade}</Text>
+
+                    <TouchableOpacity
+                      onPress={() => {
+                        setModalItem(item);
+                        setModal(true);
+                      }}
+                      style={{ marginHorizontal: 8 }}
+                    >
+                      <Text style={{ fontSize: 18 }}>{item.quantidade}</Text>
+                    </TouchableOpacity>
+
                     <TouchableOpacity onPress={() => handlePlus(item.codigo)}>
-                      <Image source={mais1} />
+                      <Image style={{ width: 17, height: 17 }} source={mais1} />
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -195,6 +232,41 @@ export default function NewPedidosHome() {
       </View>
 
       <LoadingModal isVisible={loading} />
+      <Dialog visible={modal} onDismiss={() => setModal(false)}>
+        <View style={{
+          height: 200,
+          width: '100%',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: 20,
+        }}
+        >
+          <TextInput
+            label="Nova quantidade do produto"
+            style={{
+              width: '100%',
+              marginBottom: 10,
+              backgroundColor: '#FFF',
+              fontWeight: 'bold',
+            }}
+            theme={{ colors: { primary: '#03071E' } }}
+            value={inputQuantity}
+            autoCapitalize="none"
+            onChangeText={(text: string) => setInputQuantity(String(Number(text)))}
+          />
+          <Dialog.Actions>
+            <Button
+              onPress={handleQuantity}
+              mode="contained"
+              theme={{ colors: { primary: '#27a333' } }}
+            >
+              Confirmar
+
+            </Button>
+          </Dialog.Actions>
+        </View>
+      </Dialog>
     </View>
   );
 }
