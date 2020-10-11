@@ -6,7 +6,7 @@ import {
   Searchbar, Card, Title, Paragraph, Dialog, TextInput, Button,
 } from 'react-native-paper';
 import debounce from 'awesome-debounce-promise';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 
 import LoadingModal from '../../../components/LoadingModal';
 import api from '../../../services/api';
@@ -24,12 +24,23 @@ interface Product {
   quantidade: number;
 }
 
+type ParamList = {
+  NewPedidoHome: {
+    fromHome?: boolean;
+  };
+};
+
 function formatPrice(price: number) {
   return `R$${price.toFixed(2)}`.replace('.', ',');
 }
 
 export default function NewPedidosHome() {
   const navigation = useNavigation();
+  const route = useRoute<RouteProp<ParamList, 'NewPedidoHome'>>();
+  let fromHome: boolean | undefined = false;
+  if (route.params) {
+    fromHome = route.params.fromHome;
+  }
 
   const [modal, setModal] = React.useState(false);
   const [modalItem, setModalItem] = React.useState<Product>({
@@ -68,16 +79,22 @@ export default function NewPedidosHome() {
   };
 
   React.useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', ({ target }) => {
-      getProducts();
-      setTotal(0);
+    const unsubscribe = navigation.addListener('focus', () => {
+      if (fromHome) {
+        getProducts();
+        setTotal(0);
+        fromHome = false;
+      }
     });
 
     return unsubscribe;
   }, [navigation]);
 
   const handleClick = () => {
-    navigation.navigate('NewPedidoConfirmacao', { totalValor: total, products: originalItems.filter((e) => e.quantidade > 0) });
+    navigation.navigate('NewPedidoConfirmacao', {
+      totalValor: total,
+      products: originalItems.filter((e) => e.quantidade > 0),
+    });
   };
 
   const searchItem = debounce((search) => {
