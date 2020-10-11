@@ -16,7 +16,7 @@ export default function Rota() {
   const navigation = useNavigation();
 
   function handleNavigationNewPedido() {
-    navigation.navigate('NewPedidoHome');
+    navigation.navigate('NewPedidoHome', { fromHome: true });
   }
   function handleNavigationAllPedidosHome() {
     navigation.navigate('AllPedidosHome');
