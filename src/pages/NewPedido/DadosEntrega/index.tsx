@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
 import { StyleSheet, Alert } from 'react-native';
-import { Title, TextInput } from 'react-native-paper';
+import {
+  Title, TextInput, Checkbox, Paragraph,
+} from 'react-native-paper';
 import styled from 'styled-components/native';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { Client, State, ProductOrder } from '../../../interfaces';
@@ -125,15 +126,61 @@ function NewPedidoDadosEntrega({ products, totalOrder }: PageProps) {
             onChangeText={setCodigo}
           />
         </ContainerRow>
-        <ContainerRow>
-          <TextInput
-            label="Forma de Pagamento"
-            style={styles.large}
-            theme={theme}
-            value={pagamento}
-            onChangeText={setPagamento}
+        <PaymentForm>Forma de Pagamento</PaymentForm>
+        <PaymentLine>
+          <Checkbox
+            status={pagamento === 'À vista' ? 'checked' : 'unchecked'}
+            onPress={() => setPagamento('À vista')}
           />
-        </ContainerRow>
+          <Paragraph>
+            À vista
+          </Paragraph>
+        </PaymentLine>
+        <PaymentLine>
+          <Checkbox
+            status={pagamento === 'À prazo' ? 'checked' : 'unchecked'}
+            onPress={() => setPagamento('À prazo')}
+          />
+          <Paragraph>
+            À prazo
+          </Paragraph>
+        </PaymentLine>
+        <PaymentLine>
+          <Checkbox
+            status={pagamento === 'Cheque de 30 dias' ? 'checked' : 'unchecked'}
+            onPress={() => setPagamento('Cheque de 30 dias')}
+          />
+          <Paragraph>
+            Cheque de 30 dias
+          </Paragraph>
+        </PaymentLine>
+        <PaymentLine>
+          <Checkbox
+            status={pagamento === 'Cheque de 60 dias' ? 'checked' : 'unchecked'}
+            onPress={() => setPagamento('Cheque de 60 dias')}
+          />
+          <Paragraph>
+            Cheque de 60 dias
+          </Paragraph>
+        </PaymentLine>
+        <PaymentLine>
+          <Checkbox
+            status={pagamento === 'Cheque de 90 dias' ? 'checked' : 'unchecked'}
+            onPress={() => setPagamento('Cheque de 90 dias')}
+          />
+          <Paragraph>
+            Cheque de 90 dias
+          </Paragraph>
+        </PaymentLine>
+        <PaymentLine>
+          <Checkbox
+            status={pagamento === 'Cheque de 120 dias' ? 'checked' : 'unchecked'}
+            onPress={() => setPagamento('Cheque de 120 dias')}
+          />
+          <Paragraph>
+            Cheque de 120 dias
+          </Paragraph>
+        </PaymentLine>
         <ContainerRow>
           <TextInput
             label="Cidade"
@@ -241,6 +288,20 @@ const ContainerRow = styled.View`
     flex-direction: row;
     padding: 10px;
     padding-top: 0;
+`;
+
+const PaymentForm = styled.Text`
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 30px;
+  color: gray;
+`;
+
+const PaymentLine = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: 30px;
 `;
 
 const styles = StyleSheet.create({
