@@ -5,7 +5,7 @@ import { Appbar, List } from 'react-native-paper';
 
 import styles from './styles';
 
-import splashMin from '../../../assets/splash-min.png';
+import splashMin from '../../../assets/photo.png';
 import addProduct from '../../../assets/addProduct.png';
 import next from '../../../assets/next.png';
 import all from '../../../assets/all.png';
@@ -31,7 +31,7 @@ export default function Rota() {
   return (
     <View style={styles.containerMenu}>
       <Appbar.Header style={styles.headerMenu}>
-        <Image source={splashMin} style={{ width: '45%', marginBottom: 'auto' }} />
+        <Image source={splashMin} style={{ width: '55%', marginBottom: 'auto', borderRadius: 5 }} />
       </Appbar.Header>
 
       <ScrollView showsVerticalScrollIndicator={false}>
