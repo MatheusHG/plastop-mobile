@@ -13,8 +13,8 @@ import api from '../../../services/api';
 import money from '../../../../assets/moneyPrice.png';
 import { NewOrderProduct } from '../../../interfaces';
 import styles from './styles';
-import mais1 from '../../../../assets/mais1.png';
-import menos from '../../../../assets/menos.png';
+import mais1 from '../../../../assets/mais2.png';
+import menos from '../../../../assets/menos2.png';
 
 interface Product {
   codigo: number;
@@ -207,7 +207,7 @@ export default function NewPedidosHome() {
                   <Title style={styles.cardPrice}>{formatPrice(item.preco)}</Title>
                   <View style={styles.flexRow}>
                     <TouchableOpacity onPress={() => handleMinus(item.codigo)}>
-                      <Image style={{ width: 17, height: 17 }} source={menos} />
+                      <Image style={{ width: 30, height: 30 }} source={menos} />
                     </TouchableOpacity>
 
                     <TouchableOpacity
@@ -215,13 +215,13 @@ export default function NewPedidosHome() {
                         setModalItem(item);
                         setModal(true);
                       }}
-                      style={{ marginHorizontal: 8 }}
+                      style={{ marginHorizontal: 10 }}
                     >
                       <Text style={{ fontSize: 18 }}>{item.quantidade}</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={() => handlePlus(item.codigo)}>
-                      <Image style={{ width: 17, height: 17 }} source={mais1} />
+                      <Image style={{ width: 30, height: 30 }} source={mais1} />
                     </TouchableOpacity>
                   </View>
                 </View>
