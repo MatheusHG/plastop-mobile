@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import Picker from 'react-native-picker-select';
 import { StyleSheet, Alert } from 'react-native';
 import {
   Title, TextInput, Checkbox, Paragraph,
@@ -126,61 +127,33 @@ function NewPedidoDadosEntrega({ products, totalOrder }: PageProps) {
             onChangeText={setCodigo}
           />
         </ContainerRow>
+
         <PaymentForm>Forma de Pagamento</PaymentForm>
-        <PaymentLine>
-          <Checkbox
-            status={pagamento === 'À vista' ? 'checked' : 'unchecked'}
-            onPress={() => setPagamento('À vista')}
-          />
-          <Paragraph>
-            À vista
-          </Paragraph>
-        </PaymentLine>
-        <PaymentLine>
-          <Checkbox
-            status={pagamento === 'À prazo' ? 'checked' : 'unchecked'}
-            onPress={() => setPagamento('À prazo')}
-          />
-          <Paragraph>
-            À prazo
-          </Paragraph>
-        </PaymentLine>
-        <PaymentLine>
-          <Checkbox
-            status={pagamento === 'Cheque de 30 dias' ? 'checked' : 'unchecked'}
-            onPress={() => setPagamento('Cheque de 30 dias')}
-          />
-          <Paragraph>
-            Cheque de 30 dias
-          </Paragraph>
-        </PaymentLine>
-        <PaymentLine>
-          <Checkbox
-            status={pagamento === 'Cheque de 60 dias' ? 'checked' : 'unchecked'}
-            onPress={() => setPagamento('Cheque de 60 dias')}
-          />
-          <Paragraph>
-            Cheque de 60 dias
-          </Paragraph>
-        </PaymentLine>
-        <PaymentLine>
-          <Checkbox
-            status={pagamento === 'Cheque de 90 dias' ? 'checked' : 'unchecked'}
-            onPress={() => setPagamento('Cheque de 90 dias')}
-          />
-          <Paragraph>
-            Cheque de 90 dias
-          </Paragraph>
-        </PaymentLine>
-        <PaymentLine>
-          <Checkbox
-            status={pagamento === 'Cheque de 120 dias' ? 'checked' : 'unchecked'}
-            onPress={() => setPagamento('Cheque de 120 dias')}
-          />
-          <Paragraph>
-            Cheque de 120 dias
-          </Paragraph>
-        </PaymentLine>
+        <Picker
+          style={{
+            viewContainer: {
+              width: '80%',
+              marginLeft: 30,
+            },
+          }}
+          placeholder={{
+            label: 'Escolha uma opção',
+          }}
+          onValueChange={(value: string) => setPagamento(value)}
+          items={[
+            { label: 'À vista', value: 'À vista' },
+            { label: 'À prazo', value: 'À prazo' },
+            { label: 'Cheque de 30 dias', value: 'Cheque de 30 dias' },
+            { label: 'Cheque de 30/60 dias', value: 'Cheque de 30/60 dias' },
+            { label: 'Cheque de 30/60/90 dias', value: 'Cheque de 30/60/90 dias' },
+            { label: 'Cheque de 30/60/90/120 dias', value: 'Cheque de 30/60/90/120 dias' },
+            { label: 'Duplicata de 30 dias', value: 'Duplicata de 30 dias' },
+            { label: 'Duplicata de 30/60 dias', value: 'Duplicata de 30/60 dias' },
+            { label: 'Duplicata de 30/60/90 dias', value: 'Duplicata de 30/60/90 dias' },
+            { label: 'Duplicata de 30/60/90/120 dias', value: 'Duplicata de 30/60/90/120 dias' },
+          ]}
+        />
+
         <ContainerRow>
           <TextInput
             label="Cidade"

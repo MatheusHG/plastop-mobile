@@ -175,12 +175,12 @@ export default function OrderDetails() {
           <Title>Endereço da Entrega</Title>
           <Data>
             <DataContainer>
-              <DataWrap width="100%">
+              <DataWrap width="100%" wrap>
                 <StrongInfo>Nome do Cliente: </StrongInfo>
                 <Info>{nome}</Info>
               </DataWrap>
 
-              <DataWrap width="100%">
+              <DataWrap width="100%" wrap>
                 <StrongInfo>Forma de Pagamento: </StrongInfo>
                 <Info>{pagamento}</Info>
               </DataWrap>
